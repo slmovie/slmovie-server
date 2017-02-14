@@ -31,7 +31,9 @@ router.get('/all', function (req, res, next) {
 router.get('/dyjy', function (req, res) {
     timeText.start()
     dyjy.queryTitle(req.query.name, function (data) {
-        console.log('dyjy  ' + timeText.time())
+        console.log('dyjy query>>' + req.query.name)
+        console.log('dyjy time>>' + timeText.time())
+        console.log('dyjy data>>', data)
         res.json(data)
     })
 });
@@ -39,7 +41,9 @@ router.get('/dyjy', function (req, res) {
 router.get('/bttt', function (req, res) {
     timeText.start()
     bttt.queryTitle(req.query.name, function (data) {
-        console.log('bttt  ' + timeText.time())
+        console.log('bttt query>>' + req.query.name)
+        console.log('bttt time>>' + timeText.time())
+        console.log('bttt data>>', data)
         res.json(data)
     })
 });
