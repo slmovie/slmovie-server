@@ -5,6 +5,7 @@
 const cheerio = require('cheerio')
 const chinese2Gb2312 = require('../utils/chinese2Gb2312.js')
 const getSuperagent = require('../utils/mySuperagent.js')
+const DealError = require('../res/error.js')
 
 //爬取标题图片等信息
 exports.queryTitle = function (query, next) {
@@ -12,17 +13,17 @@ exports.queryTitle = function (query, next) {
     let callBack = {}
     let status = {}
     getSuperagent().get('http://s.imp4la.com/s.asp?w=' + name)
+        .timeout(5000)
         .charset('gb2312')
         .end(function (error, response) {
-            if (error) {
+            if (error || response.statusCode == 'undefined') {
                 status['code'] = 0
                 status['error'] = error
                 callBack['status'] = status
                 next(callBack)
+                return
             }
             if (response.statusCode == 200) {
-                status['code'] = 1
-                callBack['status'] = status
                 let $ = cheerio.load(response.text)
                 //基本信息
                 let movies = []
@@ -36,10 +37,18 @@ exports.queryTitle = function (query, next) {
                         //豆瓣评分
                         'db': $('info', '.pRightBottom', elem).text(),
                         //上映日期
-                        'year': $('info', '.pLeftTop', elem).text()
+                        'year': $('info', '.pLeftTop', elem).text(),
+                        'from': 'dyjy',
                     })
                 })
-                callBack['movies'] = movies
+                if (movies.length == 0) {
+                    status = DealError.SEARCHNONERES
+                    callBack['status'] = status
+                } else {
+                    status['code'] = 1
+                    callBack['status'] = status
+                    callBack['movies'] = movies
+                }
                 next(callBack)
             }
         })
@@ -50,9 +59,11 @@ exports.detail = function (req, res) {
     let website = 'http://www.idyjy.com/sub/23016.html'
     getSuperagent().get(website)
         .charset('gb2312')
+        .timeout(5000)
         .end(function (error, response) {
-            if (error) {
+            if (error || response.statusCode == 'undefined') {
                 res.send(error)
+                return
             }
             if (response.statusCode == 200) {
                 let $ = cheerio.load(response.text)

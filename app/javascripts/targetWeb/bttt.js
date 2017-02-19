@@ -5,6 +5,7 @@
 const cheerio = require('cheerio')
 const getSuperagent = require('../utils/mySuperagent.js')
 const chinese2Gb2312 = require('../utils/chinese2Gb2312.js')
+const DealError = require('../res/error.js')
 
 exports.queryTitle = function (query, next) {
     let form = {
@@ -16,18 +17,18 @@ exports.queryTitle = function (query, next) {
     let callBack = {}
     let status = {}
     getSuperagent().post('http://www.bttt99.com/e/search/')
+        .timeout(5000)
         .type('form')
         .send(form)
         .end(function (error, response) {
-            if (error) {
+            if (error || response.statusCode == 'undefined') {
                 status['code'] = 0
                 status['error'] = error
                 callBack['status'] = status
                 next(callBack)
+                return
             }
             if (response.statusCode == 200) {
-                status['code'] = 1
-                callBack['status'] = status
                 let $ = cheerio.load(response.text)
                 let jsonRes = {}
                 //基本信息
@@ -46,10 +47,18 @@ exports.queryTitle = function (query, next) {
                         //豆瓣评分
                         'db': $('strong', elem).text(),
                         //上映日期
-                        'year': $('font', 'b', elem).text()
+                        'year': $('font', 'b', elem).text(),
+                        'from': 'bttt',
                     })
                 })
-                callBack['movies'] = movies
+                if (movies.length == 0) {
+                    status = DealError.SEARCHNONERES
+                    callBack['status'] = status
+                } else {
+                    status['code'] = 1
+                    callBack['status'] = status
+                    callBack['movies'] = movies
+                }
                 next(callBack)
             }
         })
@@ -59,10 +68,12 @@ exports.queryTitle = function (query, next) {
 exports.detail = function (req, res) {
     let website = 'http://www.bttt99.com/e/show.php?classid=1&id=20310'
     getSuperagent().get(website)
+        .timeout(5000)
         .set('Referer', 'http://www.bttt99.com/v/20310/')
         .end(function (error, response) {
-            if (error) {
+            if (error || response.statusCode == 'undefined') {
                 res.send(error)
+                return
             }
             if (response.statusCode == 200) {
                 let $ = cheerio.load(response.text)

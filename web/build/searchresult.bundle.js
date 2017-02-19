@@ -32148,33 +32148,43 @@ var MoviesListDiv = function (_React$Component) {
     _createClass(MoviesListDiv, [{
         key: 'render',
         value: function render() {
-            console.log('MoviesListDiv 空>>>' + this.props.movies);
-            if (this.props.movies.toString() == {}.toString()) {
+            if (this.props.movies.toString() != {}.toString()) {
+                var data = JSON.parse(this.props.movies);
+                if (data.dyjy.status.code == 101 && data.dyjy.status.code == 101) {
+                    return _react2.default.createElement(
+                        'text',
+                        { style: Styles.TextRed },
+                        data.dyjy.status.error
+                    );
+                } else if (data.dyjy.status.code == 1 || data.dyjy.status.code == 1) {
+                    var movies = {};
+                    //重组数据
+                    if (data.dyjy.status.code == 1) {
+                        movies = data.dyjy.movies;
+                    }
+                    if (data.bttt.status.code == 1) {
+                        for (var i = 0, len = data.bttt.movies.length; i < len; i++) {
+                            movies.push(data.bttt.movies[i]);
+                        }
+                    }
+                    console.log(movies);
+                    return _react2.default.createElement(
+                        'ul',
+                        { style: Styles.MoviesList },
+                        this._renderList(movies)
+                    );
+                } else {
+                    return _react2.default.createElement(
+                        'text',
+                        { style: Styles.TextRed },
+                        '\u8BF7\u6C42\u5931\u8D25\uFF0C\u8BF7\u91CD\u8BD5'
+                    );
+                }
+            } else {
                 return _react2.default.createElement(
                     'text',
-                    null,
+                    { style: Styles.Text },
                     '\u52A0\u8F7D\u4E2D'
-                );
-            } else {
-                console.log('MoviesListDiv>>>' + this.props.movies);
-                var data = JSON.parse(this.props.movies);
-                this._renderList(data);
-                var movies = {};
-                console.log(data);
-                //重组数据
-                if (data.dyjy.status.code == 1) {
-                    movies = data.dyjy.movies;
-                }
-                if (data.bttt.status.code == 1) {
-                    for (var i = 0, len = data.bttt.movies.length; i < len; i++) {
-                        movies.push(data.bttt.movies[i]);
-                    }
-                }
-                console.log(movies);
-                return _react2.default.createElement(
-                    'ul',
-                    { style: Styles.MoviesList },
-                    this._renderList(movies)
                 );
             }
         }
@@ -32211,6 +32221,13 @@ var Styles = {
         listStyleType: 'none',
         padding: 0,
         width: 1000
+    },
+    Text: {
+        fontSize: 25
+    },
+    TextRed: {
+        fontSize: 25,
+        color: 'red'
     }
 };
 
@@ -32258,13 +32275,17 @@ var MovieItemDiv = function (_React$Component) {
     _createClass(MovieItemDiv, [{
         key: 'render',
         value: function render() {
-            console.log(this.props.movie);
+            var _this2 = this;
+
+            console.log('MovieItemDiv>>>>>' + this.props.movie);
             return _react2.default.createElement(
                 'li',
                 { style: Styles.Item },
                 _react2.default.createElement(
                     'a',
-                    { style: Styles.A, href: this.props.movie.address },
+                    { style: Styles.A, onClick: function onClick(e) {
+                            return _this2._detail(e);
+                        } },
                     _react2.default.createElement('img', { src: this.props.movie.post, style: Styles.Image, alt: this.props.movie.name }),
                     _react2.default.createElement(
                         'text',
@@ -32282,11 +32303,21 @@ var MovieItemDiv = function (_React$Component) {
                     { style: Styles.NameDiv },
                     _react2.default.createElement(
                         'a',
-                        { style: Styles.TextName },
+                        { style: Styles.TextName, onClick: function onClick(e) {
+                                return _this2._detail(e);
+                            } },
                         this.props.movie.name
                     )
                 )
             );
+        }
+
+        //进入详情页
+
+    }, {
+        key: '_detail',
+        value: function _detail() {
+            console.log(this.props.movie.address);
         }
     }]);
 
@@ -32301,8 +32332,7 @@ var Styles = {
         textAlign: 'center',
         margin: 'auto',
         float: 'left',
-        width: '25%',
-        marginTop: 20
+        width: '25%'
     },
     A: {
         width: width,
@@ -32433,7 +32463,11 @@ var SearchResult = function (_React$Component) {
                 { style: Styles.Content },
                 _react2.default.createElement(_TitleDiv2.default, null),
                 _react2.default.createElement(_SearchInputDiv2.default, null),
-                this._renderMovies()
+                _react2.default.createElement(
+                    'div',
+                    { style: { marginTop: 30 } },
+                    this._renderMovies()
+                )
             );
         }
 
@@ -32450,22 +32484,39 @@ var SearchResult = function (_React$Component) {
     }, {
         key: '_getMovies',
         value: function _getMovies() {
-            var ajax = new XMLHttpRequest();
-            ajax.onreadystatechange = function () {
-                if (ajax.readyState === 4) {
-                    if (ajax.status === 200) {
-                        console.log(JSON.parse(ajax.responseText));
-                        this.setState({ movies: JSON.parse(ajax.responseText) });
-                    } else {
-                        console.error(ajax.statusText);
-                    }
-                }
-            }.bind(this);
-            ajax.onerror = function (e) {
-                console.error(ajax.statusText);
-            };
-            ajax.open('GET', 'http://localhost:3000/search/all?name=' + this.state.input, true);
-            ajax.send('name=' + this.state.input);
+            // let ajax = new XMLHttpRequest();
+            // ajax.onreadystatechange = function () {
+            //     if (ajax.readyState === 4) {
+            //         if (ajax.status === 200) {
+            //             console.log(JSON.parse(ajax.responseText));
+            //             this.setState({movies: JSON.parse(ajax.responseText)})
+            //         } else {
+            //             console.error(ajax.statusText);
+            //         }
+            //     }
+            // }.bind(this);
+            // ajax.onerror = function (e) {
+            //     console.error(ajax.statusText);
+            // };
+            // ajax.open('GET', 'http://localhost:3000/search/all?name=' + this.state.input, true);
+            // ajax.send('name=' + this.state.input)
+            var request = _jquery2.default.ajax({
+                url: "http://localhost:3000/search/all?name=" + this.state.input,
+                method: "GET",
+                dataType: "json",
+                timeout: 10000,
+                async: false
+            });
+            request.done(function (msg) {
+                console.log(msg);
+                this.setState({ movies: msg });
+            }.bind(this));
+
+            request.fail(function (jqXHR, textStatus) {
+                console.error(textStatus);
+                var error = '{"dyjy":{"status":{"code":0}}}';
+                this.setState({ movies: error });
+            }.bind(this));
         }
     }]);
 

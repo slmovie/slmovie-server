@@ -8,10 +8,10 @@ const width = 200
 
 export default class MovieItemDiv extends React.Component {
     render() {
-        console.log(this.props.movie)
+        console.log('MovieItemDiv>>>>>' + this.props.movie)
         return (
             <li style={Styles.Item}>
-                <a style={Styles.A} href={this.props.movie.address}>
+                <a style={Styles.A} onClick={(e) => this._detail(e)}>
                     <img src={this.props.movie.post} style={Styles.Image} alt={this.props.movie.name}/>
                     <text style={Styles.TextYear}>
                         {this.props.movie.year}
@@ -21,10 +21,15 @@ export default class MovieItemDiv extends React.Component {
                     </text>
                 </a>
                 <div style={Styles.NameDiv}>
-                    <a style={Styles.TextName}>{this.props.movie.name}</a>
+                    <a style={Styles.TextName} onClick={(e) => this._detail(e)}>{this.props.movie.name}</a>
                 </div>
             </li>
         )
+    }
+
+    //进入详情页
+    _detail() {
+        console.log(this.props.movie.address)
     }
 }
 
@@ -34,7 +39,6 @@ const Styles = {
         margin: 'auto',
         float: 'left',
         width: '25%',
-        marginTop: 20,
     },
     A: {
         width: width,
