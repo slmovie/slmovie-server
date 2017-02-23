@@ -7,17 +7,20 @@ import {render} from 'react-dom';
 import Title from '../CommonJS/TitleDiv.js'
 import SearchInput from '../CommonJS/SearchInputDiv.js'
 import MoviesList from './MoviesListDiv.js'
-export default class SearchResult extends React.Component {
+
+let input
+class SearchResult extends React.Component {
 
     constructor() {
         super()
         this.state = {
-            input: window.location.href.split('=')[1],
-            movies: {},
+            movies: '',
         }
     }
 
     componentDidMount() {
+        input = window.location.href.split('=')[1]
+        document.title = '双龙影视 ' + decodeURI(input)
         this._getMovies()
     }
 
@@ -35,6 +38,7 @@ export default class SearchResult extends React.Component {
 
     //渲染电影列表
     _renderMovies() {
+        console.log(this.state.movies.bttt)
         return (
             <MoviesList movies={this.state.movies}/>
         )
@@ -59,15 +63,15 @@ export default class SearchResult extends React.Component {
         // ajax.open('GET', 'http://localhost:3000/search/all?name=' + this.state.input, true);
         // ajax.send('name=' + this.state.input)
         let request = $.ajax({
-            url: "http://localhost:3000/search/all?name=" + this.state.input,
+            url: "http://localhost:3000/search/all?name=" + input,
             method: "GET",
             dataType: "json",
             timeout: 10000,
             async: false,
         })
         request.done(function (msg) {
-            console.log(msg)
-            this.setState({movies: msg})
+            // console.log(JSON.parse(JSON.stringify(msg)).bttt.movies[0].name)
+            this.setState({movies: JSON.parse(JSON.stringify(msg))})
         }.bind(this));
 
         request.fail(function (jqXHR, textStatus) {

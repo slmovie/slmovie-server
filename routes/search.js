@@ -26,7 +26,7 @@ router.get('/all', function (req, res, next) {
         next()
     })
 }, function (req, res, next) {
-    res.json(JSON.stringify(res.movies))
+    res.json(res.movies)
 });
 
 router.get('/dyjy', function (req, res) {

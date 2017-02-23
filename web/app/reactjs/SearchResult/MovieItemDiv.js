@@ -5,23 +5,24 @@ import React from 'react';
 import {render} from 'react-dom';
 
 const width = 200
-
+let movie = {};
 export default class MovieItemDiv extends React.Component {
+
     render() {
-        console.log('MovieItemDiv>>>>>' + this.props.movie)
+        movie = this.props.movie
         return (
             <li style={Styles.Item}>
                 <a style={Styles.A} onClick={(e) => this._detail(e)}>
-                    <img src={this.props.movie.post} style={Styles.Image} alt={this.props.movie.name}/>
+                    <img src={movie.post} style={Styles.Image} alt={movie.name}/>
                     <text style={Styles.TextYear}>
-                        {this.props.movie.year}
+                        {movie.year}
                     </text>
                     <text style={Styles.TextDB}>
-                        {this.props.movie.db}
+                        {movie.db}
                     </text>
                 </a>
                 <div style={Styles.NameDiv}>
-                    <a style={Styles.TextName} onClick={(e) => this._detail(e)}>{this.props.movie.name}</a>
+                    <a style={Styles.TextName} onClick={(e) => this._detail(e)}>{movie.name}</a>
                 </div>
             </li>
         )
@@ -29,8 +30,10 @@ export default class MovieItemDiv extends React.Component {
 
     //进入详情页
     _detail() {
-        console.log(this.props.movie.address)
+        let win = window.open('http://localhost:3000/app/html/detail.html?address=' + this.props.movie.address + '&from=' + this.props.movie.from, '_blank');
+        win.focus();
     }
+
 }
 
 const Styles = {

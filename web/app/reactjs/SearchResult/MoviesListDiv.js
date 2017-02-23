@@ -8,8 +8,9 @@ import MovieItem from './MovieItemDiv.js'
 export default class MoviesListDiv extends React.Component {
 
     render() {
-        if (this.props.movies.toString() != {}.toString()) {
-            let data = JSON.parse(this.props.movies)
+        // console.log(this.props.movies)
+        if (this.props.movies != '') {
+            let data = this.props.movies
             if (data.dyjy.status.code == 101 && data.dyjy.status.code == 101) {
                 return (
                     <text style={Styles.TextRed}>{data.dyjy.status.error}</text>

@@ -3,7 +3,7 @@ var path = require('path');
 module.exports = {
     entry: {
         index: path.resolve(__dirname, 'web/app/reactjs/index/index.js'),
-        detial: path.resolve(__dirname, 'web/app/reactjs/detail/detail.js'),
+        detail: path.resolve(__dirname, 'web/app/reactjs/detail/detail.js'),
         searchresult: path.resolve(__dirname, 'web/app/reactjs/searchresult/searchresult.js'),
     },
     output: {

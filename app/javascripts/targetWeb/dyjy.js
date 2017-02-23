@@ -28,10 +28,13 @@ exports.queryTitle = function (query, next) {
                 //基本信息
                 let movies = []
                 $('.play-img').each(function (i, elem) {
+                    let address = $(elem).attr('href')
+                    let split = address.split('/')
+                    address = split[split.length - 1].split('.')[0]
                     movies.push({
                         'name': $(elem).attr('title'),
                         //网页地址
-                        'address': $(elem).attr('href'),
+                        'address': address,
                         //海报图片
                         'post': $('img', elem).attr('src'),
                         //豆瓣评分
@@ -56,7 +59,7 @@ exports.queryTitle = function (query, next) {
 
 //爬取细节及下载地址下载地址
 exports.detail = function (req, res) {
-    let website = 'http://www.idyjy.com/sub/23016.html'
+    let website = 'http://www.idyjy.com/sub/' + req.query.code + '.html'
     getSuperagent().get(website)
         .charset('gb2312')
         .timeout(5000)
@@ -71,6 +74,7 @@ exports.detail = function (req, res) {
                 let jsonRes = {}
                 //下载地址信息
                 let movies = []
+                let detail = []
                 $('.down_part_name').each(function (i, elem) {
                     let movie = {}
                     //文件名称
@@ -82,12 +86,18 @@ exports.detail = function (req, res) {
                     movies.push(movie)
                 })
                 jsonRes['files'] = movies
+                //电影信息
+                $('li', '.info').each(function (i, elem) {
+                    detail.push($(elem).text())
+                })
+                jsonRes['detail'] = detail
                 //剧照
                 let photos = []
                 $('img', '.endtext').each(function (i, elem) {
                     photos.push($(elem).attr('src'))
                 })
                 jsonRes['photos'] = photos
+                jsonRes['post'] = $('img', '.pic').attr('src')
                 res.json(jsonRes)
             }
         })

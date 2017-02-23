@@ -32148,8 +32148,9 @@ var MoviesListDiv = function (_React$Component) {
     _createClass(MoviesListDiv, [{
         key: 'render',
         value: function render() {
-            if (this.props.movies.toString() != {}.toString()) {
-                var data = JSON.parse(this.props.movies);
+            // console.log(this.props.movies)
+            if (this.props.movies != '') {
+                var data = this.props.movies;
                 if (data.dyjy.status.code == 101 && data.dyjy.status.code == 101) {
                     return _react2.default.createElement(
                         'text',
@@ -32262,6 +32263,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 var width = 200;
+var movie = {};
 
 var MovieItemDiv = function (_React$Component) {
     _inherits(MovieItemDiv, _React$Component);
@@ -32277,7 +32279,7 @@ var MovieItemDiv = function (_React$Component) {
         value: function render() {
             var _this2 = this;
 
-            console.log('MovieItemDiv>>>>>' + this.props.movie);
+            movie = this.props.movie;
             return _react2.default.createElement(
                 'li',
                 { style: Styles.Item },
@@ -32286,16 +32288,16 @@ var MovieItemDiv = function (_React$Component) {
                     { style: Styles.A, onClick: function onClick(e) {
                             return _this2._detail(e);
                         } },
-                    _react2.default.createElement('img', { src: this.props.movie.post, style: Styles.Image, alt: this.props.movie.name }),
+                    _react2.default.createElement('img', { src: movie.post, style: Styles.Image, alt: movie.name }),
                     _react2.default.createElement(
                         'text',
                         { style: Styles.TextYear },
-                        this.props.movie.year
+                        movie.year
                     ),
                     _react2.default.createElement(
                         'text',
                         { style: Styles.TextDB },
-                        this.props.movie.db
+                        movie.db
                     )
                 ),
                 _react2.default.createElement(
@@ -32306,7 +32308,7 @@ var MovieItemDiv = function (_React$Component) {
                         { style: Styles.TextName, onClick: function onClick(e) {
                                 return _this2._detail(e);
                             } },
-                        this.props.movie.name
+                        movie.name
                     )
                 )
             );
@@ -32317,7 +32319,8 @@ var MovieItemDiv = function (_React$Component) {
     }, {
         key: '_detail',
         value: function _detail() {
-            console.log(this.props.movie.address);
+            var win = window.open('http://localhost:3000/app/html/detail.html?address=' + this.props.movie.address + '&from=' + this.props.movie.from, '_blank');
+            win.focus();
         }
     }]);
 
@@ -32396,10 +32399,6 @@ var Styles = {
 "use strict";
 
 
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _jquery = __webpack_require__(82);
@@ -32435,6 +32434,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 */
 
 
+var input = void 0;
+
 var SearchResult = function (_React$Component) {
     _inherits(SearchResult, _React$Component);
 
@@ -32444,8 +32445,7 @@ var SearchResult = function (_React$Component) {
         var _this = _possibleConstructorReturn(this, (SearchResult.__proto__ || Object.getPrototypeOf(SearchResult)).call(this));
 
         _this.state = {
-            input: window.location.href.split('=')[1],
-            movies: {}
+            movies: ''
         };
         return _this;
     }
@@ -32453,6 +32453,8 @@ var SearchResult = function (_React$Component) {
     _createClass(SearchResult, [{
         key: 'componentDidMount',
         value: function componentDidMount() {
+            input = window.location.href.split('=')[1];
+            document.title = '双龙影视 ' + decodeURI(input);
             this._getMovies();
         }
     }, {
@@ -32476,6 +32478,7 @@ var SearchResult = function (_React$Component) {
     }, {
         key: '_renderMovies',
         value: function _renderMovies() {
+            console.log(this.state.movies.bttt);
             return _react2.default.createElement(_MoviesListDiv2.default, { movies: this.state.movies });
         }
 
@@ -32501,15 +32504,15 @@ var SearchResult = function (_React$Component) {
             // ajax.open('GET', 'http://localhost:3000/search/all?name=' + this.state.input, true);
             // ajax.send('name=' + this.state.input)
             var request = _jquery2.default.ajax({
-                url: "http://localhost:3000/search/all?name=" + this.state.input,
+                url: "http://localhost:3000/search/all?name=" + input,
                 method: "GET",
                 dataType: "json",
                 timeout: 10000,
                 async: false
             });
             request.done(function (msg) {
-                console.log(msg);
-                this.setState({ movies: msg });
+                // console.log(JSON.parse(JSON.stringify(msg)).bttt.movies[0].name)
+                this.setState({ movies: JSON.parse(JSON.stringify(msg)) });
             }.bind(this));
 
             request.fail(function (jqXHR, textStatus) {
@@ -32522,9 +32525,6 @@ var SearchResult = function (_React$Component) {
 
     return SearchResult;
 }(_react2.default.Component);
-
-exports.default = SearchResult;
-
 
 var Styles = {
     Content: {

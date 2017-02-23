@@ -41,7 +41,7 @@ exports.queryTitle = function (query, next) {
                         //电影名称
                         'name': $('b', elem).text(),
                         //网页地址
-                        'address': address,
+                        'address': address.split('/')[4],
                         //海报图片
                         'post': $('img', $(elem).next()).attr('src'),
                         //豆瓣评分
@@ -64,12 +64,12 @@ exports.queryTitle = function (query, next) {
         })
 }
 
-//爬取细节及下载地址下载地址
+//爬取细节及下载地址
 exports.detail = function (req, res) {
-    let website = 'http://www.bttt99.com/e/show.php?classid=1&id=20310'
+    let website = 'http://www.bttt99.com/e/show.php?classid=1&id=' + req.query.code
     getSuperagent().get(website)
         .timeout(5000)
-        .set('Referer', 'http://www.bttt99.com/v/20310/')
+        .set('Referer', 'http://www.bttt99.com/v/' + req.query.code + '/')
         .end(function (error, response) {
             if (error || response.statusCode == 'undefined') {
                 res.send(error)
@@ -94,9 +94,31 @@ exports.detail = function (req, res) {
                     })
                 })
                 jsonRes['files'] = movies
+
                 //剧照
                 let photos = []
                 jsonRes['photos'] = photos
+                movieDetail(req, res, jsonRes)
+            }
+        })
+}
+
+function movieDetail(req, res, jsonRes) {
+    getSuperagent().get('http://www.bttt99.com/v/' + req.query.code + '/')
+        .timeout(5000)
+        .end(function (error, response) {
+            if (error || response.statusCode == 'undefined') {
+                res.send(jsonRes)
+                return
+            }
+            if (response.statusCode == 200) {
+                let detail = []
+                let $ = cheerio.load(response.text)
+                $('li', '.moviedteail_list').each(function (i, elem) {
+                    detail.push($(elem).text())
+                })
+                jsonRes['detail'] = detail
+                jsonRes['post'] = $('img', '.moviedteail_img').attr('src')
                 res.json(jsonRes)
             }
         })

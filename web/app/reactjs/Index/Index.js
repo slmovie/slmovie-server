@@ -7,7 +7,8 @@ import {render} from 'react-dom';
 import Title from '../CommonJS/TitleDiv.js'
 import SearchInput from '../CommonJS/SearchInputDiv.js'
 
-export default class Index extends React.Component {
+class Index extends React.Component {
+
     render() {
         return (
             <div style={Styles.Content}>
