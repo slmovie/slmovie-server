@@ -13,7 +13,7 @@ app.all('*', function (req, res, next) {
     next();
 });
 
-app.use(express.static('web'));
+app.use(express.static('web/app'));
 
 app.use('/search', search)
 

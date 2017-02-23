@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 184);
+/******/ 	return __webpack_require__(__webpack_require__.s = 186);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -31991,6 +31991,10 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactDom = __webpack_require__(25);
 
+var _Config = __webpack_require__(180);
+
+var _Config2 = _interopRequireDefault(_Config);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -32052,7 +32056,8 @@ var SearchInput = function (_React$Component) {
     }, {
         key: '_openSearchResult',
         value: function _openSearchResult() {
-            var win = window.open('http://localhost:3000/app/html/SearchResult.html?name=' + this.state.input, '_blank');
+            console.log(_Config2.default.WebRoot());
+            var win = window.open(_Config2.default.WebRoot() + '/app/html/SearchResult.html?name=' + this.state.input, '_blank');
             win.focus();
         }
 
@@ -32109,6 +32114,42 @@ var Styles = {
 "use strict";
 
 
+var _Constans = __webpack_require__(181);
+
+var _Constans2 = _interopRequireDefault(_Constans);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.WebRoot = function () {
+    if (_Constans2.default.service == 'T') {
+        return 'http://localhost:3000';
+    } else if (_Constans2.default.service == 'P') {
+        return '';
+    }
+}; /**
+    * Created by BaoJun on 2017/2/23.
+    */
+
+/***/ }),
+/* 181 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/**
+ * Created by BaoJun on 2017/2/23.
+ */
+//测试地址T，生产地址P
+exports.service = 'T';
+
+/***/ }),
+/* 182 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
@@ -32121,7 +32162,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactDom = __webpack_require__(25);
 
-var _MovieItemDiv = __webpack_require__(181);
+var _MovieItemDiv = __webpack_require__(183);
 
 var _MovieItemDiv2 = _interopRequireDefault(_MovieItemDiv);
 
@@ -32233,7 +32274,7 @@ var Styles = {
 };
 
 /***/ }),
-/* 181 */
+/* 183 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32391,9 +32432,9 @@ var Styles = {
 };
 
 /***/ }),
-/* 182 */,
-/* 183 */,
-/* 184 */
+/* 184 */,
+/* 185 */,
+/* 186 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32419,7 +32460,7 @@ var _SearchInputDiv = __webpack_require__(179);
 
 var _SearchInputDiv2 = _interopRequireDefault(_SearchInputDiv);
 
-var _MoviesListDiv = __webpack_require__(180);
+var _MoviesListDiv = __webpack_require__(182);
 
 var _MoviesListDiv2 = _interopRequireDefault(_MoviesListDiv);
 

@@ -5,6 +5,7 @@ import $ from 'jquery';
 import React from 'react';
 import {render} from 'react-dom';
 import Title from '../CommonJS/TitleDiv.js'
+import ReqUrl from '../Service/ReqUrl.js'
 
 let code, from
 const width = 200
@@ -39,7 +40,7 @@ class Detail extends React.Component {
     //获取详情数据
     _showDetail() {
         let request = $.ajax({
-            url: 'http://localhost:3000/detail/' + from + '?code=' + code,
+            url: ReqUrl.Detail + from + '?code=' + code,
             method: "GET",
             dataType: "json",
             timeout: 10000,
@@ -92,7 +93,7 @@ class Detail extends React.Component {
 
 const Styles = {
     Content: {
-        width: '70%',
+        width: '50%',
         marginLeft: 'auto',
         marginRight: 'auto',
     },

@@ -3,6 +3,8 @@
  */
 import React from 'react';
 import {render} from 'react-dom';
+import HtmlCode from '../Service/HtmlCode.js'
+
 const hint = '影片名/ 明星/ 导演/ imdb'
 
 export default class SearchInput extends React.Component {
@@ -27,7 +29,7 @@ export default class SearchInput extends React.Component {
 
     //打开搜索结果界面
     _openSearchResult() {
-        let win = window.open('http://localhost:3000/app/html/SearchResult.html?name=' + this.state.input, '_blank');
+        let win = window.open(HtmlCode.SearchResult + '?name=' + this.state.input, '_blank');
         win.focus();
     }
 

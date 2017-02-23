@@ -7,6 +7,7 @@ import {render} from 'react-dom';
 import Title from '../CommonJS/TitleDiv.js'
 import SearchInput from '../CommonJS/SearchInputDiv.js'
 import MoviesList from './MoviesListDiv.js'
+import ReqUrl from '../Service/ReqUrl.js'
 
 let input
 class SearchResult extends React.Component {
@@ -63,7 +64,7 @@ class SearchResult extends React.Component {
         // ajax.open('GET', 'http://localhost:3000/search/all?name=' + this.state.input, true);
         // ajax.send('name=' + this.state.input)
         let request = $.ajax({
-            url: "http://localhost:3000/search/all?name=" + input,
+            url: ReqUrl.SearchAll + '?name=' + input,
             method: "GET",
             dataType: "json",
             timeout: 10000,
@@ -85,7 +86,7 @@ class SearchResult extends React.Component {
 
 const Styles = {
     Content: {
-        width: 1000,
+        width: '50%',
         marginLeft: 'auto',
         marginRight: 'auto',
     }

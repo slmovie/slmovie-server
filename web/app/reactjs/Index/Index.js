@@ -21,7 +21,7 @@ class Index extends React.Component {
 
 const Styles = {
     Content: {
-        width: 1000,
+        width: '50%',
         marginLeft: 'auto',
         marginRight: 'auto',
     }

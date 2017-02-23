@@ -7,7 +7,7 @@ module.exports = {
         searchresult: path.resolve(__dirname, 'web/app/reactjs/searchresult/searchresult.js'),
     },
     output: {
-        path: path.resolve(__dirname, "web/build"),
+        path: path.resolve(__dirname, "web/app/build"),
         filename: "[name].bundle.js"
     },
 

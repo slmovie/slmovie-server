@@ -3,6 +3,7 @@
  */
 import React from 'react';
 import {render} from 'react-dom';
+import HtmlCode from '../Service/HtmlCode.js'
 
 const width = 200
 let movie = {};
@@ -30,7 +31,7 @@ export default class MovieItemDiv extends React.Component {
 
     //进入详情页
     _detail() {
-        let win = window.open('http://localhost:3000/app/html/detail.html?address=' + this.props.movie.address + '&from=' + this.props.movie.from, '_blank');
+        let win = window.open(HtmlCode.Detail + '?address=' + this.props.movie.address + '&from=' + this.props.movie.from, '_blank');
         win.focus();
     }
 
