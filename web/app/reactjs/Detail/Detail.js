@@ -47,7 +47,6 @@ class Detail extends React.Component {
             async: false,
         })
         request.done(function (msg) {
-            console.log(msg.detail[0])
             this.setState({movie: msg})
         }.bind(this));
         request.fail(function (jqXHR, textStatus) {
@@ -59,16 +58,22 @@ class Detail extends React.Component {
     _renderDetail() {
         if (this.state.movie != '') {
             return (
-                <div style={{display: 'flex', alignItems: 'center'}}>
-                    <img src={this.state.movie.post} style={Styles.PostImg}/>
-                    <ul style={Styles.InfoUl}>
-                        {this._renderInfo()}
+                <div>
+                    <div style={{display: 'flex', alignItems: 'center'}}>
+                        <img src={this.state.movie.post} style={Styles.PostImg}/>
+                        <ul style={Styles.InfoUl}>
+                            {this._renderInfo()}
+                        </ul>
+                    </div>
+                    <ul style={Styles.UrlsUl}>
+                        {this._renderUrls()}
                     </ul>
                 </div>
             )
         } else {
             return (
-                <div></div>
+                <div>
+                </div>
             )
         }
     }
@@ -89,29 +94,78 @@ class Detail extends React.Component {
             <li style={Styles.InfoLi}>{info}</li>
         )
     }
-}
 
-const Styles = {
-    Content: {
-        width: '50%',
-        marginLeft: 'auto',
-        marginRight: 'auto',
-    },
-    PostImg: {
-        width: width,
-        height: width * 180 / 130,
-    },
-    InfoUl: {
-        listStyleType: 'none',
-        padding: 0,
-        marginLeft: 40,
-        width: '50%'
-    },
-    InfoLi: {
-        fontSize: 17,
-        marginTop: 6,
+    //渲染下载链接
+    _renderUrls() {
+        let urls = []
+        for (let i = 0; i < this.state.movie.files.length; i++) {
+            urls.push(this._getUrl(this.state.movie.files[i]))
+        }
+        return urls;
+    }
+
+    //下载地址样式
+    _getUrl(url) {
+        let name = ''
+        if (url.fileSize != '') {
+            name = '[' + url.fileSize + ']'
+        }
+        name = name + url.name
+        return (
+            <li style={Styles.UrlLi}>
+                <a href={url.download} style={{textDecoration: 'none'}}>{name}</a>
+                <div>
+                    <input style={Styles.UrlInput}
+                           value={url.download} onClick={(e) => e.target.select()}/>
+                </div>
+
+            </li>
+        )
     }
 }
 
+const
+    Styles = {
+        Content: {
+            width: '50%',
+            marginLeft: 'auto',
+            marginRight: 'auto',
+        },
+        PostImg: {
+            width: width,
+            height: width * 180 / 130,
+        },
+        InfoUl: {
+            listStyleType: 'none',
+            padding: 0,
+            marginLeft: 40,
+            width: '50%'
+        },
+        InfoLi: {
+            fontSize: 17,
+            marginTop: 6,
+        },
+        UrlsUl: {
+            listStyleType: 'none',
+            padding: 0,
+            marginTop: 30,
+        },
+        UrlLi: {
+            fontSize: 20,
+            marginTop: 15,
+        },
+        UrlInput: {
+            fontSize: 18,
+            width: '100%',
+            backgroundColor: '#f9f9f9',
+            border: 'solid',
+            borderColor: '#e4e4e4',
+            borderWidth: 1,
+            textOverflow: 'ellipsis'
+        },
+    }
 
-render(<Detail/>, $('#detail_body')[0])
+
+render(
+    <Detail/>, $('#detail_body')[0]
+)

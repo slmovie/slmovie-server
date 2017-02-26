@@ -5,6 +5,7 @@ module.exports = {
         index: path.resolve(__dirname, 'web/app/reactjs/index/index.js'),
         detail: path.resolve(__dirname, 'web/app/reactjs/detail/detail.js'),
         searchresult: path.resolve(__dirname, 'web/app/reactjs/searchresult/searchresult.js'),
+        declare: path.resolve(__dirname, 'web/app/reactjs/commonjs/declarediv.js'),
     },
     output: {
         path: path.resolve(__dirname, "web/app/build"),

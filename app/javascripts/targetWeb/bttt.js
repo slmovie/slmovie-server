@@ -89,7 +89,7 @@ exports.detail = function (req, res) {
                         //下载地址
                         movie['download'] = $('a', xelem).attr('href')
                         //文件大小
-                        movie['file-size'] = ''
+                        movie['fileSize'] = ''
                         movies.push(movie)
                     })
                 })

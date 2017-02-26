@@ -82,7 +82,7 @@ exports.detail = function (req, res) {
                     //下载地址
                     movie['download'] = $('a', elem).attr('href')
                     //文件大小
-                    movie['file-size'] = $('em', $(elem).parent().next()).text()
+                    movie['fileSize'] = $('em', $(elem).parent().next()).text()
                     movies.push(movie)
                 })
                 jsonRes['files'] = movies

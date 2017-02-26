@@ -7,18 +7,22 @@ import {render} from 'react-dom';
 export  default  class Title extends React.Component {
     render() {
         return (
-            <div style={Styles.Title}>
-                <text>双龙影视</text>
+            <div>
+                <div style={Styles.Title}>
+                    <text>双龙影视</text>
+                </div>
             </div>
         )
     }
 }
 
 const Styles = {
+    Content: {
+        marginTop: 20,
+        marginBottom: 20,
+    },
     Title: {
         fontSize: 49,
         fontWeight: 'bolder',
-        marginTop: 20,
-        marginBottom: 20,
     }
 }
