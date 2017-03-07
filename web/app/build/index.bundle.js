@@ -19690,7 +19690,7 @@ exports.WebRoot = function () {
     if (_Constans2.default.service == 'T') {
         return 'http://localhost:3000';
     } else if (_Constans2.default.service == 'P') {
-        return '';
+        return '45.32.41.169:3000';
     }
 }; /**
     * Created by BaoJun on 2017/2/23.
@@ -32041,7 +32041,7 @@ module.exports = traverseAllChildren;
  * Created by BaoJun on 2017/2/23.
  */
 //测试地址T，生产地址P
-exports.service = 'T';
+exports.service = 'P';
 exports.log = true;
 exports.error = true;
 
@@ -32586,7 +32586,7 @@ var Index = function (_React$Component) {
                 method: "GET",
                 dataType: "json",
                 timeout: 10000,
-                async: true
+                async: false
             });
             request.done(function (msg) {
                 _Config2.default.Log('IndexReq', JSON.parse(JSON.stringify(msg)));

@@ -41,7 +41,7 @@ class Index extends React.Component {
             method: "GET",
             dataType: "json",
             timeout: 10000,
-            async: true,
+            async: false,
         })
         request.done(function (msg) {
             Config.Log('IndexReq', JSON.parse(JSON.stringify(msg)))
