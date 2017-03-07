@@ -7,10 +7,8 @@ import {render} from 'react-dom';
 export  default  class Title extends React.Component {
     render() {
         return (
-            <div>
-                <div style={Styles.Title}>
-                    <text>双龙影视</text>
-                </div>
+            <div style={Styles.Content}>
+                <text style={Styles.Title}>双龙影视</text>
             </div>
         )
     }

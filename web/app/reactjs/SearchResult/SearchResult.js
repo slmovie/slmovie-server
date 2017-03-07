@@ -39,7 +39,6 @@ class SearchResult extends React.Component {
 
     //渲染电影列表
     _renderMovies() {
-        console.log(this.state.movies.bttt)
         return (
             <MoviesList movies={this.state.movies}/>
         )
@@ -47,22 +46,6 @@ class SearchResult extends React.Component {
 
     //获取电影列表
     _getMovies() {
-        // let ajax = new XMLHttpRequest();
-        // ajax.onreadystatechange = function () {
-        //     if (ajax.readyState === 4) {
-        //         if (ajax.status === 200) {
-        //             console.log(JSON.parse(ajax.responseText));
-        //             this.setState({movies: JSON.parse(ajax.responseText)})
-        //         } else {
-        //             console.error(ajax.statusText);
-        //         }
-        //     }
-        // }.bind(this);
-        // ajax.onerror = function (e) {
-        //     console.error(ajax.statusText);
-        // };
-        // ajax.open('GET', 'http://localhost:3000/search/all?name=' + this.state.input, true);
-        // ajax.send('name=' + this.state.input)
         let request = $.ajax({
             url: ReqUrl.SearchAll + '?name=' + input,
             method: "GET",

@@ -127,7 +127,7 @@ class Detail extends React.Component {
 const
     Styles = {
         Content: {
-            width: '50%',
+            width: 1000,
             marginLeft: 'auto',
             marginRight: 'auto',
         },

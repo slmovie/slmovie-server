@@ -10,3 +10,15 @@ exports.WebRoot = function () {
         return ''
     }
 }
+
+exports.Log = function (name, str) {
+    if (Constans.log) {
+        console.log(name + '>>>>>>' + str)
+    }
+}
+
+exports.error = function (name, error) {
+    if (Constans.error) {
+        console.error(name + '>>>>>>' + error)
+    }
+}

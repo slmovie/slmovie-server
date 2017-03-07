@@ -78,7 +78,7 @@ exports.detail = function (req, res) {
                 $('.down_part_name').each(function (i, elem) {
                     let movie = {}
                     //文件名称
-                    movie['name'] = $('a', elem).text()
+                    movie['name'] = $('a', elem).attr('title')
                     //下载地址
                     movie['download'] = $('a', elem).attr('href')
                     //文件大小
@@ -99,6 +99,153 @@ exports.detail = function (req, res) {
                 jsonRes['photos'] = photos
                 jsonRes['post'] = $('img', '.pic').attr('src')
                 res.json(jsonRes)
+            }
+        })
+}
+
+//热门电影
+exports.hotMovies = function (next) {
+    let callBack = {}
+    let status = {}
+    getSuperagent().get('http://www.idyjy.com')
+        .timeout(5000)
+        .charset('gb2312')
+        .end(function (error, response) {
+            if (error || response.statusCode == 'undefined') {
+                status['code'] = 0
+                status['error'] = error
+                callBack['status'] = status
+                next(callBack)
+                return
+            }
+            if (response.statusCode == 200) {
+                let $ = cheerio.load(response.text)
+                //基本信息
+                let movies = []
+                $('.play-img', '.moxhotcoment').each(function (i, elem) {
+                    let address = $(elem).attr('href')
+                    let split = address.split('/')
+                    address = split[split.length - 1].split('.')[0]
+                    movies.push({
+                        'name': $(elem).attr('title'),
+                        //网页地址
+                        'address': address,
+                        //海报图片
+                        'post': $('img', elem).attr('src'),
+                        //豆瓣评分
+                        'db': $('info', '.pRightBottom', elem).text(),
+                        //上映日期
+                        'year': $('info', $('.pLeftTop', elem)[0]).text(),
+                        'from': 'dyjy',
+                    })
+                })
+                if (movies.length == 0) {
+                    status = DealError.SEARCHNONERES
+                    callBack['status'] = status
+                } else {
+                    status['code'] = 1
+                    callBack['status'] = status
+                    callBack['movies'] = movies
+                }
+                next(callBack)
+            }
+        })
+}
+
+//最新电影
+exports.newMovies = function (next) {
+    let callBack = {}
+    let status = {}
+    getSuperagent().get('http://www.idyjy.com')
+        .timeout(5000)
+        .charset('gb2312')
+        .end(function (error, response) {
+            if (error || response.statusCode == 'undefined') {
+                status['code'] = 0
+                status['error'] = error
+                callBack['status'] = status
+                next(callBack)
+                return
+            }
+            if (response.statusCode == 200) {
+                let $ = cheerio.load(response.text)
+                //基本信息
+                let movies = []
+                $('.play-img', $('.img-list', $('.box')[0])[0]).each(function (i, elem) {
+                    let address = $(elem).attr('href')
+                    let split = address.split('/')
+                    address = split[split.length - 1].split('.')[0]
+                    movies.push({
+                        'name': $(elem).attr('title'),
+                        //网页地址
+                        'address': address,
+                        //海报图片
+                        'post': $('img', elem).attr('src'),
+                        //豆瓣评分
+                        'db': $('info', '.pRightBottom', elem).text(),
+                        //上映日期
+                        'year': $('info', $('.pLeftTop', elem)[0]).text(),
+                        'from': 'dyjy',
+                    })
+                })
+                if (movies.length == 0) {
+                    status = DealError.SEARCHNONERES
+                    callBack['status'] = status
+                } else {
+                    status['code'] = 1
+                    callBack['status'] = status
+                    callBack['movies'] = movies
+                }
+                next(callBack)
+            }
+        })
+}
+
+//最新电影
+exports.newTV = function (next) {
+    let callBack = {}
+    let status = {}
+    getSuperagent().get('http://www.idyjy.com')
+        .timeout(5000)
+        .charset('gb2312')
+        .end(function (error, response) {
+            if (error || response.statusCode == 'undefined') {
+                status['code'] = 0
+                status['error'] = error
+                callBack['status'] = status
+                next(callBack)
+                return
+            }
+            if (response.statusCode == 200) {
+                let $ = cheerio.load(response.text)
+                //基本信息
+                let movies = []
+                $('.play-img', $('.img-list', $('.box')[1])[0]).each(function (i, elem) {
+                    let address = $(elem).attr('href')
+                    let split = address.split('/')
+                    address = split[split.length - 1].split('.')[0]
+                    movies.push({
+                        'name': $(elem).attr('title'),
+                        //网页地址
+                        'address': address,
+                        //海报图片
+                        'post': $('img', elem).attr('src'),
+                        //豆瓣评分
+                        'db': $('info', '.pRightBottom', elem).text(),
+                        //上映日期
+                        'year': $('info', $('.pLeftTop', elem)[0]).text(),
+                        'from': 'dyjy',
+                    })
+                })
+                if (movies.length == 0) {
+                    status = DealError.SEARCHNONERES
+                    callBack['status'] = status
+                } else {
+                    status['code'] = 1
+                    callBack['status'] = status
+                    callBack['movies'] = movies
+                }
+                next(callBack)
             }
         })
 }
