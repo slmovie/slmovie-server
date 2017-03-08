@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 190);
+/******/ 	return __webpack_require__(__webpack_require__.s = 191);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -32041,7 +32041,7 @@ module.exports = traverseAllChildren;
  * Created by BaoJun on 2017/2/23.
  */
 //测试地址T，生产地址P
-exports.service = 'P';
+exports.service = 'T';
 exports.log = true;
 exports.error = true;
 
@@ -32058,12 +32058,12 @@ var _Config2 = _interopRequireDefault(_Config);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.Index = _Config2.default.WebRoot() + '/html/index.html'; /**
-                                                                  * Created by BaoJun on 2017/2/23.
-                                                                  */
+exports.Index = _Config2.default.WebRoot() + '/index.html'; /**
+                                                             * Created by BaoJun on 2017/2/23.
+                                                             */
 
-exports.SearchResult = _Config2.default.WebRoot() + '/html/searchresult.html';
-exports.Detail = _Config2.default.WebRoot() + '/html/detail.html';
+exports.SearchResult = _Config2.default.WebRoot() + '/searchresult.html';
+exports.Detail = _Config2.default.WebRoot() + '/detail.html';
 
 /***/ }),
 /* 183 */
@@ -32200,7 +32200,8 @@ var Styles = {
 };
 
 /***/ }),
-/* 184 */
+/* 184 */,
+/* 185 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32218,13 +32219,9 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactDom = __webpack_require__(25);
 
-var _Config = __webpack_require__(82);
+var _MovieItemDiv = __webpack_require__(187);
 
-var _Config2 = _interopRequireDefault(_Config);
-
-var _IndexListItemDiv = __webpack_require__(186);
-
-var _IndexListItemDiv2 = _interopRequireDefault(_IndexListItemDiv);
+var _MovieItemDiv2 = _interopRequireDefault(_MovieItemDiv);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -32233,50 +32230,61 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /**
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Created by BaoJun on 2017/3/7.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Created by BaoJun on 2017/2/14.
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 */
 
 
-var IndexListDiv = function (_React$Component) {
-    _inherits(IndexListDiv, _React$Component);
+var MoviesListDiv = function (_React$Component) {
+    _inherits(MoviesListDiv, _React$Component);
 
-    function IndexListDiv() {
-        _classCallCheck(this, IndexListDiv);
+    function MoviesListDiv() {
+        _classCallCheck(this, MoviesListDiv);
 
-        return _possibleConstructorReturn(this, (IndexListDiv.__proto__ || Object.getPrototypeOf(IndexListDiv)).apply(this, arguments));
+        return _possibleConstructorReturn(this, (MoviesListDiv.__proto__ || Object.getPrototypeOf(MoviesListDiv)).apply(this, arguments));
     }
 
-    _createClass(IndexListDiv, [{
+    _createClass(MoviesListDiv, [{
         key: 'render',
         value: function render() {
-            // Config.Log('IndexListDiv', this.props.movies)
-            var data = this.props.movies;
-            if (data.status.code == 101) {
-                return '';
-            } else if (data.status.code == 1) {
-                var movies = {};
-                //重组数据
-                if (data.status.code == 1) {
-                    movies = data.movies;
-                }
-                _Config2.default.Log('movies', movies);
-
-                return _react2.default.createElement(
-                    'div',
-                    { style: Styles.BorderDiv },
-                    _react2.default.createElement(
+            // console.log(this.props.movies)
+            if (this.props.movies != '') {
+                var data = this.props.movies;
+                if (data.dyjy.status.code == 101 && data.dyjy.status.code == 101) {
+                    return _react2.default.createElement(
                         'text',
-                        { style: Styles.TitleText },
-                        this.props.title
-                    ),
-                    _react2.default.createElement(
+                        { style: Styles.TextRed },
+                        data.dyjy.status.error
+                    );
+                } else if (data.dyjy.status.code == 1 || data.dyjy.status.code == 1) {
+                    var movies = {};
+                    //重组数据
+                    if (data.dyjy.status.code == 1) {
+                        movies = data.dyjy.movies;
+                    }
+                    if (data.bttt.status.code == 1) {
+                        for (var i = 0, len = data.bttt.movies.length; i < len; i++) {
+                            movies.push(data.bttt.movies[i]);
+                        }
+                    }
+                    console.log(movies);
+                    return _react2.default.createElement(
                         'ul',
                         { style: Styles.MoviesList },
                         this._renderList(movies)
-                    )
-                );
+                    );
+                } else {
+                    return _react2.default.createElement(
+                        'text',
+                        { style: Styles.TextRed },
+                        '\u8BF7\u6C42\u5931\u8D25\uFF0C\u8BF7\u91CD\u8BD5'
+                    );
+                }
             } else {
-                return '';
+                return _react2.default.createElement(
+                    'text',
+                    { style: Styles.Text },
+                    '\u52A0\u8F7D\u4E2D'
+                );
             }
         }
 
@@ -32297,33 +32305,21 @@ var IndexListDiv = function (_React$Component) {
     }, {
         key: '_renderItem',
         value: function _renderItem(movie) {
-            return _react2.default.createElement(_IndexListItemDiv2.default, { movie: movie });
+            return _react2.default.createElement(_MovieItemDiv2.default, { movie: movie });
         }
     }]);
 
-    return IndexListDiv;
+    return MoviesListDiv;
 }(_react2.default.Component);
 
-exports.default = IndexListDiv;
+exports.default = MoviesListDiv;
 
 
 var Styles = {
-    BorderDiv: {
-        border: 'solid',
-        borderWidth: 0.5,
-        borderColor: '#d0d0d0',
-        paddingLeft: 5,
-        paddingTop: 10,
-        marginTop: 20
-    },
-    TitleText: {
-        fontSize: 25,
-        color: '#00B3FF'
-    },
     MoviesList: {
         listStyleType: 'none',
         padding: 0,
-        display: 'inline-block'
+        width: 1000
     },
     Text: {
         fontSize: 25
@@ -32335,8 +32331,8 @@ var Styles = {
 };
 
 /***/ }),
-/* 185 */,
-/* 186 */
+/* 186 */,
+/* 187 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32365,23 +32361,23 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /**
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Created by BaoJun on 2017/3/7.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Created by BaoJun on 2017/2/15.
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 */
 
 
-var width = 120;
+var width = 200;
 var movie = {};
 
-var IndexListItemDiv = function (_React$Component) {
-    _inherits(IndexListItemDiv, _React$Component);
+var MovieItemDiv = function (_React$Component) {
+    _inherits(MovieItemDiv, _React$Component);
 
-    function IndexListItemDiv() {
-        _classCallCheck(this, IndexListItemDiv);
+    function MovieItemDiv() {
+        _classCallCheck(this, MovieItemDiv);
 
-        return _possibleConstructorReturn(this, (IndexListItemDiv.__proto__ || Object.getPrototypeOf(IndexListItemDiv)).apply(this, arguments));
+        return _possibleConstructorReturn(this, (MovieItemDiv.__proto__ || Object.getPrototypeOf(MovieItemDiv)).apply(this, arguments));
     }
 
-    _createClass(IndexListItemDiv, [{
+    _createClass(MovieItemDiv, [{
         key: 'render',
         value: function render() {
             var _this2 = this;
@@ -32431,25 +32427,28 @@ var IndexListItemDiv = function (_React$Component) {
         }
     }]);
 
-    return IndexListItemDiv;
+    return MovieItemDiv;
 }(_react2.default.Component);
 
-exports.default = IndexListItemDiv;
+exports.default = MovieItemDiv;
 
 
 var Styles = {
     Item: {
         textAlign: 'center',
+        margin: 'auto',
         float: 'left',
-        width: width,
-        height: width * 5 / 3,
-        paddingRight: 17
+        width: '25%'
     },
     A: {
         width: width,
         height: width * 180 / 130,
         position: 'relative',
-        display: 'flex'
+        display: 'flex',
+        padding: 3,
+        border: 1,
+        borderColor: '#F2F2F2',
+        borderStyle: 'solid'
     },
 
     Image: {
@@ -32459,42 +32458,46 @@ var Styles = {
         overflow: 'hidden'
     },
     TextYear: {
+        height: 20,
+        width: 35,
         position: 'absolute',
+        top: 4,
+        left: 4,
         overflow: 'hidden',
-        color: '#ffffff',
-        fontSize: 10,
+        color: '#fff',
+        fontSize: 12,
         textAlign: 'center',
-        backgroundColor: '#000000',
-        paddingLeft: 5,
-        paddingRight: 5
+        backgroundColor: '#d0d0d0'
     }, TextDB: {
+        height: 20,
+        width: 45,
         position: 'absolute',
-        bottom: 0,
-        right: 0,
+        bottom: 4,
+        right: 4,
         overflow: 'hidden',
-        color: '#ffffff',
-        fontSize: 10,
+        color: '#fff',
+        fontSize: 12,
         textAlign: 'center',
-        backgroundColor: '#000000',
-        paddingLeft: 5,
-        paddingRight: 5
+        backgroundColor: '#d0d0d0'
     },
     NameDiv: {
         width: width,
-        align: 'center'
+        height: 35,
+        align: 'center',
+        marginTop: 5
     },
     TextName: {
-        fontSize: 14,
+        fontSize: 16,
         color: '#05d',
         textAlign: 'center'
     }
 };
 
 /***/ }),
-/* 187 */,
 /* 188 */,
 /* 189 */,
-/* 190 */
+/* 190 */,
+/* 191 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32520,17 +32523,13 @@ var _SearchInputDiv = __webpack_require__(183);
 
 var _SearchInputDiv2 = _interopRequireDefault(_SearchInputDiv);
 
+var _MoviesListDiv = __webpack_require__(185);
+
+var _MoviesListDiv2 = _interopRequireDefault(_MoviesListDiv);
+
 var _ReqUrl = __webpack_require__(84);
 
 var _ReqUrl2 = _interopRequireDefault(_ReqUrl);
-
-var _Config = __webpack_require__(82);
-
-var _Config2 = _interopRequireDefault(_Config);
-
-var _IndexListDiv = __webpack_require__(184);
-
-var _IndexListDiv2 = _interopRequireDefault(_IndexListDiv);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -32543,13 +32542,15 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 */
 
 
-var Index = function (_React$Component) {
-    _inherits(Index, _React$Component);
+var input = void 0;
 
-    function Index() {
-        _classCallCheck(this, Index);
+var SearchResult = function (_React$Component) {
+    _inherits(SearchResult, _React$Component);
 
-        var _this = _possibleConstructorReturn(this, (Index.__proto__ || Object.getPrototypeOf(Index)).call(this));
+    function SearchResult() {
+        _classCallCheck(this, SearchResult);
+
+        var _this = _possibleConstructorReturn(this, (SearchResult.__proto__ || Object.getPrototypeOf(SearchResult)).call(this));
 
         _this.state = {
             movies: ''
@@ -32557,9 +32558,11 @@ var Index = function (_React$Component) {
         return _this;
     }
 
-    _createClass(Index, [{
+    _createClass(SearchResult, [{
         key: 'componentDidMount',
         value: function componentDidMount() {
+            input = window.location.href.split('=')[1];
+            document.title = '双龙影视 ' + decodeURI(input);
             this._getMovies();
         }
     }, {
@@ -32570,10 +32573,20 @@ var Index = function (_React$Component) {
                 { style: Styles.Content },
                 _react2.default.createElement(_TitleDiv2.default, null),
                 _react2.default.createElement(_SearchInputDiv2.default, null),
-                this._renderHotMovies(),
-                this._renderNewMovies(),
-                this._renderNewTvs()
+                _react2.default.createElement(
+                    'div',
+                    { style: { marginTop: 30, overflow: 'hidden' } },
+                    this._renderMovies()
+                )
             );
+        }
+
+        //渲染电影列表
+
+    }, {
+        key: '_renderMovies',
+        value: function _renderMovies() {
+            return _react2.default.createElement(_MoviesListDiv2.default, { movies: this.state.movies });
         }
 
         //获取电影列表
@@ -32582,61 +32595,26 @@ var Index = function (_React$Component) {
         key: '_getMovies',
         value: function _getMovies() {
             var request = _jquery2.default.ajax({
-                url: _ReqUrl2.default.IndexRecommend,
+                url: _ReqUrl2.default.SearchAll + '?name=' + input,
                 method: "GET",
                 dataType: "json",
                 timeout: 10000,
                 async: false
             });
             request.done(function (msg) {
-                _Config2.default.Log('IndexReq', JSON.parse(JSON.stringify(msg)));
+                // console.log(JSON.parse(JSON.stringify(msg)).bttt.movies[0].name)
                 this.setState({ movies: JSON.parse(JSON.stringify(msg)) });
             }.bind(this));
 
             request.fail(function (jqXHR, textStatus) {
-                _Config2.default.error(textStatus);
+                console.error(textStatus);
+                var error = '{"dyjy":{"status":{"code":0}}}';
+                this.setState({ movies: error });
             }.bind(this));
-        }
-
-        //渲染热门影片
-
-    }, {
-        key: '_renderHotMovies',
-        value: function _renderHotMovies() {
-            _Config2.default.Log('_renderHotMovies', this.state.movies.hotMovies);
-            if (this.state.movies != '' && this.state.movies.hotMovies != '') {
-                return _react2.default.createElement(_IndexListDiv2.default, { movies: this.state.movies.hotMovies, title: '\u70ED\u95E8\u7535\u5F71' });
-            } else {
-                return '';
-            }
-        }
-
-        //渲染最新影片
-
-    }, {
-        key: '_renderNewMovies',
-        value: function _renderNewMovies() {
-            if (this.state.movies != '' && this.state.movies.newMovies != '') {
-                return _react2.default.createElement(_IndexListDiv2.default, { movies: this.state.movies.newMovies, title: '\u6700\u65B0\u7535\u5F71' });
-            } else {
-                return '';
-            }
-        }
-
-        //渲染最新电视剧
-
-    }, {
-        key: '_renderNewTvs',
-        value: function _renderNewTvs() {
-            if (this.state.movies != '' && this.state.movies.newTVs != '') {
-                return _react2.default.createElement(_IndexListDiv2.default, { movies: this.state.movies.newTVs, title: '\u6700\u65B0\u7535\u89C6\u5267' });
-            } else {
-                return '';
-            }
         }
     }]);
 
-    return Index;
+    return SearchResult;
 }(_react2.default.Component);
 
 var Styles = {
@@ -32647,7 +32625,7 @@ var Styles = {
     }
 };
 
-(0, _reactDom.render)(_react2.default.createElement(Index, null), (0, _jquery2.default)('#content')[0]);
+(0, _reactDom.render)(_react2.default.createElement(SearchResult, null), (0, _jquery2.default)('#searchResult_body')[0]);
 
 /***/ })
 /******/ ]);

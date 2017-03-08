@@ -3,6 +3,6 @@
  */
 import Config from './Config.js'
 
-exports.Index = Config.WebRoot() + '/html/index.html'
-exports.SearchResult = Config.WebRoot() + '/html/searchresult.html'
-exports.Detail = Config.WebRoot() + '/html/detail.html'
+exports.Index = Config.WebRoot() + '/index.html'
+exports.SearchResult = Config.WebRoot() + '/searchresult.html'
+exports.Detail = Config.WebRoot() + '/detail.html'

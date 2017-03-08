@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 191);
+/******/ 	return __webpack_require__(__webpack_require__.s = 189);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -32041,463 +32041,19 @@ module.exports = traverseAllChildren;
  * Created by BaoJun on 2017/2/23.
  */
 //测试地址T，生产地址P
-exports.service = 'P';
+exports.service = 'T';
 exports.log = true;
 exports.error = true;
 
 /***/ }),
-/* 182 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _Config = __webpack_require__(82);
-
-var _Config2 = _interopRequireDefault(_Config);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.Index = _Config2.default.WebRoot() + '/html/index.html'; /**
-                                                                  * Created by BaoJun on 2017/2/23.
-                                                                  */
-
-exports.SearchResult = _Config2.default.WebRoot() + '/html/searchresult.html';
-exports.Detail = _Config2.default.WebRoot() + '/html/detail.html';
-
-/***/ }),
-/* 183 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(26);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactDom = __webpack_require__(25);
-
-var _HtmlCode = __webpack_require__(182);
-
-var _HtmlCode2 = _interopRequireDefault(_HtmlCode);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /**
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Created by BaoJun on 2017/2/14.
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
-
-
-var hint = '影片名/ 明星/ 导演/ imdb';
-
-var SearchInput = function (_React$Component) {
-    _inherits(SearchInput, _React$Component);
-
-    function SearchInput() {
-        _classCallCheck(this, SearchInput);
-
-        var _this = _possibleConstructorReturn(this, (SearchInput.__proto__ || Object.getPrototypeOf(SearchInput)).call(this));
-
-        _this.state = {
-            input: '影片名/ 明星/ 导演/ imdb'
-        };
-        return _this;
-    }
-
-    _createClass(SearchInput, [{
-        key: 'render',
-        value: function render() {
-            var _this2 = this;
-
-            return _react2.default.createElement(
-                'div',
-                null,
-                _react2.default.createElement(
-                    'text',
-                    { style: Styles.Text },
-                    '\u5F71\u89C6\u641C\u7D22'
-                ),
-                _react2.default.createElement('input', { style: Styles.Input, onChange: function onChange(e) {
-                        return _this2._inputChanged(e);
-                    }, value: this.state.input,
-                    onFocus: function onFocus(e) {
-                        return _this2._inputValue(e);
-                    } }),
-                _react2.default.createElement(
-                    'button',
-                    { style: Styles.Search, onClick: function onClick() {
-                            return _this2._openSearchResult();
-                        } },
-                    '\u641C\u7D22'
-                )
-            );
-        }
-
-        //打开搜索结果界面
-
-    }, {
-        key: '_openSearchResult',
-        value: function _openSearchResult() {
-            var win = window.open(_HtmlCode2.default.SearchResult + '?name=' + this.state.input, '_blank');
-            win.focus();
-        }
-
-        //获取输入结果
-
-    }, {
-        key: '_inputChanged',
-        value: function _inputChanged(e) {
-            this.setState({ input: e.target.value });
-        }
-
-        //去除hint
-
-    }, {
-        key: '_inputValue',
-        value: function _inputValue(e) {
-            if (e.target.value == hint) {
-                e.target.style.color = '#000000';
-                this.setState({ input: '' });
-            }
-        }
-    }]);
-
-    return SearchInput;
-}(_react2.default.Component);
-
-exports.default = SearchInput;
-
-
-var Styles = {
-    Text: {
-        fontSize: 20,
-        width: '25%'
-    },
-    Input: {
-        fontSize: 20,
-        marginLeft: 50,
-        width: '50%',
-        color: '#d0d0d0'
-    },
-    Search: {
-        fontSize: 20,
-        backgroundColor: '#FF0000',
-        border: 'null',
-        color: '#ffffff',
-        marginLeft: 50
-    }
-};
-
-/***/ }),
+/* 182 */,
+/* 183 */,
 /* 184 */,
-/* 185 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(26);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactDom = __webpack_require__(25);
-
-var _MovieItemDiv = __webpack_require__(187);
-
-var _MovieItemDiv2 = _interopRequireDefault(_MovieItemDiv);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /**
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Created by BaoJun on 2017/2/14.
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
-
-
-var MoviesListDiv = function (_React$Component) {
-    _inherits(MoviesListDiv, _React$Component);
-
-    function MoviesListDiv() {
-        _classCallCheck(this, MoviesListDiv);
-
-        return _possibleConstructorReturn(this, (MoviesListDiv.__proto__ || Object.getPrototypeOf(MoviesListDiv)).apply(this, arguments));
-    }
-
-    _createClass(MoviesListDiv, [{
-        key: 'render',
-        value: function render() {
-            // console.log(this.props.movies)
-            if (this.props.movies != '') {
-                var data = this.props.movies;
-                if (data.dyjy.status.code == 101 && data.dyjy.status.code == 101) {
-                    return _react2.default.createElement(
-                        'text',
-                        { style: Styles.TextRed },
-                        data.dyjy.status.error
-                    );
-                } else if (data.dyjy.status.code == 1 || data.dyjy.status.code == 1) {
-                    var movies = {};
-                    //重组数据
-                    if (data.dyjy.status.code == 1) {
-                        movies = data.dyjy.movies;
-                    }
-                    if (data.bttt.status.code == 1) {
-                        for (var i = 0, len = data.bttt.movies.length; i < len; i++) {
-                            movies.push(data.bttt.movies[i]);
-                        }
-                    }
-                    console.log(movies);
-                    return _react2.default.createElement(
-                        'ul',
-                        { style: Styles.MoviesList },
-                        this._renderList(movies)
-                    );
-                } else {
-                    return _react2.default.createElement(
-                        'text',
-                        { style: Styles.TextRed },
-                        '\u8BF7\u6C42\u5931\u8D25\uFF0C\u8BF7\u91CD\u8BD5'
-                    );
-                }
-            } else {
-                return _react2.default.createElement(
-                    'text',
-                    { style: Styles.Text },
-                    '\u52A0\u8F7D\u4E2D'
-                );
-            }
-        }
-
-        //渲染列表
-
-    }, {
-        key: '_renderList',
-        value: function _renderList(movies) {
-            var lists = [];
-            for (var i = 0, len = movies.length; i < len; i++) {
-                lists.push(this._renderItem(movies[i]));
-            }
-            return lists;
-        }
-
-        //渲染Item
-
-    }, {
-        key: '_renderItem',
-        value: function _renderItem(movie) {
-            return _react2.default.createElement(_MovieItemDiv2.default, { movie: movie });
-        }
-    }]);
-
-    return MoviesListDiv;
-}(_react2.default.Component);
-
-exports.default = MoviesListDiv;
-
-
-var Styles = {
-    MoviesList: {
-        listStyleType: 'none',
-        padding: 0,
-        width: 1000
-    },
-    Text: {
-        fontSize: 25
-    },
-    TextRed: {
-        fontSize: 25,
-        color: 'red'
-    }
-};
-
-/***/ }),
+/* 185 */,
 /* 186 */,
-/* 187 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(26);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactDom = __webpack_require__(25);
-
-var _HtmlCode = __webpack_require__(182);
-
-var _HtmlCode2 = _interopRequireDefault(_HtmlCode);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /**
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Created by BaoJun on 2017/2/15.
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
-
-
-var width = 200;
-var movie = {};
-
-var MovieItemDiv = function (_React$Component) {
-    _inherits(MovieItemDiv, _React$Component);
-
-    function MovieItemDiv() {
-        _classCallCheck(this, MovieItemDiv);
-
-        return _possibleConstructorReturn(this, (MovieItemDiv.__proto__ || Object.getPrototypeOf(MovieItemDiv)).apply(this, arguments));
-    }
-
-    _createClass(MovieItemDiv, [{
-        key: 'render',
-        value: function render() {
-            var _this2 = this;
-
-            movie = this.props.movie;
-            return _react2.default.createElement(
-                'li',
-                { style: Styles.Item },
-                _react2.default.createElement(
-                    'a',
-                    { style: Styles.A, onClick: function onClick(e) {
-                            return _this2._detail(e);
-                        } },
-                    _react2.default.createElement('img', { src: movie.post, style: Styles.Image, alt: movie.name }),
-                    _react2.default.createElement(
-                        'text',
-                        { style: Styles.TextYear },
-                        movie.year
-                    ),
-                    _react2.default.createElement(
-                        'text',
-                        { style: Styles.TextDB },
-                        movie.db
-                    )
-                ),
-                _react2.default.createElement(
-                    'div',
-                    { style: Styles.NameDiv },
-                    _react2.default.createElement(
-                        'a',
-                        { style: Styles.TextName, onClick: function onClick(e) {
-                                return _this2._detail(e);
-                            } },
-                        movie.name
-                    )
-                )
-            );
-        }
-
-        //进入详情页
-
-    }, {
-        key: '_detail',
-        value: function _detail() {
-            var win = window.open(_HtmlCode2.default.Detail + '?address=' + this.props.movie.address + '&from=' + this.props.movie.from, '_blank');
-            win.focus();
-        }
-    }]);
-
-    return MovieItemDiv;
-}(_react2.default.Component);
-
-exports.default = MovieItemDiv;
-
-
-var Styles = {
-    Item: {
-        textAlign: 'center',
-        margin: 'auto',
-        float: 'left',
-        width: '25%'
-    },
-    A: {
-        width: width,
-        height: width * 180 / 130,
-        position: 'relative',
-        display: 'flex',
-        padding: 3,
-        border: 1,
-        borderColor: '#F2F2F2',
-        borderStyle: 'solid'
-    },
-
-    Image: {
-        width: width,
-        height: width * 180 / 130,
-        display: 'block',
-        overflow: 'hidden'
-    },
-    TextYear: {
-        height: 20,
-        width: 35,
-        position: 'absolute',
-        top: 4,
-        left: 4,
-        overflow: 'hidden',
-        color: '#fff',
-        fontSize: 12,
-        textAlign: 'center',
-        backgroundColor: '#d0d0d0'
-    }, TextDB: {
-        height: 20,
-        width: 45,
-        position: 'absolute',
-        bottom: 4,
-        right: 4,
-        overflow: 'hidden',
-        color: '#fff',
-        fontSize: 12,
-        textAlign: 'center',
-        backgroundColor: '#d0d0d0'
-    },
-    NameDiv: {
-        width: width,
-        height: 35,
-        align: 'center',
-        marginTop: 5
-    },
-    TextName: {
-        fontSize: 17,
-        color: '#05d',
-        textAlign: 'center'
-    }
-};
-
-/***/ }),
+/* 187 */,
 /* 188 */,
-/* 189 */,
-/* 190 */,
-/* 191 */
+/* 189 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32519,14 +32075,6 @@ var _TitleDiv = __webpack_require__(83);
 
 var _TitleDiv2 = _interopRequireDefault(_TitleDiv);
 
-var _SearchInputDiv = __webpack_require__(183);
-
-var _SearchInputDiv2 = _interopRequireDefault(_SearchInputDiv);
-
-var _MoviesListDiv = __webpack_require__(185);
-
-var _MoviesListDiv2 = _interopRequireDefault(_MoviesListDiv);
-
 var _ReqUrl = __webpack_require__(84);
 
 var _ReqUrl2 = _interopRequireDefault(_ReqUrl);
@@ -32542,28 +32090,31 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 */
 
 
-var input = void 0;
+var code = void 0,
+    from = void 0;
+var width = 200;
 
-var SearchResult = function (_React$Component) {
-    _inherits(SearchResult, _React$Component);
+var Detail = function (_React$Component) {
+    _inherits(Detail, _React$Component);
 
-    function SearchResult() {
-        _classCallCheck(this, SearchResult);
+    function Detail() {
+        _classCallCheck(this, Detail);
 
-        var _this = _possibleConstructorReturn(this, (SearchResult.__proto__ || Object.getPrototypeOf(SearchResult)).call(this));
+        var _this = _possibleConstructorReturn(this, (Detail.__proto__ || Object.getPrototypeOf(Detail)).call(this));
 
         _this.state = {
-            movies: ''
+            movie: ''
         };
         return _this;
     }
 
-    _createClass(SearchResult, [{
+    _createClass(Detail, [{
         key: 'componentDidMount',
         value: function componentDidMount() {
-            input = window.location.href.split('=')[1];
-            document.title = '双龙影视 ' + decodeURI(input);
-            this._getMovies();
+            from = window.location.href.split('=')[2];
+            code = window.location.href.split('=')[1].split('&')[0];
+            document.title = '双龙影视 ' + decodeURI(code);
+            this._showDetail();
         }
     }, {
         key: 'render',
@@ -32572,60 +32123,174 @@ var SearchResult = function (_React$Component) {
                 'div',
                 { style: Styles.Content },
                 _react2.default.createElement(_TitleDiv2.default, null),
-                _react2.default.createElement(_SearchInputDiv2.default, null),
                 _react2.default.createElement(
                     'div',
                     { style: { marginTop: 30 } },
-                    this._renderMovies()
+                    this._renderDetail()
                 )
             );
         }
 
-        //渲染电影列表
+        //获取详情数据
 
     }, {
-        key: '_renderMovies',
-        value: function _renderMovies() {
-            return _react2.default.createElement(_MoviesListDiv2.default, { movies: this.state.movies });
-        }
-
-        //获取电影列表
-
-    }, {
-        key: '_getMovies',
-        value: function _getMovies() {
+        key: '_showDetail',
+        value: function _showDetail() {
             var request = _jquery2.default.ajax({
-                url: _ReqUrl2.default.SearchAll + '?name=' + input,
+                url: _ReqUrl2.default.Detail + from + '?code=' + code,
                 method: "GET",
                 dataType: "json",
                 timeout: 10000,
                 async: false
             });
             request.done(function (msg) {
-                // console.log(JSON.parse(JSON.stringify(msg)).bttt.movies[0].name)
-                this.setState({ movies: JSON.parse(JSON.stringify(msg)) });
+                this.setState({ movie: msg });
             }.bind(this));
-
             request.fail(function (jqXHR, textStatus) {
                 console.error(textStatus);
-                var error = '{"dyjy":{"status":{"code":0}}}';
-                this.setState({ movies: error });
             }.bind(this));
+        }
+
+        //渲染详情页面
+
+    }, {
+        key: '_renderDetail',
+        value: function _renderDetail() {
+            if (this.state.movie != '') {
+                return _react2.default.createElement(
+                    'div',
+                    null,
+                    _react2.default.createElement(
+                        'div',
+                        { style: { display: 'flex', alignItems: 'center' } },
+                        _react2.default.createElement('img', { src: this.state.movie.post, style: Styles.PostImg }),
+                        _react2.default.createElement(
+                            'ul',
+                            { style: Styles.InfoUl },
+                            this._renderInfo()
+                        )
+                    ),
+                    _react2.default.createElement(
+                        'ul',
+                        { style: Styles.UrlsUl },
+                        this._renderUrls()
+                    )
+                );
+            } else {
+                return _react2.default.createElement('div', null);
+            }
+        }
+
+        //渲染电影信息
+
+    }, {
+        key: '_renderInfo',
+        value: function _renderInfo() {
+            var info = [];
+            for (var i = 0; i < this.state.movie.detail.length; i++) {
+                if (this.state.movie.detail[i] != '详情:') info.push(this._getInfo(this.state.movie.detail[i]));
+            }
+            return info;
+        }
+
+        //电影信息样式
+
+    }, {
+        key: '_getInfo',
+        value: function _getInfo(info) {
+            return _react2.default.createElement(
+                'li',
+                { style: Styles.InfoLi },
+                info
+            );
+        }
+
+        //渲染下载链接
+
+    }, {
+        key: '_renderUrls',
+        value: function _renderUrls() {
+            var urls = [];
+            for (var i = 0; i < this.state.movie.files.length; i++) {
+                urls.push(this._getUrl(this.state.movie.files[i]));
+            }
+            return urls;
+        }
+
+        //下载地址样式
+
+    }, {
+        key: '_getUrl',
+        value: function _getUrl(url) {
+            var name = '';
+            if (url.fileSize != '') {
+                name = '[' + url.fileSize + ']';
+            }
+            name = name + url.name;
+            return _react2.default.createElement(
+                'li',
+                { style: Styles.UrlLi },
+                _react2.default.createElement(
+                    'a',
+                    { href: url.download, style: { textDecoration: 'none' } },
+                    name
+                ),
+                _react2.default.createElement(
+                    'div',
+                    null,
+                    _react2.default.createElement('input', { style: Styles.UrlInput,
+                        value: url.download, onClick: function onClick(e) {
+                            return e.target.select();
+                        } })
+                )
+            );
         }
     }]);
 
-    return SearchResult;
+    return Detail;
 }(_react2.default.Component);
 
 var Styles = {
     Content: {
-        width: '50%',
+        width: 1000,
         marginLeft: 'auto',
         marginRight: 'auto'
+    },
+    PostImg: {
+        width: width,
+        height: width * 180 / 130
+    },
+    InfoUl: {
+        listStyleType: 'none',
+        padding: 0,
+        marginLeft: 40,
+        width: '50%'
+    },
+    InfoLi: {
+        fontSize: 17,
+        marginTop: 6
+    },
+    UrlsUl: {
+        listStyleType: 'none',
+        padding: 0,
+        marginTop: 30
+    },
+    UrlLi: {
+        fontSize: 20,
+        marginTop: 15
+    },
+    UrlInput: {
+        fontSize: 18,
+        width: '100%',
+        backgroundColor: '#f9f9f9',
+        border: 'solid',
+        borderColor: '#e4e4e4',
+        borderWidth: 1,
+        textOverflow: 'ellipsis'
     }
 };
 
-(0, _reactDom.render)(_react2.default.createElement(SearchResult, null), (0, _jquery2.default)('#searchResult_body')[0]);
+(0, _reactDom.render)(_react2.default.createElement(Detail, null), (0, _jquery2.default)('#detail_body')[0]);
 
 /***/ })
 /******/ ]);

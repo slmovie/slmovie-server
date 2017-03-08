@@ -30,7 +30,7 @@ class SearchResult extends React.Component {
             <div style={Styles.Content}>
                 <Title/>
                 <SearchInput/>
-                <div style={{marginTop: 30}}>
+                <div style={{marginTop: 30, overflow: 'hidden'}}>
                     {this._renderMovies()}
                 </div>
             </div>
@@ -69,7 +69,7 @@ class SearchResult extends React.Component {
 
 const Styles = {
     Content: {
-        width: '50%',
+        width: 1000,
         marginLeft: 'auto',
         marginRight: 'auto',
     }

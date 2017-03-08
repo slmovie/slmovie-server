@@ -14,7 +14,11 @@ app.all('*', function (req, res, next) {
     next();
 });
 
-app.use(express.static('web/app'));
+app.use(express.static('web/public'));
+
+// app.use('/', function (req, res) {
+//     res.redirect('/html/index.html')
+// })
 
 app.use('/search', search)
 

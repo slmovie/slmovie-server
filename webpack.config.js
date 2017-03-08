@@ -8,7 +8,7 @@ module.exports = {
         declare: path.resolve(__dirname, 'web/app/reactjs/commonjs/declarediv.js'),
     },
     output: {
-        path: path.resolve(__dirname, "web/app/build"),
+        path: path.resolve(__dirname, "web/public/build"),
         filename: "[name].bundle.js"
     },
 

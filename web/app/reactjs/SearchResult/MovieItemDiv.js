@@ -91,7 +91,7 @@ const Styles = {
         marginTop: 5,
     },
     TextName: {
-        fontSize: 17,
+        fontSize: 16,
         color: '#05d',
         textAlign: 'center',
     }

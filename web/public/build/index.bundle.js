@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 189);
+/******/ 	return __webpack_require__(__webpack_require__.s = 190);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -32041,19 +32041,460 @@ module.exports = traverseAllChildren;
  * Created by BaoJun on 2017/2/23.
  */
 //测试地址T，生产地址P
-exports.service = 'P';
+exports.service = 'T';
 exports.log = true;
 exports.error = true;
 
 /***/ }),
-/* 182 */,
-/* 183 */,
-/* 184 */,
+/* 182 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _Config = __webpack_require__(82);
+
+var _Config2 = _interopRequireDefault(_Config);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.Index = _Config2.default.WebRoot() + '/index.html'; /**
+                                                             * Created by BaoJun on 2017/2/23.
+                                                             */
+
+exports.SearchResult = _Config2.default.WebRoot() + '/searchresult.html';
+exports.Detail = _Config2.default.WebRoot() + '/detail.html';
+
+/***/ }),
+/* 183 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(26);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactDom = __webpack_require__(25);
+
+var _HtmlCode = __webpack_require__(182);
+
+var _HtmlCode2 = _interopRequireDefault(_HtmlCode);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /**
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Created by BaoJun on 2017/2/14.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
+
+
+var hint = '影片名/ 明星/ 导演/ imdb';
+
+var SearchInput = function (_React$Component) {
+    _inherits(SearchInput, _React$Component);
+
+    function SearchInput() {
+        _classCallCheck(this, SearchInput);
+
+        var _this = _possibleConstructorReturn(this, (SearchInput.__proto__ || Object.getPrototypeOf(SearchInput)).call(this));
+
+        _this.state = {
+            input: '影片名/ 明星/ 导演/ imdb'
+        };
+        return _this;
+    }
+
+    _createClass(SearchInput, [{
+        key: 'render',
+        value: function render() {
+            var _this2 = this;
+
+            return _react2.default.createElement(
+                'div',
+                null,
+                _react2.default.createElement(
+                    'text',
+                    { style: Styles.Text },
+                    '\u5F71\u89C6\u641C\u7D22'
+                ),
+                _react2.default.createElement('input', { style: Styles.Input, onChange: function onChange(e) {
+                        return _this2._inputChanged(e);
+                    }, value: this.state.input,
+                    onFocus: function onFocus(e) {
+                        return _this2._inputValue(e);
+                    } }),
+                _react2.default.createElement(
+                    'button',
+                    { style: Styles.Search, onClick: function onClick() {
+                            return _this2._openSearchResult();
+                        } },
+                    '\u641C\u7D22'
+                )
+            );
+        }
+
+        //打开搜索结果界面
+
+    }, {
+        key: '_openSearchResult',
+        value: function _openSearchResult() {
+            var win = window.open(_HtmlCode2.default.SearchResult + '?name=' + this.state.input, '_blank');
+            win.focus();
+        }
+
+        //获取输入结果
+
+    }, {
+        key: '_inputChanged',
+        value: function _inputChanged(e) {
+            this.setState({ input: e.target.value });
+        }
+
+        //去除hint
+
+    }, {
+        key: '_inputValue',
+        value: function _inputValue(e) {
+            if (e.target.value == hint) {
+                e.target.style.color = '#000000';
+                this.setState({ input: '' });
+            }
+        }
+    }]);
+
+    return SearchInput;
+}(_react2.default.Component);
+
+exports.default = SearchInput;
+
+
+var Styles = {
+    Text: {
+        fontSize: 20,
+        width: '25%'
+    },
+    Input: {
+        fontSize: 20,
+        marginLeft: 50,
+        width: '50%',
+        color: '#d0d0d0'
+    },
+    Search: {
+        fontSize: 20,
+        backgroundColor: '#FF0000',
+        border: 'null',
+        color: '#ffffff',
+        marginLeft: 50
+    }
+};
+
+/***/ }),
+/* 184 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(26);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactDom = __webpack_require__(25);
+
+var _Config = __webpack_require__(82);
+
+var _Config2 = _interopRequireDefault(_Config);
+
+var _IndexListItemDiv = __webpack_require__(186);
+
+var _IndexListItemDiv2 = _interopRequireDefault(_IndexListItemDiv);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /**
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Created by BaoJun on 2017/3/7.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
+
+
+var IndexListDiv = function (_React$Component) {
+    _inherits(IndexListDiv, _React$Component);
+
+    function IndexListDiv() {
+        _classCallCheck(this, IndexListDiv);
+
+        return _possibleConstructorReturn(this, (IndexListDiv.__proto__ || Object.getPrototypeOf(IndexListDiv)).apply(this, arguments));
+    }
+
+    _createClass(IndexListDiv, [{
+        key: 'render',
+        value: function render() {
+            // Config.Log('IndexListDiv', this.props.movies)
+            var data = this.props.movies;
+            if (data.status.code == 101) {
+                return '';
+            } else if (data.status.code == 1) {
+                var movies = {};
+                //重组数据
+                if (data.status.code == 1) {
+                    movies = data.movies;
+                }
+                _Config2.default.Log('movies', movies);
+
+                return _react2.default.createElement(
+                    'div',
+                    { style: Styles.BorderDiv },
+                    _react2.default.createElement(
+                        'text',
+                        { style: Styles.TitleText },
+                        this.props.title
+                    ),
+                    _react2.default.createElement(
+                        'ul',
+                        { style: Styles.MoviesList },
+                        this._renderList(movies)
+                    )
+                );
+            } else {
+                return '';
+            }
+        }
+
+        //渲染列表
+
+    }, {
+        key: '_renderList',
+        value: function _renderList(movies) {
+            var lists = [];
+            for (var i = 0, len = movies.length; i < len; i++) {
+                lists.push(this._renderItem(movies[i]));
+            }
+            return lists;
+        }
+
+        //渲染Item
+
+    }, {
+        key: '_renderItem',
+        value: function _renderItem(movie) {
+            return _react2.default.createElement(_IndexListItemDiv2.default, { movie: movie });
+        }
+    }]);
+
+    return IndexListDiv;
+}(_react2.default.Component);
+
+exports.default = IndexListDiv;
+
+
+var Styles = {
+    BorderDiv: {
+        border: 'solid',
+        borderWidth: 0.5,
+        borderColor: '#d0d0d0',
+        paddingLeft: 5,
+        paddingTop: 10,
+        marginTop: 20
+    },
+    TitleText: {
+        fontSize: 25,
+        color: '#00B3FF'
+    },
+    MoviesList: {
+        listStyleType: 'none',
+        padding: 0,
+        display: 'inline-block'
+    },
+    Text: {
+        fontSize: 25
+    },
+    TextRed: {
+        fontSize: 25,
+        color: 'red'
+    }
+};
+
+/***/ }),
 /* 185 */,
-/* 186 */,
+/* 186 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(26);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactDom = __webpack_require__(25);
+
+var _HtmlCode = __webpack_require__(182);
+
+var _HtmlCode2 = _interopRequireDefault(_HtmlCode);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /**
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Created by BaoJun on 2017/3/7.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
+
+
+var width = 120;
+var movie = {};
+
+var IndexListItemDiv = function (_React$Component) {
+    _inherits(IndexListItemDiv, _React$Component);
+
+    function IndexListItemDiv() {
+        _classCallCheck(this, IndexListItemDiv);
+
+        return _possibleConstructorReturn(this, (IndexListItemDiv.__proto__ || Object.getPrototypeOf(IndexListItemDiv)).apply(this, arguments));
+    }
+
+    _createClass(IndexListItemDiv, [{
+        key: 'render',
+        value: function render() {
+            var _this2 = this;
+
+            movie = this.props.movie;
+            return _react2.default.createElement(
+                'li',
+                { style: Styles.Item },
+                _react2.default.createElement(
+                    'a',
+                    { style: Styles.A, onClick: function onClick(e) {
+                            return _this2._detail(e);
+                        } },
+                    _react2.default.createElement('img', { src: movie.post, style: Styles.Image, alt: movie.name }),
+                    _react2.default.createElement(
+                        'text',
+                        { style: Styles.TextYear },
+                        movie.year
+                    ),
+                    _react2.default.createElement(
+                        'text',
+                        { style: Styles.TextDB },
+                        movie.db
+                    )
+                ),
+                _react2.default.createElement(
+                    'div',
+                    { style: Styles.NameDiv },
+                    _react2.default.createElement(
+                        'a',
+                        { style: Styles.TextName, onClick: function onClick(e) {
+                                return _this2._detail(e);
+                            } },
+                        movie.name
+                    )
+                )
+            );
+        }
+
+        //进入详情页
+
+    }, {
+        key: '_detail',
+        value: function _detail() {
+            var win = window.open(_HtmlCode2.default.Detail + '?address=' + this.props.movie.address + '&from=' + this.props.movie.from, '_blank');
+            win.focus();
+        }
+    }]);
+
+    return IndexListItemDiv;
+}(_react2.default.Component);
+
+exports.default = IndexListItemDiv;
+
+
+var Styles = {
+    Item: {
+        textAlign: 'center',
+        float: 'left',
+        width: width,
+        height: width * 5 / 3,
+        paddingRight: 17
+    },
+    A: {
+        width: width,
+        height: width * 180 / 130,
+        position: 'relative',
+        display: 'flex'
+    },
+
+    Image: {
+        width: width,
+        height: width * 180 / 130,
+        display: 'block',
+        overflow: 'hidden'
+    },
+    TextYear: {
+        position: 'absolute',
+        overflow: 'hidden',
+        color: '#ffffff',
+        fontSize: 10,
+        textAlign: 'center',
+        backgroundColor: '#000000',
+        paddingLeft: 5,
+        paddingRight: 5
+    }, TextDB: {
+        position: 'absolute',
+        bottom: 0,
+        right: 0,
+        overflow: 'hidden',
+        color: '#ffffff',
+        fontSize: 10,
+        textAlign: 'center',
+        backgroundColor: '#000000',
+        paddingLeft: 5,
+        paddingRight: 5
+    },
+    NameDiv: {
+        width: width,
+        align: 'center'
+    },
+    TextName: {
+        fontSize: 14,
+        color: '#05d',
+        textAlign: 'center'
+    }
+};
+
+/***/ }),
 /* 187 */,
 /* 188 */,
-/* 189 */
+/* 189 */,
+/* 190 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32075,9 +32516,21 @@ var _TitleDiv = __webpack_require__(83);
 
 var _TitleDiv2 = _interopRequireDefault(_TitleDiv);
 
+var _SearchInputDiv = __webpack_require__(183);
+
+var _SearchInputDiv2 = _interopRequireDefault(_SearchInputDiv);
+
 var _ReqUrl = __webpack_require__(84);
 
 var _ReqUrl2 = _interopRequireDefault(_ReqUrl);
+
+var _Config = __webpack_require__(82);
+
+var _Config2 = _interopRequireDefault(_Config);
+
+var _IndexListDiv = __webpack_require__(184);
+
+var _IndexListDiv2 = _interopRequireDefault(_IndexListDiv);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -32090,31 +32543,24 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 */
 
 
-var code = void 0,
-    from = void 0;
-var width = 200;
+var Index = function (_React$Component) {
+    _inherits(Index, _React$Component);
 
-var Detail = function (_React$Component) {
-    _inherits(Detail, _React$Component);
+    function Index() {
+        _classCallCheck(this, Index);
 
-    function Detail() {
-        _classCallCheck(this, Detail);
-
-        var _this = _possibleConstructorReturn(this, (Detail.__proto__ || Object.getPrototypeOf(Detail)).call(this));
+        var _this = _possibleConstructorReturn(this, (Index.__proto__ || Object.getPrototypeOf(Index)).call(this));
 
         _this.state = {
-            movie: ''
+            movies: ''
         };
         return _this;
     }
 
-    _createClass(Detail, [{
+    _createClass(Index, [{
         key: 'componentDidMount',
         value: function componentDidMount() {
-            from = window.location.href.split('=')[2];
-            code = window.location.href.split('=')[1].split('&')[0];
-            document.title = '双龙影视 ' + decodeURI(code);
-            this._showDetail();
+            this._getMovies();
         }
     }, {
         key: 'render',
@@ -32123,131 +32569,74 @@ var Detail = function (_React$Component) {
                 'div',
                 { style: Styles.Content },
                 _react2.default.createElement(_TitleDiv2.default, null),
-                _react2.default.createElement(
-                    'div',
-                    { style: { marginTop: 30 } },
-                    this._renderDetail()
-                )
+                _react2.default.createElement(_SearchInputDiv2.default, null),
+                this._renderHotMovies(),
+                this._renderNewMovies(),
+                this._renderNewTvs()
             );
         }
 
-        //获取详情数据
+        //获取电影列表
 
     }, {
-        key: '_showDetail',
-        value: function _showDetail() {
+        key: '_getMovies',
+        value: function _getMovies() {
             var request = _jquery2.default.ajax({
-                url: _ReqUrl2.default.Detail + from + '?code=' + code,
+                url: _ReqUrl2.default.IndexRecommend,
                 method: "GET",
                 dataType: "json",
                 timeout: 10000,
                 async: false
             });
             request.done(function (msg) {
-                this.setState({ movie: msg });
+                _Config2.default.Log('IndexReq', JSON.parse(JSON.stringify(msg)));
+                this.setState({ movies: JSON.parse(JSON.stringify(msg)) });
             }.bind(this));
+
             request.fail(function (jqXHR, textStatus) {
-                console.error(textStatus);
+                _Config2.default.error(textStatus);
             }.bind(this));
         }
 
-        //渲染详情页面
+        //渲染热门影片
 
     }, {
-        key: '_renderDetail',
-        value: function _renderDetail() {
-            if (this.state.movie != '') {
-                return _react2.default.createElement(
-                    'div',
-                    null,
-                    _react2.default.createElement(
-                        'div',
-                        { style: { display: 'flex', alignItems: 'center' } },
-                        _react2.default.createElement('img', { src: this.state.movie.post, style: Styles.PostImg }),
-                        _react2.default.createElement(
-                            'ul',
-                            { style: Styles.InfoUl },
-                            this._renderInfo()
-                        )
-                    ),
-                    _react2.default.createElement(
-                        'ul',
-                        { style: Styles.UrlsUl },
-                        this._renderUrls()
-                    )
-                );
+        key: '_renderHotMovies',
+        value: function _renderHotMovies() {
+            _Config2.default.Log('_renderHotMovies', this.state.movies.hotMovies);
+            if (this.state.movies != '' && this.state.movies.hotMovies != '') {
+                return _react2.default.createElement(_IndexListDiv2.default, { movies: this.state.movies.hotMovies, title: '\u70ED\u95E8\u7535\u5F71' });
             } else {
-                return _react2.default.createElement('div', null);
+                return '';
             }
         }
 
-        //渲染电影信息
+        //渲染最新影片
 
     }, {
-        key: '_renderInfo',
-        value: function _renderInfo() {
-            var info = [];
-            for (var i = 0; i < this.state.movie.detail.length; i++) {
-                if (this.state.movie.detail[i] != '详情:') info.push(this._getInfo(this.state.movie.detail[i]));
+        key: '_renderNewMovies',
+        value: function _renderNewMovies() {
+            if (this.state.movies != '' && this.state.movies.newMovies != '') {
+                return _react2.default.createElement(_IndexListDiv2.default, { movies: this.state.movies.newMovies, title: '\u6700\u65B0\u7535\u5F71' });
+            } else {
+                return '';
             }
-            return info;
         }
 
-        //电影信息样式
+        //渲染最新电视剧
 
     }, {
-        key: '_getInfo',
-        value: function _getInfo(info) {
-            return _react2.default.createElement(
-                'li',
-                { style: Styles.InfoLi },
-                info
-            );
-        }
-
-        //渲染下载链接
-
-    }, {
-        key: '_renderUrls',
-        value: function _renderUrls() {
-            var urls = [];
-            for (var i = 0; i < this.state.movie.files.length; i++) {
-                urls.push(this._getUrl(this.state.movie.files[i]));
+        key: '_renderNewTvs',
+        value: function _renderNewTvs() {
+            if (this.state.movies != '' && this.state.movies.newTVs != '') {
+                return _react2.default.createElement(_IndexListDiv2.default, { movies: this.state.movies.newTVs, title: '\u6700\u65B0\u7535\u89C6\u5267' });
+            } else {
+                return '';
             }
-            return urls;
-        }
-
-        //下载地址样式
-
-    }, {
-        key: '_getUrl',
-        value: function _getUrl(url) {
-            var name = '';
-            if (url.fileSize != '') {
-                name = '[' + url.fileSize + ']';
-            }
-            name = name + url.name;
-            return _react2.default.createElement(
-                'li',
-                { style: Styles.UrlLi },
-                _react2.default.createElement(
-                    'a',
-                    { href: url.download, style: { textDecoration: 'none' } },
-                    name
-                ),
-                _react2.default.createElement(
-                    'div',
-                    null,
-                    _react2.default.createElement('input', { style: Styles.UrlInput,
-                        value: url.download, onClick: function onClick(e) {
-                            return e.target.select();
-                        } })
-                )
-            );
         }
     }]);
 
-    return Detail;
+    return Index;
 }(_react2.default.Component);
 
 var Styles = {
@@ -32255,42 +32644,10 @@ var Styles = {
         width: 1000,
         marginLeft: 'auto',
         marginRight: 'auto'
-    },
-    PostImg: {
-        width: width,
-        height: width * 180 / 130
-    },
-    InfoUl: {
-        listStyleType: 'none',
-        padding: 0,
-        marginLeft: 40,
-        width: '50%'
-    },
-    InfoLi: {
-        fontSize: 17,
-        marginTop: 6
-    },
-    UrlsUl: {
-        listStyleType: 'none',
-        padding: 0,
-        marginTop: 30
-    },
-    UrlLi: {
-        fontSize: 20,
-        marginTop: 15
-    },
-    UrlInput: {
-        fontSize: 18,
-        width: '100%',
-        backgroundColor: '#f9f9f9',
-        border: 'solid',
-        borderColor: '#e4e4e4',
-        borderWidth: 1,
-        textOverflow: 'ellipsis'
     }
 };
 
-(0, _reactDom.render)(_react2.default.createElement(Detail, null), (0, _jquery2.default)('#detail_body')[0]);
+(0, _reactDom.render)(_react2.default.createElement(Index, null), (0, _jquery2.default)('#content')[0]);
 
 /***/ })
 /******/ ]);
