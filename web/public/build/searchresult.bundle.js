@@ -32133,6 +32133,9 @@ var SearchInput = function (_React$Component) {
                     }, value: this.state.input,
                     onFocus: function onFocus(e) {
                         return _this2._inputValue(e);
+                    },
+                    onKeyDown: function onKeyDown(e) {
+                        return _this2._enterPress(e);
                     } }),
                 _react2.default.createElement(
                     'button',
@@ -32142,6 +32145,19 @@ var SearchInput = function (_React$Component) {
                     '\u641C\u7D22'
                 )
             );
+        }
+
+        //回车
+
+    }, {
+        key: '_enterPress',
+        value: function _enterPress(e) {
+            if (e.charCode == 13) {
+                this._openSearchResult();
+            }
+            if (e.keyCode == 13) {
+                this._openSearchResult();
+            }
         }
 
         //打开搜索结果界面

@@ -21,10 +21,21 @@ export default class SearchInput extends React.Component {
             <div>
                 <text style={Styles.Text}>影视搜索</text>
                 <input style={Styles.Input} onChange={(e) => this._inputChanged(e)} value={this.state.input}
-                       onFocus={(e) => this._inputValue(e)}/>
+                       onFocus={(e) => this._inputValue(e)}
+                       onKeyDown={(e) => this._enterPress(e)}/>
                 <button style={Styles.Search} onClick={() => this._openSearchResult()}>搜索</button>
             </div>
         )
+    }
+
+    //回车
+    _enterPress(e) {
+        if (e.charCode == 13) {
+            this._openSearchResult()
+        }
+        if (e.keyCode == 13) {
+            this._openSearchResult()
+        }
     }
 
     //打开搜索结果界面
