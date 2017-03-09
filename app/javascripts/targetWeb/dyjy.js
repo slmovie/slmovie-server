@@ -98,6 +98,8 @@ exports.detail = function (req, res) {
                 })
                 jsonRes['photos'] = photos
                 jsonRes['post'] = $('img', '.pic').attr('src')
+                console.log('dyjy detail code=' + req.query.code)
+                console.log(jsonRes)
                 res.json(jsonRes)
             }
         })

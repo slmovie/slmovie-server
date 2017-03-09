@@ -1,5 +1,6 @@
 let express = require('express');
 let app = express();
+let morgan = require('morgan');
 
 let search = require('../routes/search.js')
 let detail = require('../routes/detail.js')
@@ -14,11 +15,8 @@ app.all('*', function (req, res, next) {
     next();
 });
 
+app.use(morgan('short'));
 app.use(express.static('web/public'));
-
-// app.use('/', function (req, res) {
-//     res.redirect('/html/index.html')
-// })
 
 app.use('/search', search)
 

@@ -6,6 +6,7 @@ import React from 'react';
 import {render} from 'react-dom';
 import Title from '../CommonJS/TitleDiv.js'
 import ReqUrl from '../Service/ReqUrl.js'
+import Config from '../Service/Config.js'
 
 let code, from
 const width = 200
@@ -48,9 +49,10 @@ class Detail extends React.Component {
         })
         request.done(function (msg) {
             this.setState({movie: msg})
+            Config.log('_showDetail', msg);
         }.bind(this));
         request.fail(function (jqXHR, textStatus) {
-            console.error(textStatus);
+            Config.error('_showDetail', textStatus);
         }.bind(this));
     }
 

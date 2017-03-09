@@ -11,7 +11,7 @@ export default class IndexListDiv extends React.Component {
         // Config.Log('IndexListDiv', this.props.movies)
         let data = this.props.movies
         if (data.status.code == 101) {
-            return ('')
+            return (<div></div>)
         } else if (data.status.code == 1) {
             let movies = {}
             //重组数据
@@ -30,7 +30,7 @@ export default class IndexListDiv extends React.Component {
                 </div>
             )
         } else {
-            return ('')
+            return (<div></div>)
         }
     }
 

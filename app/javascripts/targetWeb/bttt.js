@@ -16,52 +16,56 @@ exports.queryTitle = function (query, next) {
     }
     let callBack = {}
     let status = {}
-    getSuperagent().post('http://www.bttt99.com/e/search/')
-        .timeout(5000)
-        .type('form')
-        .send(form)
-        .end(function (error, response) {
-            if (error || response.statusCode == 'undefined') {
-                status['code'] = 0
-                status['error'] = error
-                callBack['status'] = status
-                next(callBack)
-                return
-            }
-            if (response.statusCode == 200) {
-                let $ = cheerio.load(response.text)
-                let jsonRes = {}
-                //基本信息
-                let movies = []
-                $('.title').each(function (i, elem) {
-                    let address = $('a', elem).attr('href')
-                    if (address.indexOf('bttt99') < 0)
-                        address = 'http://www.bttt99.com' + address
-                    movies.push({
-                        //电影名称
-                        'name': $('b', elem).text(),
-                        //网页地址
-                        'address': address.split('/')[4],
-                        //海报图片
-                        'post': $('img', $(elem).next()).attr('src'),
-                        //豆瓣评分
-                        'db': $('strong', elem).text(),
-                        //上映日期
-                        'year': $('font', 'b', elem).text(),
-                        'from': 'bttt',
-                    })
-                })
-                if (movies.length == 0) {
-                    status = DealError.SEARCHNONERES
-                    callBack['status'] = status
-                } else {
-                    status['code'] = 1
-                    callBack['status'] = status
-                    callBack['movies'] = movies
-                }
-                next(callBack)
-            }
-        })
+    status['code'] = 101
+    callBack['status'] = status
+    next(callBack)
+    return
+    // getSuperagent().post('http://www.bttt99.com/e/search/')
+    //     .timeout(5000)
+    //     .type('form')
+    //     .send(form)
+    //     .end(function (error, response) {
+    //         if (error || response.statusCode == 'undefined') {
+    //             status['code'] = 0
+    //             status['error'] = error
+    //             callBack['status'] = status
+    //             next(callBack)
+    //             return
+    //         }
+    //         if (response.statusCode == 200) {
+    //             let $ = cheerio.load(response.text)
+    //             let jsonRes = {}
+    //             //基本信息
+    //             let movies = []
+    //             $('.title').each(function (i, elem) {
+    //                 let address = $('a', elem).attr('href')
+    //                 if (address.indexOf('bttt99') < 0)
+    //                     address = 'http://www.bttt99.com' + address
+    //                 movies.push({
+    //                     //电影名称
+    //                     'name': $('b', elem).text(),
+    //                     //网页地址
+    //                     'address': address.split('/')[4],
+    //                     //海报图片
+    //                     'post': $('img', $(elem).next()).attr('src'),
+    //                     //豆瓣评分
+    //                     'db': $('strong', elem).text(),
+    //                     //上映日期
+    //                     'year': $('font', 'b', elem).text(),
+    //                     'from': 'bttt',
+    //                 })
+    //             })
+    //             if (movies.length == 0) {
+    //                 status = DealError.SEARCHNONERES
+    //                 callBack['status'] = status
+    //             } else {
+    //                 status['code'] = 1
+    //                 callBack['status'] = status
+    //                 callBack['movies'] = movies
+    //             }
+    //             next(callBack)
+    //         }
+    //     })
 }
 
 //爬取细节及下载地址
