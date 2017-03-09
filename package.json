@@ -5,7 +5,8 @@
   "main": "webpack.config.js",
   "scripts": {
     "start": "node ./bin/app.js",
-    "build": "webpack"
+    "build": "webpack",
+    "forever": "forever bin/app.js"
   },
   "keywords": [],
   "author": "",
