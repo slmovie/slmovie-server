@@ -62,11 +62,12 @@ const Styles = {
         position: 'absolute',
         overflow: 'hidden',
         color: '#ffffff',
-        fontSize: 10,
+        fontSize: 13,
         textAlign: 'center',
         backgroundColor: '#000000',
         paddingLeft: 5,
         paddingRight: 5,
+        left: 0,
     }, TextDB: {
         position: 'absolute',
         bottom: 0,

@@ -32466,7 +32466,6 @@ var Styles = {
         borderColor: '#F2F2F2',
         borderStyle: 'solid'
     },
-
     Image: {
         width: width,
         height: width * 180 / 130,
@@ -32474,27 +32473,27 @@ var Styles = {
         overflow: 'hidden'
     },
     TextYear: {
-        height: 20,
-        width: 35,
         position: 'absolute',
-        top: 4,
-        left: 4,
         overflow: 'hidden',
-        color: '#fff',
-        fontSize: 12,
+        color: '#ffffff',
+        fontSize: 13,
         textAlign: 'center',
-        backgroundColor: '#d0d0d0'
+        backgroundColor: '#000000',
+        paddingLeft: 5,
+        paddingRight: 5,
+        left: 4,
+        top: 4
     }, TextDB: {
-        height: 20,
-        width: 45,
         position: 'absolute',
         bottom: 4,
         right: 4,
         overflow: 'hidden',
-        color: '#fff',
-        fontSize: 12,
+        color: '#ffffff',
+        fontSize: 10,
         textAlign: 'center',
-        backgroundColor: '#d0d0d0'
+        backgroundColor: '#000000',
+        paddingLeft: 5,
+        paddingRight: 5
     },
     NameDiv: {
         width: width,
