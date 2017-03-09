@@ -41,7 +41,7 @@ class Index extends React.Component {
             method: "GET",
             dataType: "json",
             timeout: 10000,
-            async: false,
+            async: true,
         })
         request.done(function (msg) {
             Config.Log('IndexReq', JSON.parse(JSON.stringify(msg)))
@@ -61,7 +61,7 @@ class Index extends React.Component {
                 <IndexListDiv movies={this.state.movies.hotMovies} title='热门电影'/>
             )
         } else {
-            return ''
+            return (<text style={{fontSize: 25, color: 'red'}}>加载中</text>)
         }
     }
 

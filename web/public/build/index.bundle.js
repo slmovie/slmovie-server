@@ -19690,7 +19690,7 @@ exports.WebRoot = function () {
     if (_Constans2.default.service == 'T') {
         return 'http://localhost:3000';
     } else if (_Constans2.default.service == 'P') {
-        return 'http://45.32.41.169:3000';
+        return 'http://www.slys.cf';
     }
 }; /**
     * Created by BaoJun on 2017/2/23.
@@ -32041,7 +32041,7 @@ module.exports = traverseAllChildren;
  * Created by BaoJun on 2017/2/23.
  */
 //测试地址T，生产地址P
-exports.service = 'P';
+exports.service = 'T';
 exports.log = true;
 exports.error = true;
 
@@ -32602,7 +32602,7 @@ var Index = function (_React$Component) {
                 method: "GET",
                 dataType: "json",
                 timeout: 10000,
-                async: false
+                async: true
             });
             request.done(function (msg) {
                 _Config2.default.Log('IndexReq', JSON.parse(JSON.stringify(msg)));
@@ -32623,7 +32623,11 @@ var Index = function (_React$Component) {
             if (this.state.movies != '' && this.state.movies.hotMovies != '') {
                 return _react2.default.createElement(_IndexListDiv2.default, { movies: this.state.movies.hotMovies, title: '\u70ED\u95E8\u7535\u5F71' });
             } else {
-                return '';
+                return _react2.default.createElement(
+                    'text',
+                    { style: { fontSize: 25, color: 'red' } },
+                    '\u52A0\u8F7D\u4E2D'
+                );
             }
         }
 

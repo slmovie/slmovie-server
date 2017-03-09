@@ -19690,7 +19690,7 @@ exports.WebRoot = function () {
     if (_Constans2.default.service == 'T') {
         return 'http://localhost:3000';
     } else if (_Constans2.default.service == 'P') {
-        return 'http://45.32.41.169:3000';
+        return 'http://www.slys.cf';
     }
 }; /**
     * Created by BaoJun on 2017/2/23.
@@ -32041,7 +32041,7 @@ module.exports = traverseAllChildren;
  * Created by BaoJun on 2017/2/23.
  */
 //测试地址T，生产地址P
-exports.service = 'P';
+exports.service = 'T';
 exports.log = true;
 exports.error = true;
 
