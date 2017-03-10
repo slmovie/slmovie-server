@@ -4,7 +4,7 @@
 import Constans from './Constans.js';
 
 exports.WebRoot = function () {
-    if (Constans.service == 'T') {
+    if (Constans.service == 'P') {
         return 'http://localhost:3000'
     } else if (Constans.service == 'P') {
         return 'http://www.slys.cf'

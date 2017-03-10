@@ -6750,7 +6750,7 @@ var _Constans2 = _interopRequireDefault(_Constans);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.WebRoot = function () {
-    if (_Constans2.default.service == 'T') {
+    if (_Constans2.default.service == 'P') {
         return 'http://localhost:3000';
     } else if (_Constans2.default.service == 'P') {
         return 'http://www.slys.cf';
