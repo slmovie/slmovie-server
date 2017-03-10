@@ -32042,8 +32042,8 @@ module.exports = traverseAllChildren;
  */
 //测试地址T，生产地址P
 exports.service = 'P';
-exports.log = true;
-exports.error = true;
+exports.log = false;
+exports.error = false;
 
 /***/ }),
 /* 182 */
