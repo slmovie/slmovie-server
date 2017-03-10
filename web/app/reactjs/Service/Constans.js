@@ -3,5 +3,5 @@
  */
 //测试地址T，生产地址P
 exports.service = 'P'
-exports.log = true
+exports.log = false
 exports.error = false
