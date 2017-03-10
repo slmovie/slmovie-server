@@ -3,6 +3,6 @@
  */
 import Config from './Config.js'
 
-exports.SearchAll = Config.WebRoot() + '/search/all'
-exports.Detail = Config.WebRoot() + '/detail/'
-exports.IndexRecommend = Config.WebRoot() + '/index/recommend'
+exports.SearchAll = '/search/all'
+exports.Detail = '/detail/'
+exports.IndexRecommend = '/index/recommend'

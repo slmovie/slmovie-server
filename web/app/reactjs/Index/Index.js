@@ -40,11 +40,11 @@ class Index extends React.Component {
             url: ReqUrl.IndexRecommend,
             method: "GET",
             dataType: "json",
-            timeout: 10000,
+            // timeout: 10000,
             async: true,
         })
         request.done(function (msg) {
-            Config.Log('IndexReq', JSON.parse(JSON.stringify(msg)))
+            Config.log('IndexReq', JSON.parse(JSON.stringify(msg)))
             this.setState({movies: JSON.parse(JSON.stringify(msg))})
         }.bind(this));
 
@@ -55,7 +55,7 @@ class Index extends React.Component {
 
     //渲染热门影片
     _renderHotMovies() {
-        Config.Log('_renderHotMovies', this.state.movies.hotMovies)
+        Config.log('_renderHotMovies', this.state.movies.hotMovies)
         if (this.state.movies != '' && this.state.movies.hotMovies != '') {
             return (
                 <IndexListDiv movies={this.state.movies.hotMovies} title='热门电影'/>

@@ -4,10 +4,10 @@
 let express = require('express');
 let router = express.Router();
 
-const dyjy = require('../app/javascripts/targetWeb/dyjy.js')
-const bttt = require('../app/javascripts/targetWeb/bttt.js')
-const btttla = require('../app/javascripts/targetWeb/btttla.js')
-const timeText = require('../app/javascripts/utils/timeTest.js')
+const dyjy = require('../javascripts/targetWeb/dyjy.js')
+const bttt = require('../javascripts/targetWeb/bttt.js')
+const btttla = require('../javascripts/targetWeb/btttla.js')
+const timeText = require('../javascripts/utils/timeTest.js')
 
 router.get('/all', function (req, res, next) {
     timeText.start()

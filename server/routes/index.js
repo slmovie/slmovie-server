@@ -4,7 +4,7 @@
 var express = require('express');
 var router = express.Router();
 
-const dyjy = require('../app/javascripts/targetWeb/dyjy.js')
+const dyjy = require('../javascripts/targetWeb/dyjy.js')
 
 router.get('/recommend', function (req, res, next) {
     res.movies = {}

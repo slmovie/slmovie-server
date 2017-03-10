@@ -18,7 +18,7 @@ export default class IndexListDiv extends React.Component {
             if (data.status.code == 1) {
                 movies = data.movies
             }
-            Config.Log('movies', movies)
+            Config.log('movies', movies)
 
 
             return (

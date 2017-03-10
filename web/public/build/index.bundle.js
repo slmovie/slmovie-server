@@ -6750,7 +6750,7 @@ var _Constans2 = _interopRequireDefault(_Constans);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.WebRoot = function () {
-    if (_Constans2.default.service == 'P') {
+    if (_Constans2.default.service == 'T') {
         return 'http://localhost:3000';
     } else if (_Constans2.default.service == 'P') {
         return 'http://www.slys.cf';
@@ -6760,7 +6760,7 @@ exports.WebRoot = function () {
     */
 
 
-exports.Log = function (name, str) {
+exports.log = function (name, str) {
     if (_Constans2.default.log) {
         console.log(name + '>>>>>>' + str);
     }
@@ -19793,12 +19793,12 @@ var _Config2 = _interopRequireDefault(_Config);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.SearchAll = _Config2.default.WebRoot() + '/search/all'; /**
-                                                                 * Created by BaoJun on 2017/2/23.
-                                                                 */
+exports.SearchAll = '/search/all'; /**
+                                    * Created by BaoJun on 2017/2/23.
+                                    */
 
-exports.Detail = _Config2.default.WebRoot() + '/detail/';
-exports.IndexRecommend = _Config2.default.WebRoot() + '/index/recommend';
+exports.Detail = '/detail/';
+exports.IndexRecommend = '/index/recommend';
 
 /***/ }),
 /* 85 */
@@ -32041,7 +32041,7 @@ module.exports = traverseAllChildren;
  * Created by BaoJun on 2017/2/23.
  */
 //测试地址T，生产地址P
-exports.service = 'P';
+exports.service = 'T';
 exports.log = true;
 exports.error = true;
 
@@ -32275,7 +32275,7 @@ var IndexListDiv = function (_React$Component) {
                 if (data.status.code == 1) {
                     movies = data.movies;
                 }
-                _Config2.default.Log('movies', movies);
+                _Config2.default.log('movies', movies);
 
                 return _react2.default.createElement(
                     'div',
@@ -32602,11 +32602,11 @@ var Index = function (_React$Component) {
                 url: _ReqUrl2.default.IndexRecommend,
                 method: "GET",
                 dataType: "json",
-                timeout: 10000,
+                // timeout: 10000,
                 async: true
             });
             request.done(function (msg) {
-                _Config2.default.Log('IndexReq', JSON.parse(JSON.stringify(msg)));
+                _Config2.default.log('IndexReq', JSON.parse(JSON.stringify(msg)));
                 this.setState({ movies: JSON.parse(JSON.stringify(msg)) });
             }.bind(this));
 
@@ -32620,7 +32620,7 @@ var Index = function (_React$Component) {
     }, {
         key: '_renderHotMovies',
         value: function _renderHotMovies() {
-            _Config2.default.Log('_renderHotMovies', this.state.movies.hotMovies);
+            _Config2.default.log('_renderHotMovies', this.state.movies.hotMovies);
             if (this.state.movies != '' && this.state.movies.hotMovies != '') {
                 return _react2.default.createElement(_IndexListDiv2.default, { movies: this.state.movies.hotMovies, title: '\u70ED\u95E8\u7535\u5F71' });
             } else {

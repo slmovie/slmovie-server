@@ -6750,7 +6750,7 @@ var _Constans2 = _interopRequireDefault(_Constans);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.WebRoot = function () {
-    if (_Constans2.default.service == 'P') {
+    if (_Constans2.default.service == 'T') {
         return 'http://localhost:3000';
     } else if (_Constans2.default.service == 'P') {
         return 'http://www.slys.cf';
@@ -6760,7 +6760,7 @@ exports.WebRoot = function () {
     */
 
 
-exports.Log = function (name, str) {
+exports.log = function (name, str) {
     if (_Constans2.default.log) {
         console.log(name + '>>>>>>' + str);
     }
@@ -19793,12 +19793,12 @@ var _Config2 = _interopRequireDefault(_Config);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.SearchAll = _Config2.default.WebRoot() + '/search/all'; /**
-                                                                 * Created by BaoJun on 2017/2/23.
-                                                                 */
+exports.SearchAll = '/search/all'; /**
+                                    * Created by BaoJun on 2017/2/23.
+                                    */
 
-exports.Detail = _Config2.default.WebRoot() + '/detail/';
-exports.IndexRecommend = _Config2.default.WebRoot() + '/index/recommend';
+exports.Detail = '/detail/';
+exports.IndexRecommend = '/index/recommend';
 
 /***/ }),
 /* 85 */
@@ -32041,7 +32041,7 @@ module.exports = traverseAllChildren;
  * Created by BaoJun on 2017/2/23.
  */
 //测试地址T，生产地址P
-exports.service = 'P';
+exports.service = 'T';
 exports.log = true;
 exports.error = true;
 

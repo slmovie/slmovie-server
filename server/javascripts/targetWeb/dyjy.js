@@ -110,7 +110,7 @@ exports.hotMovies = function (next) {
     let callBack = {}
     let status = {}
     getSuperagent().get('http://www.idyjy.com')
-        .timeout(5000)
+        // .timeout(5000)
         .charset('gb2312')
         .end(function (error, response) {
             if (error || response.statusCode == 'undefined') {

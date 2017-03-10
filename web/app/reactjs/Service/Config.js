@@ -4,14 +4,14 @@
 import Constans from './Constans.js';
 
 exports.WebRoot = function () {
-    if (Constans.service == 'P') {
+    if (Constans.service == 'T') {
         return 'http://localhost:3000'
     } else if (Constans.service == 'P') {
         return 'http://www.slys.cf'
     }
 }
 
-exports.Log = function (name, str) {
+exports.log = function (name, str) {
     if (Constans.log) {
         console.log(name + '>>>>>>' + str)
     }
