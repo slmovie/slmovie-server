@@ -4,6 +4,7 @@
 import React from 'react';
 import {render} from 'react-dom';
 import MovieItem from './MovieItemDiv.js'
+import Config from '../Service/Config.js'
 
 export default class MoviesListDiv extends React.Component {
 
@@ -21,7 +22,7 @@ export default class MoviesListDiv extends React.Component {
                 if (data.status.code == 1) {
                     movies = data.movies
                 }
-                console.log(movies)
+                Config.log('MoviesListDiv' + movies)
                 return (
                     <ul style={Styles.MoviesList}>
                         {this._renderList(movies)}

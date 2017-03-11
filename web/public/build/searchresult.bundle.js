@@ -32250,6 +32250,10 @@ var _MovieItemDiv = __webpack_require__(189);
 
 var _MovieItemDiv2 = _interopRequireDefault(_MovieItemDiv);
 
+var _Config = __webpack_require__(54);
+
+var _Config2 = _interopRequireDefault(_Config);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -32288,7 +32292,7 @@ var MoviesListDiv = function (_React$Component) {
                     if (data.status.code == 1) {
                         movies = data.movies;
                     }
-                    console.log(movies);
+                    _Config2.default.log('MoviesListDiv' + movies);
                     return _react2.default.createElement(
                         'ul',
                         { style: Styles.MoviesList },
