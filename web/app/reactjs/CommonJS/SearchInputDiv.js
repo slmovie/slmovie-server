@@ -40,8 +40,12 @@ export default class SearchInput extends React.Component {
 
     //打开搜索结果界面
     _openSearchResult() {
-        let win = window.open(HtmlCode.SearchResult + '?name=' + this.state.input, '_blank');
-        win.focus();
+        if (this.state.input != '' && this.state.input != ' ' && this.state.input != '影片名/ 明星/ 导演/ imdb') {
+            let win = window.open(HtmlCode.SearchResult + '?name=' + this.state.input, '_blank');
+            win.focus();
+        } else {
+            alert('请输入搜索内容')
+        }
     }
 
     //获取输入结果

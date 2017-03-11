@@ -32170,8 +32170,12 @@ var SearchInput = function (_React$Component) {
     }, {
         key: '_openSearchResult',
         value: function _openSearchResult() {
-            var win = window.open(_HtmlCode2.default.SearchResult + '?name=' + this.state.input, '_blank');
-            win.focus();
+            if (this.state.input != '' && this.state.input != ' ' && this.state.input != '影片名/ 明星/ 导演/ imdb') {
+                var win = window.open(_HtmlCode2.default.SearchResult + '?name=' + this.state.input, '_blank');
+                win.focus();
+            } else {
+                alert('请输入搜索内容');
+            }
         }
 
         //获取输入结果

@@ -44,7 +44,7 @@ class Index extends React.Component {
             async: true,
         })
         request.done(function (msg) {
-            Config.log('IndexReq', JSON.parse(JSON.stringify(msg)))
+            Config.log('IndexReq', JSON.stringify(msg))
             this.setState({movies: JSON.parse(JSON.stringify(msg))})
         }.bind(this));
 
