@@ -6737,7 +6737,8 @@ function getIteratorFn(maybeIterable) {
 module.exports = getIteratorFn;
 
 /***/ }),
-/* 54 */
+/* 54 */,
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -16964,7 +16965,6 @@ return jQuery;
 
 
 /***/ }),
-/* 55 */,
 /* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -31934,7 +31934,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactDom = __webpack_require__(25);
 
-var _jquery = __webpack_require__(54);
+var _jquery = __webpack_require__(55);
 
 var _jquery2 = _interopRequireDefault(_jquery);
 

@@ -13,3 +13,10 @@ results
 
 npm-debug.log
 node_modules
+.idea/jsLibraryMappings.xml
+.idea/misc.xml
+.idea/modules.xml
+.idea/server.iml
+.idea/vcs.xml
+.idea/watcherTasks.xml
+.idea/workspace.xml

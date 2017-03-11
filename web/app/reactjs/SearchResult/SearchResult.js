@@ -8,6 +8,7 @@ import Title from '../CommonJS/TitleDiv.js'
 import SearchInput from '../CommonJS/SearchInputDiv.js'
 import MoviesList from './MoviesListDiv.js'
 import ReqUrl from '../Service/ReqUrl.js'
+import Config from '../Service/Config'
 
 let input
 class SearchResult extends React.Component {
@@ -54,12 +55,12 @@ class SearchResult extends React.Component {
             async: false,
         })
         request.done(function (msg) {
-            console.log(JSON.parse(JSON.stringify(msg)))
+            Config.log('_getMovies', JSON.parse(JSON.stringify(msg)))
             this.setState({movies: JSON.parse(JSON.stringify(msg))})
         }.bind(this));
 
         request.fail(function (jqXHR, textStatus) {
-            console.error(textStatus);
+            Config.error('_getMovies', textStatus);
             let error = '{"dyjy":{"status":{"code":0}}}'
             this.setState({movies: error})
         }.bind(this));
