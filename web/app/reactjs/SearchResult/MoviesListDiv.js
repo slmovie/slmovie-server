@@ -11,20 +11,15 @@ export default class MoviesListDiv extends React.Component {
         // console.log(this.props.movies)
         if (this.props.movies != '') {
             let data = this.props.movies
-            if (data.dyjy.status.code == 101 && data.dyjy.status.code == 101) {
+            if (data.status.code == 101) {
                 return (
                     <text style={Styles.TextRed}>{data.dyjy.status.error}</text>
                 )
-            } else if (data.dyjy.status.code == 1 || data.dyjy.status.code == 1) {
+            } else if (data.status.code == 1) {
                 let movies = {}
                 //重组数据
-                if (data.dyjy.status.code == 1) {
-                    movies = data.dyjy.movies
-                }
-                if (data.bttt.status.code == 1) {
-                    for (var i = 0, len = data.bttt.movies.length; i < len; i++) {
-                        movies.push(data.bttt.movies[i]);
-                    }
+                if (data.status.code == 1) {
+                    movies = data.movies
                 }
                 console.log(movies)
                 return (

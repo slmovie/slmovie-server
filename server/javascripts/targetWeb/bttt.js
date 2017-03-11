@@ -75,8 +75,13 @@ exports.detail = function (req, res) {
         .timeout(5000)
         .set('Referer', 'http://www.bttt99.com/v/' + req.query.code + '/')
         .end(function (error, response) {
+            let status = {}
+            let callBack = {}
             if (error || response.statusCode == 'undefined') {
-                res.send(error)
+                status['code'] = 0
+                status['error'] = error
+                callBack['status'] = status
+                res.json(callBack)
                 return
             }
             if (response.statusCode == 200) {

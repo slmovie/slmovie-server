@@ -38,7 +38,7 @@ exports.queryTitle = function (query, next) {
                         //海报图片
                         'post': $('img', elem).attr('src'),
                         //豆瓣评分
-                        'db': $('info', '.pRightBottom', elem).text(),
+                        'db': '豆瓣：' + $('info', '.pRightBottom', elem).text(),
                         //上映日期
                         'year': $('info', '.pLeftTop', elem).text(),
                         'from': 'dyjy',
@@ -62,10 +62,14 @@ exports.detail = function (req, res) {
     let website = 'http://www.idyjy.com/sub/' + req.query.code + '.html'
     getSuperagent().get(website)
         .charset('gb2312')
-        .timeout(5000)
         .end(function (error, response) {
+            let status = {}
+            let callBack = {}
             if (error || response.statusCode == 'undefined') {
-                res.send(error)
+                status['code'] = 0
+                status['error'] = error
+                callBack['status'] = status
+                res.json(callBack)
                 return
             }
             if (response.statusCode == 200) {
@@ -98,9 +102,11 @@ exports.detail = function (req, res) {
                 })
                 jsonRes['photos'] = photos
                 jsonRes['post'] = $('img', '.pic').attr('src')
-                console.log('dyjy detail code=' + req.query.code)
-                console.log(jsonRes)
-                res.json(jsonRes)
+                status['code'] = 1
+                callBack['status'] = status
+                callBack['movies'] = jsonRes
+                console.log(callBack)
+                res.json(callBack)
             }
         })
 }
@@ -110,7 +116,6 @@ exports.hotMovies = function (next) {
     let callBack = {}
     let status = {}
     getSuperagent().get('http://www.idyjy.com')
-        // .timeout(5000)
         .charset('gb2312')
         .end(function (error, response) {
             if (error || response.statusCode == 'undefined') {

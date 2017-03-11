@@ -54,7 +54,7 @@ class SearchResult extends React.Component {
             async: false,
         })
         request.done(function (msg) {
-            // console.log(JSON.parse(JSON.stringify(msg)).bttt.movies[0].name)
+            console.log(JSON.parse(JSON.stringify(msg)))
             this.setState({movies: JSON.parse(JSON.stringify(msg))})
         }.bind(this));
 

@@ -5,22 +5,35 @@ let express = require('express');
 let router = express.Router();
 
 const dyjy = require('../javascripts/targetWeb/dyjy.js')
-const bttt = require('../javascripts/targetWeb/bttt.js')
-const btttla = require('../javascripts/targetWeb/btttla.js')
+const tiantangbt = require('../javascripts/targetWeb/tiantangbt.js')
 const timeText = require('../javascripts/utils/timeTest.js')
 
 router.get('/all', function (req, res, next) {
     timeText.start()
     res.movies = {}
+    res.movies['status'] = {'code': 0}
+    res.movies['movies'] = []
     dyjy.queryTitle(req.query.name, function (data) {
         console.log('dyjy back  ' + timeText.time())
-        res.movies['dyjy'] = (data)
+        if (data.status.code == 1) {
+            res.movies['status'].code = 1
+            res.movies['movies'] = data.movies
+        }
         next()
     })
 }, function (req, res, next) {
-    bttt.queryTitle(req.query.name, function (data) {
-        console.log('bttt back  ' + timeText.time())
-        res.movies['bttt'] = (data)
+    tiantangbt.queryTitle(req.query.name, function (data) {
+        console.log('tiantangbt back  ' + timeText.time())
+        if (data.status.code == 1) {
+            if (res.movies['status'].code == 0) {
+                res.movies['movies'] = data.movies
+            } else {
+                data.movies.forEach(function (item, i) {
+                    res.movies['movies'].push(item)
+                })
+            }
+            res.movies['status'].code = 1
+        }
         next()
     })
 }, function (req, res, next) {
@@ -37,18 +50,14 @@ router.get('/dyjy', function (req, res) {
     })
 });
 
-router.get('/bttt', function (req, res) {
+router.get('/ttbt', function (req, res) {
     timeText.start()
-    bttt.queryTitle(req.query.name, function (data) {
-        console.log('bttt query>>' + req.query.name)
-        console.log('bttt time>>' + timeText.time())
-        console.log('bttt data>>', data)
+    tiantangbt.queryTitle(req.query.name, function (data) {
+        console.log('ttbt query>>' + req.query.name)
+        console.log('ttbt time>>' + timeText.time())
+        console.log('ttbt data>>', data)
         res.json(data)
     })
-});
-
-router.get('/btttla', function (req, res) {
-    btttla.queryTitle(req, res)
-});
+})
 
 module.exports = router;

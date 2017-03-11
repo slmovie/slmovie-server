@@ -6,7 +6,7 @@ var router = express.Router();
 
 const dyjy = require('../javascripts/targetWeb/dyjy.js')
 const bttt = require('../javascripts/targetWeb/bttt.js')
-const btttla = require('../javascripts/targetWeb/btttla.js')
+const tiantangbt = require('../javascripts/targetWeb/tiantangbt.js')
 
 router.get('/dyjy', function (req, res) {
     dyjy.detail(req, res)
@@ -16,8 +16,8 @@ router.get('/bttt', function (req, res) {
     bttt.detail(req, res)
 });
 
-router.get('/btttla', function (req, res) {
-    btttla.detail(req, res)
-});
+router.get('/ttbt', function (req, res) {
+    tiantangbt.detail(req, res)
+})
 
 module.exports = router;
