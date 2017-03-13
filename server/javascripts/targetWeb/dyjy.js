@@ -209,7 +209,7 @@ exports.newMovies = function (next) {
 }
 
 //最新电影
-exports.newTV = function (next) {
+exports.newTVs = function (next) {
     let callBack = {}
     let status = {}
     getSuperagent().get('http://www.idyjy.com')

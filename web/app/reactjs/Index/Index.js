@@ -14,12 +14,16 @@ class Index extends React.Component {
     constructor() {
         super()
         this.state = {
-            movies: '',
+            hotMovies: '',
+            newMovies: '',
+            newTVs: ''
         }
     }
 
     componentDidMount() {
-        this._getMovies()
+        this._getHotMovies()
+        this._getNewMovies()
+        this._getNewTVs()
     }
 
     render() {
@@ -27,17 +31,15 @@ class Index extends React.Component {
             <div style={Styles.Content}>
                 <Title/>
                 <SearchInput/>
-                {this._renderHotMovies()}
-                {this._renderNewMovies()}
-                {this._renderNewTvs()}
+                {this._renderRecommend()}
             </div>
         );
     }
 
-    //获取电影列表
-    _getMovies() {
+    //获取最热电影列表
+    _getHotMovies() {
         let request = $.ajax({
-            url: ReqUrl.IndexRecommend,
+            url: ReqUrl.IndexHotMovies,
             method: "GET",
             dataType: "json",
             // timeout: 10000,
@@ -45,7 +47,7 @@ class Index extends React.Component {
         })
         request.done(function (msg) {
             Config.log('IndexReq', JSON.stringify(msg))
-            this.setState({movies: JSON.parse(JSON.stringify(msg))})
+            this.setState({hotMovies: JSON.parse(JSON.stringify(msg))})
         }.bind(this));
 
         request.fail(function (jqXHR, textStatus) {
@@ -53,23 +55,76 @@ class Index extends React.Component {
         }.bind(this));
     }
 
-    //渲染热门影片
-    _renderHotMovies() {
-        Config.log('_renderHotMovies', this.state.movies.hotMovies)
-        if (this.state.movies != '' && this.state.movies.hotMovies != '') {
+    //获取最新影片
+    _getNewMovies() {
+        let request = $.ajax({
+            url: ReqUrl.IndexNewMovies,
+            method: "GET",
+            dataType: "json",
+            // timeout: 10000,
+            async: true,
+        })
+        request.done(function (msg) {
+            Config.log('IndexReq', JSON.stringify(msg))
+            this.setState({newMovies: JSON.parse(JSON.stringify(msg))})
+        }.bind(this));
+
+        request.fail(function (jqXHR, textStatus) {
+            Config.error(textStatus);
+        }.bind(this));
+    }
+
+    //获取最新电视剧
+    _getNewTVs() {
+        let request = $.ajax({
+            url: ReqUrl.IndexNewTVs,
+            method: "GET",
+            dataType: "json",
+            // timeout: 10000,
+            async: true,
+        })
+        request.done(function (msg) {
+            Config.log('IndexReq', JSON.stringify(msg))
+            this.setState({newTVs: JSON.parse(JSON.stringify(msg))})
+        }.bind(this));
+
+        request.fail(function (jqXHR, textStatus) {
+            Config.error(textStatus);
+        }.bind(this));
+    }
+
+    //渲染推荐内容
+    _renderRecommend() {
+        if (this.state.hotMovies != '' || this.state.newMovies != '' || this.state.newTVs != '') {
             return (
-                <IndexListDiv movies={this.state.movies.hotMovies} title='热门电影'/>
+                <div>
+                    {this._renderHotMovies()}
+                    {this._renderNewMovies()}
+                    {this._renderNewTvs()}
+                </div>
             )
         } else {
             return (<text style={{fontSize: 25, color: 'red'}}>加载中</text>)
         }
     }
 
+    //渲染热门影片
+    _renderHotMovies() {
+        Config.log('_renderHotMovies', this.state.hotMovies)
+        if (this.state.hotMovies != '') {
+            return (
+                <IndexListDiv movies={this.state.hotMovies} title='热门电影'/>
+            )
+        } else {
+            return ''
+        }
+    }
+
     //渲染最新影片
     _renderNewMovies() {
-        if (this.state.movies != '' && this.state.movies.newMovies != '') {
+        if (this.state.newMovies != '') {
             return (
-                <IndexListDiv movies={this.state.movies.newMovies} title='最新电影'/>
+                <IndexListDiv movies={this.state.newMovies} title='最新电影'/>
             )
         } else {
             return ''
@@ -78,9 +133,9 @@ class Index extends React.Component {
 
     //渲染最新电视剧
     _renderNewTvs() {
-        if (this.state.movies != '' && this.state.movies.newTVs != '') {
+        if (this.state.newTVs != '') {
             return (
-                <IndexListDiv movies={this.state.movies.newTVs} title='最新电视剧'/>
+                <IndexListDiv movies={this.state.newTVs} title='最新电视剧'/>
             )
         } else {
             return ''

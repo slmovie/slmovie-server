@@ -19803,7 +19803,14 @@ exports.SearchDYJY = '/search/dyjy';
 //tiantangbt搜索资源
 exports.SearchTTBT = '/search/ttbt';
 exports.Detail = '/detail/';
+//获取全部推荐资源
 exports.IndexRecommend = '/index/recommend';
+//获取最热影片资源
+exports.IndexHotMovies = '/index/hotMovies';
+//获取最新影片资源
+exports.IndexNewMovies = '/index/newMovies';
+//获取最新电视剧资源
+exports.IndexNewTVs = '/index/newTVs';
 
 /***/ }),
 /* 85 */
@@ -32580,7 +32587,9 @@ var Index = function (_React$Component) {
         var _this = _possibleConstructorReturn(this, (Index.__proto__ || Object.getPrototypeOf(Index)).call(this));
 
         _this.state = {
-            movies: ''
+            hotMovies: '',
+            newMovies: '',
+            newTVs: ''
         };
         return _this;
     }
@@ -32588,7 +32597,9 @@ var Index = function (_React$Component) {
     _createClass(Index, [{
         key: 'componentDidMount',
         value: function componentDidMount() {
-            this._getMovies();
+            this._getHotMovies();
+            this._getNewMovies();
+            this._getNewTVs();
         }
     }, {
         key: 'render',
@@ -32598,19 +32609,17 @@ var Index = function (_React$Component) {
                 { style: Styles.Content },
                 _react2.default.createElement(_TitleDiv2.default, null),
                 _react2.default.createElement(_SearchInputDiv2.default, null),
-                this._renderHotMovies(),
-                this._renderNewMovies(),
-                this._renderNewTvs()
+                this._renderRecommend()
             );
         }
 
-        //获取电影列表
+        //获取最热电影列表
 
     }, {
-        key: '_getMovies',
-        value: function _getMovies() {
+        key: '_getHotMovies',
+        value: function _getHotMovies() {
             var request = _jquery2.default.ajax({
-                url: _ReqUrl2.default.IndexRecommend,
+                url: _ReqUrl2.default.IndexHotMovies,
                 method: "GET",
                 dataType: "json",
                 // timeout: 10000,
@@ -32618,7 +32627,7 @@ var Index = function (_React$Component) {
             });
             request.done(function (msg) {
                 _Config2.default.log('IndexReq', JSON.stringify(msg));
-                this.setState({ movies: JSON.parse(JSON.stringify(msg)) });
+                this.setState({ hotMovies: JSON.parse(JSON.stringify(msg)) });
             }.bind(this));
 
             request.fail(function (jqXHR, textStatus) {
@@ -32626,14 +32635,63 @@ var Index = function (_React$Component) {
             }.bind(this));
         }
 
-        //渲染热门影片
+        //获取最新影片
 
     }, {
-        key: '_renderHotMovies',
-        value: function _renderHotMovies() {
-            _Config2.default.log('_renderHotMovies', this.state.movies.hotMovies);
-            if (this.state.movies != '' && this.state.movies.hotMovies != '') {
-                return _react2.default.createElement(_IndexListDiv2.default, { movies: this.state.movies.hotMovies, title: '\u70ED\u95E8\u7535\u5F71' });
+        key: '_getNewMovies',
+        value: function _getNewMovies() {
+            var request = _jquery2.default.ajax({
+                url: _ReqUrl2.default.IndexNewMovies,
+                method: "GET",
+                dataType: "json",
+                // timeout: 10000,
+                async: true
+            });
+            request.done(function (msg) {
+                _Config2.default.log('IndexReq', JSON.stringify(msg));
+                this.setState({ newMovies: JSON.parse(JSON.stringify(msg)) });
+            }.bind(this));
+
+            request.fail(function (jqXHR, textStatus) {
+                _Config2.default.error(textStatus);
+            }.bind(this));
+        }
+
+        //获取最新电视剧
+
+    }, {
+        key: '_getNewTVs',
+        value: function _getNewTVs() {
+            var request = _jquery2.default.ajax({
+                url: _ReqUrl2.default.IndexNewTVs,
+                method: "GET",
+                dataType: "json",
+                // timeout: 10000,
+                async: true
+            });
+            request.done(function (msg) {
+                _Config2.default.log('IndexReq', JSON.stringify(msg));
+                this.setState({ newTVs: JSON.parse(JSON.stringify(msg)) });
+            }.bind(this));
+
+            request.fail(function (jqXHR, textStatus) {
+                _Config2.default.error(textStatus);
+            }.bind(this));
+        }
+
+        //渲染推荐内容
+
+    }, {
+        key: '_renderRecommend',
+        value: function _renderRecommend() {
+            if (this.state.hotMovies != '' || this.state.newMovies != '' || this.state.newTVs != '') {
+                return _react2.default.createElement(
+                    'div',
+                    null,
+                    this._renderHotMovies(),
+                    this._renderNewMovies(),
+                    this._renderNewTvs()
+                );
             } else {
                 return _react2.default.createElement(
                     'text',
@@ -32643,13 +32701,26 @@ var Index = function (_React$Component) {
             }
         }
 
+        //渲染热门影片
+
+    }, {
+        key: '_renderHotMovies',
+        value: function _renderHotMovies() {
+            _Config2.default.log('_renderHotMovies', this.state.hotMovies);
+            if (this.state.hotMovies != '') {
+                return _react2.default.createElement(_IndexListDiv2.default, { movies: this.state.hotMovies, title: '\u70ED\u95E8\u7535\u5F71' });
+            } else {
+                return '';
+            }
+        }
+
         //渲染最新影片
 
     }, {
         key: '_renderNewMovies',
         value: function _renderNewMovies() {
-            if (this.state.movies != '' && this.state.movies.newMovies != '') {
-                return _react2.default.createElement(_IndexListDiv2.default, { movies: this.state.movies.newMovies, title: '\u6700\u65B0\u7535\u5F71' });
+            if (this.state.newMovies != '') {
+                return _react2.default.createElement(_IndexListDiv2.default, { movies: this.state.newMovies, title: '\u6700\u65B0\u7535\u5F71' });
             } else {
                 return '';
             }
@@ -32660,8 +32731,8 @@ var Index = function (_React$Component) {
     }, {
         key: '_renderNewTvs',
         value: function _renderNewTvs() {
-            if (this.state.movies != '' && this.state.movies.newTVs != '') {
-                return _react2.default.createElement(_IndexListDiv2.default, { movies: this.state.movies.newTVs, title: '\u6700\u65B0\u7535\u89C6\u5267' });
+            if (this.state.newTVs != '') {
+                return _react2.default.createElement(_IndexListDiv2.default, { movies: this.state.newTVs, title: '\u6700\u65B0\u7535\u89C6\u5267' });
             } else {
                 return '';
             }
