@@ -32630,7 +32630,6 @@ var Detail = function (_React$Component) {
     }, {
         key: 'render',
         value: function render() {
-            console.log(this.state.from);
             if (this.state.from == 'dyjy') {
                 return _react2.default.createElement(_DyjyDetail2.default, null);
             } else if (this.state.from == 'ttbt') {

@@ -21,7 +21,6 @@ class Detail extends React.Component {
     }
 
     render() {
-        console.log(this.state.from)
         if (this.state.from == 'dyjy') {
             return (<DyjyDetail/>)
         } else if (this.state.from == 'ttbt') {
