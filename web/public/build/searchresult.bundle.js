@@ -32053,9 +32053,9 @@ module.exports = traverseAllChildren;
  * Created by BaoJun on 2017/2/23.
  */
 //测试地址T，生产地址P
-exports.service = 'P';
-exports.log = false;
-exports.error = false;
+exports.service = 'T';
+exports.log = true;
+exports.error = true;
 
 /***/ }),
 /* 182 */
@@ -32301,9 +32301,18 @@ var MoviesListDiv = function (_React$Component) {
                     }
                     _Config2.default.log('MoviesListDiv' + movies);
                     return _react2.default.createElement(
-                        'ul',
-                        { style: Styles.MoviesList },
-                        this._renderList(movies)
+                        'div',
+                        { style: Styles.BorderDiv },
+                        _react2.default.createElement(
+                            'text',
+                            { style: Styles.TitleText },
+                            this.props.title
+                        ),
+                        _react2.default.createElement(
+                            'ul',
+                            { style: Styles.MoviesList },
+                            this._renderList(movies)
+                        )
                     );
                 } else {
                     return _react2.default.createElement(
@@ -32349,10 +32358,23 @@ exports.default = MoviesListDiv;
 
 
 var Styles = {
+    BorderDiv: {
+        border: 'solid',
+        borderWidth: 0.5,
+        borderColor: '#d0d0d0',
+        paddingLeft: 5,
+        paddingTop: 10,
+        marginTop: 20
+    },
+    TitleText: {
+        fontSize: 25,
+        color: '#00B3FF'
+    },
     MoviesList: {
         listStyleType: 'none',
         padding: 0,
-        width: 1000
+        width: 1000,
+        display: 'inline-block'
     },
     Text: {
         fontSize: 25
@@ -32589,7 +32611,7 @@ var SearchResult = function (_React$Component) {
         var _this = _possibleConstructorReturn(this, (SearchResult.__proto__ || Object.getPrototypeOf(SearchResult)).call(this));
 
         _this.state = {
-            movies: ''
+            dyjyMovies: ''
         };
         return _this;
     }
@@ -32599,7 +32621,7 @@ var SearchResult = function (_React$Component) {
         value: function componentDidMount() {
             input = window.location.href.split('=')[1];
             document.title = '双龙影视 ' + decodeURI(input);
-            this._getMovies();
+            this._getDyjyMovies();
         }
     }, {
         key: 'render',
@@ -32622,16 +32644,16 @@ var SearchResult = function (_React$Component) {
     }, {
         key: '_renderMovies',
         value: function _renderMovies() {
-            return _react2.default.createElement(_MoviesListDiv2.default, { movies: this.state.movies });
+            return _react2.default.createElement(_MoviesListDiv2.default, { movies: this.state.dyjyMovies, title: '\u7535\u5F71\u5BB6\u56ED' });
         }
 
         //获取电影列表
 
     }, {
-        key: '_getMovies',
-        value: function _getMovies() {
+        key: '_getDyjyMovies',
+        value: function _getDyjyMovies() {
             var request = _jquery2.default.ajax({
-                url: _ReqUrl2.default.SearchAll + '?name=' + input,
+                url: _ReqUrl2.default.SearchDYJY + '?name=' + input,
                 method: "GET",
                 dataType: "json",
                 timeout: 10000,
@@ -32639,13 +32661,13 @@ var SearchResult = function (_React$Component) {
             });
             request.done(function (msg) {
                 _Config2.default.log('_getMovies', JSON.parse(JSON.stringify(msg)));
-                this.setState({ movies: JSON.parse(JSON.stringify(msg)) });
+                this.setState({ dyjyMovies: JSON.parse(JSON.stringify(msg)) });
             }.bind(this));
 
             request.fail(function (jqXHR, textStatus) {
                 _Config2.default.error('_getMovies', textStatus);
                 var error = '{"dyjy":{"status":{"code":0}}}';
-                this.setState({ movies: error });
+                this.setState({ dyjyMovies: error });
             }.bind(this));
         }
     }]);
