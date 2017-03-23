@@ -16,14 +16,16 @@ class SearchResult extends React.Component {
     constructor() {
         super()
         this.state = {
-            movies: '',
+            dyjyMovies: '',
+            ttbtMovies: '',
         }
     }
 
     componentDidMount() {
         input = window.location.href.split('=')[1]
         document.title = '双龙影视 ' + decodeURI(input)
-        this._getMovies()
+        this._getDyjyMovies()
+        this._getTTBTMovies()
     }
 
     render() {
@@ -41,14 +43,17 @@ class SearchResult extends React.Component {
     //渲染电影列表
     _renderMovies() {
         return (
-            <MoviesList movies={this.state.movies}/>
+            <div>
+                <MoviesList movies={this.state.dyjyMovies} title='电影家园'/>
+                <MoviesList movies={this.state.ttbtMovies} title='天堂BT'/>
+            </div>
         )
     }
 
     //获取电影列表
-    _getMovies() {
+    _getDyjyMovies() {
         let request = $.ajax({
-            url: ReqUrl.SearchAll + '?name=' + input,
+            url: ReqUrl.SearchDYJY + '?name=' + input,
             method: "GET",
             dataType: "json",
             timeout: 10000,
@@ -56,13 +61,34 @@ class SearchResult extends React.Component {
         })
         request.done(function (msg) {
             Config.log('_getMovies', JSON.parse(JSON.stringify(msg)))
-            this.setState({movies: JSON.parse(JSON.stringify(msg))})
+            this.setState({dyjyMovies: JSON.parse(JSON.stringify(msg))})
         }.bind(this));
 
         request.fail(function (jqXHR, textStatus) {
             Config.error('_getMovies', textStatus);
             let error = '{"dyjy":{"status":{"code":0}}}'
-            this.setState({movies: error})
+            this.setState({dyjyMovies: error})
+        }.bind(this));
+    }
+
+    //获取电影列表
+    _getTTBTMovies() {
+        let request = $.ajax({
+            url: ReqUrl.SearchTTBT + '?name=' + input,
+            method: "GET",
+            dataType: "json",
+            timeout: 10000,
+            async: false,
+        })
+        request.done(function (msg) {
+            Config.log('_getMovies', JSON.parse(JSON.stringify(msg)))
+            this.setState({ttbtMovies: JSON.parse(JSON.stringify(msg))})
+        }.bind(this));
+
+        request.fail(function (jqXHR, textStatus) {
+            Config.error('_getMovies', textStatus);
+            let error = '{"dyjy":{"status":{"code":0}}}'
+            this.setState({ttbtMovies: error})
         }.bind(this));
     }
 

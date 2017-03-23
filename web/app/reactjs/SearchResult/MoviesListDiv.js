@@ -24,9 +24,12 @@ export default class MoviesListDiv extends React.Component {
                 }
                 Config.log('MoviesListDiv' + movies)
                 return (
-                    <ul style={Styles.MoviesList}>
-                        {this._renderList(movies)}
-                    </ul>
+                    <div style={Styles.BorderDiv}>
+                        <text style={Styles.TitleText}>{this.props.title}</text>
+                        <ul style={Styles.MoviesList}>
+                            {this._renderList(movies)}
+                        </ul>
+                    </div>
                 )
             } else {
                 return (
@@ -59,10 +62,23 @@ export default class MoviesListDiv extends React.Component {
 }
 
 let Styles = {
+    BorderDiv: {
+        border: 'solid',
+        borderWidth: 0.5,
+        borderColor: '#d0d0d0',
+        paddingLeft: 5,
+        paddingTop: 10,
+        marginTop: 20,
+    },
+    TitleText: {
+        fontSize: 25,
+        color: '#00B3FF'
+    },
     MoviesList: {
         listStyleType: 'none',
         padding: 0,
         width: 1000,
+        display: 'inline-block',
     },
     Text: {
         fontSize: 25,

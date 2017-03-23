@@ -36,7 +36,7 @@ exports.queryTitle = function (query, next) {
                     if (post.indexOf('http') < 0) {
                         post = 'http://www.tiantangbt.com' + post
                     }
-                    let name = $('strong', '.entry-title', elem).text()
+                    let name = $('a', '.entry-title', elem).attr('title')
                     let nameIndex = name.indexOf('/')
                     if (nameIndex > 0) {
                         name = name.substr(0, nameIndex)
@@ -44,6 +44,10 @@ exports.queryTitle = function (query, next) {
                     nameIndex = name.indexOf(' ')
                     if (nameIndex > 0) {
                         name = name.substr(0, nameIndex)
+                    }
+                    let nameStrongIndex = name.indexOf('strong')
+                    if (nameStrongIndex > 0) {
+                        name = name.substr(8, name.length - 1)
                     }
                     movies.push({
                         //电影名称
