@@ -32120,9 +32120,9 @@ module.exports = g;
  * Created by BaoJun on 2017/2/23.
  */
 //测试地址T，生产地址P
-exports.service = 'P';
-exports.log = false;
-exports.error = false;
+exports.service = 'T';
+exports.log = true;
+exports.error = true;
 
 /***/ }),
 /* 183 */
@@ -32358,7 +32358,6 @@ var IndexListDiv = function (_React$Component) {
                 if (data.status.code == 1) {
                     movies = data.movies;
                 }
-                _Config2.default.log('movies', movies);
 
                 return _react2.default.createElement(
                     'div',
@@ -32692,7 +32691,7 @@ var Index = function (_React$Component) {
                 async: true
             });
             request.done(function (msg) {
-                _Config2.default.log('IndexReq', JSON.stringify(msg));
+                _Config2.default.log('_getHotMovies', JSON.stringify(msg));
                 this.setState({ hotMovies: JSON.parse(JSON.stringify(msg)) });
             }.bind(this));
 
@@ -32714,7 +32713,7 @@ var Index = function (_React$Component) {
                 async: true
             });
             request.done(function (msg) {
-                _Config2.default.log('IndexReq', JSON.stringify(msg));
+                _Config2.default.log('_getNewMovies', JSON.stringify(msg));
                 this.setState({ newMovies: JSON.parse(JSON.stringify(msg)) });
             }.bind(this));
 
@@ -32736,7 +32735,7 @@ var Index = function (_React$Component) {
                 async: true
             });
             request.done(function (msg) {
-                _Config2.default.log('IndexReq', JSON.stringify(msg));
+                _Config2.default.log('_getNewTVs', JSON.stringify(msg));
                 this.setState({ newTVs: JSON.parse(JSON.stringify(msg)) });
             }.bind(this));
 
@@ -32772,7 +32771,7 @@ var Index = function (_React$Component) {
     }, {
         key: '_renderHotMovies',
         value: function _renderHotMovies() {
-            _Config2.default.log('_renderHotMovies', this.state.hotMovies);
+            // Config.log('_renderHotMovies', this.state.hotMovies)
             if (this.state.hotMovies != '') {
                 return _react2.default.createElement(_IndexListDiv2.default, { movies: this.state.hotMovies, title: '\u70ED\u95E8\u7535\u5F71' });
             } else {

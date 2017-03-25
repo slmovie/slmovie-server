@@ -46,7 +46,7 @@ class Index extends React.Component {
             async: true,
         })
         request.done(function (msg) {
-            Config.log('IndexReq', JSON.stringify(msg))
+            Config.log('_getHotMovies', JSON.stringify(msg))
             this.setState({hotMovies: JSON.parse(JSON.stringify(msg))})
         }.bind(this));
 
@@ -65,7 +65,7 @@ class Index extends React.Component {
             async: true,
         })
         request.done(function (msg) {
-            Config.log('IndexReq', JSON.stringify(msg))
+            Config.log('_getNewMovies', JSON.stringify(msg))
             this.setState({newMovies: JSON.parse(JSON.stringify(msg))})
         }.bind(this));
 
@@ -84,7 +84,7 @@ class Index extends React.Component {
             async: true,
         })
         request.done(function (msg) {
-            Config.log('IndexReq', JSON.stringify(msg))
+            Config.log('_getNewTVs', JSON.stringify(msg))
             this.setState({newTVs: JSON.parse(JSON.stringify(msg))})
         }.bind(this));
 
@@ -110,7 +110,7 @@ class Index extends React.Component {
 
     //渲染热门影片
     _renderHotMovies() {
-        Config.log('_renderHotMovies', this.state.hotMovies)
+        // Config.log('_renderHotMovies', this.state.hotMovies)
         if (this.state.hotMovies != '') {
             return (
                 <IndexListDiv movies={this.state.hotMovies} title='热门电影'/>

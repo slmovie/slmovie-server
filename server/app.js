@@ -15,7 +15,7 @@ app.all('*', function (req, res, next) {
     next();
 });
 
-app.use(morgan('short'));
+app.use(morgan('combined'));
 app.use(express.static('web/public'));
 
 app.use('/search', search)
