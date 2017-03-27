@@ -57,9 +57,23 @@ exports.queryTitle = function (query, next) {
         })
 }
 
-//爬取细节及下载地址下载地址
+//网页请求
 exports.detail = function (req, res) {
-    let website = 'http://www.idyjy.com/sub/' + req.query.code + '.html'
+    getDetail(req.query.code, function (data) {
+        res.json(data)
+    })
+}
+
+//直接爬取数据
+exports.getData = function (code, send) {
+    getDetail(code, function (data) {
+        send(data)
+    })
+}
+
+//爬取细节及下载地址下载地址
+let getDetail = function (code, send) {
+    let website = 'http://www.idyjy.com/sub/' + code + '.html'
     getSuperagent().get(website)
         .charset('gb2312')
         .end(function (error, response) {
@@ -69,7 +83,7 @@ exports.detail = function (req, res) {
                 status['code'] = 0
                 status['error'] = error
                 callBack['status'] = status
-                res.json(callBack)
+                send(callBack)
                 return
             }
             if (response.statusCode == 200) {
@@ -90,6 +104,10 @@ exports.detail = function (req, res) {
                     movies.push(movie)
                 })
                 jsonRes['files'] = movies
+                //电影名称
+                jsonRes['name'] = $('span', '.h1title').text()
+                //简介
+                jsonRes['describe'] = $('.endtext').text()
                 //电影信息
                 $('li', '.info').each(function (i, elem) {
                     detail.push($(elem).text())
@@ -105,8 +123,31 @@ exports.detail = function (req, res) {
                 status['code'] = 1
                 callBack['status'] = status
                 callBack['movies'] = jsonRes
-                console.log(callBack)
-                res.json(callBack)
+                // console.log(callBack)
+                send(callBack)
+            }
+        })
+}
+
+//电影数量
+exports.movieLength = function (send) {
+    let callBack = {}
+    let status = {}
+    getSuperagent().get('http://www.idyjy.com')
+        .timeout(5000)
+        .charset('gb2312')
+        .end(function (error, response) {
+            if (error || response.statusCode == 'undefined') {
+                send('0')
+                return
+            }
+            if (response.statusCode == 200) {
+                let $ = cheerio.load(response.text)
+                //基本信息
+                let address = $($('.play-img', $('.img-list', $('.box')[1])[0])[0]).attr('href')
+                let split = address.split('/')
+                address = split[split.length - 1].split('.')[0]
+                send(address)
             }
         })
 }
@@ -208,7 +249,7 @@ exports.newMovies = function (next) {
         })
 }
 
-//最新电影
+//最新电视剧
 exports.newTVs = function (next) {
     let callBack = {}
     let status = {}
