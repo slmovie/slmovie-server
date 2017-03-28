@@ -5,9 +5,7 @@
   "main": "webpack.config.js",
   "scripts": {
     "start": "node ./server/app.js",
-    "build": "webpack",
-    "update": "node ./server/mongodb/updateAllMovies.js",
-    "querytest": "node ./server/mongodb/queryUtils.js"
+    "build": "webpack"
   },
   "keywords": [],
   "author": "",
