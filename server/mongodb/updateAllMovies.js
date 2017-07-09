@@ -2,16 +2,21 @@
  * Created by 包俊 on 2017/3/27.
  */
 let mongoose = require('mongoose');    //引用mongoose模块
-let db = mongoose.createConnection('localhost', 'movies'); //创建一个数据库连接
+let Constans = require('./Constans.js')
+let db = mongoose.createConnection(Constans.WebRoot(), 'movies') //创建一个数据库连接
 let dyjy = require('../javascripts/targetWeb/dyjy.js')
 let dbConstans = require('./dbConstans.js')
 let dbQuery = require('./queryUtils.js')
 
-exports.update = function (callback) {
-    update(callback)
+exports.updateSchedule = function (callback) {
+    updateSchedule(callback)
 }
 
-function update(callback) {
+exports.updateAll = function (callback) {
+    updateAll(callback)
+}
+
+function updateSchedule(callback) {
     db.on('error', console.error.bind(console, '连接错误:'));
     db.once('open', function () {
         //一次打开记录
@@ -24,6 +29,28 @@ function update(callback) {
             let length = new Number(data)
             console.log(length)
             get(length, length - 2000, function () {
+                callback(1)
+            })
+        } else {
+            callback(0)
+            db.close()
+        }
+    })
+}
+
+function updateAll(callback) {
+    db.on('error', console.error.bind(console, '连接错误:'));
+    db.once('open', function () {
+        //一次打开记录
+        console.log('opened')
+    });
+
+    movieLength(function (data) {
+        console.log('总量' + data)
+        if (data != '0') {
+            let length = new Number(data)
+            console.log(length)
+            get(length, 1, function () {
                 callback(1)
             })
         } else {

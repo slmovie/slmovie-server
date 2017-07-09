@@ -2,7 +2,8 @@
  * Created by 包俊 on 2017/3/27.
  */
 let mongoose = require('mongoose');    //引用mongoose模块
-let db = mongoose.createConnection('localhost', 'movies'); //创建一个数据库连接
+let Constans = require('./Constans.js')
+let db = mongoose.createConnection(Constans.WebRoot(), 'movies')
 let dbConstans = require('./dbConstans.js')
 
 //根据id查找电影
@@ -45,7 +46,7 @@ exports.findByName = function findByName(name) {
 }
 
 //全局搜索
-exports.findAll = function findAll(name,callback) {
+exports.findAll = function findAll(name, callback) {
 // function findAll(name, callback) {
     db.on('error', console.error.bind(console, '连接错误:'));
     db.once('open', function () {

@@ -19,7 +19,7 @@ var j = schedule.scheduleJob(rule, function () {
 });
 
 function updateMovies(callback) {
-    AllMovies.update(function (res) {
+    AllMovies.updateSchedule(function (res) {
         if (res == 1) {
             callback()
         } else {
