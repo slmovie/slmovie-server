@@ -23,7 +23,7 @@ function update(callback) {
         if (data != '0') {
             let length = new Number(data)
             console.log(length)
-            get(length, length - 10, function () {
+            get(length, length - 2000, function () {
                 callback(1)
             })
         } else {
