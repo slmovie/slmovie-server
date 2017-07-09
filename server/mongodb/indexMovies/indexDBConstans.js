@@ -2,7 +2,8 @@
  * Created by 包俊 on 2017/7/7.
  */
 let mongoose = require('mongoose');    //引用mongoose模块
-let db = mongoose.createConnection('localhost', 'movies'); //创建一个数据库连接
+let Constans = require('../Constans.js')
+let db = mongoose.createConnection(Constans.WebRoot(), 'movies') //创建一个数据库连接
 let MovieSchema
 let HotMoviesModel, NewTVsModel, NewMoviesModel
 
