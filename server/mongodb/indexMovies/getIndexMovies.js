@@ -10,7 +10,9 @@ exports.updateIndex = function () {
 function getAll() {
     getHotMovies(function () {
         getNewMovies(function () {
-            getNewTVs()
+            getNewTVs(function () {
+                console.log('index update finish')
+            })
         })
     })
 }
@@ -47,7 +49,7 @@ function getHotMovies(next) {
             }
             next()
         } else {
-            getHotMovies()
+            getHotMovies(next)
         }
     })
 }
@@ -85,12 +87,12 @@ function getNewMovies(next) {
             }
             next()
         } else {
-            getHotMovies()
+            getHotMovies(next)
         }
     })
 }
 
-function getNewTVs() {
+function getNewTVs(next) {
     dbConstans.db.on('error', console.error.bind(console, '连接错误:'));
     dbConstans.db.once('open', function () {
         //一次打开记录
@@ -121,8 +123,9 @@ function getNewTVs() {
                     dbConstans.db.close()
                 })
             }
+            next()
         } else {
-            getHotMovies()
+            getHotMovies(next)
         }
     })
 }
