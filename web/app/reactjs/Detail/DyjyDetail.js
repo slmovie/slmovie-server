@@ -41,7 +41,7 @@ export default class DyjyDetail extends React.Component {
     //获取详情数据
     _showDetail() {
         let request = $.ajax({
-            url: ReqUrl.Detail + from + '?code=' + code,
+            url: ReqUrl.Detail + '?code=' + code,
             method: "GET",
             dataType: "json",
             timeout: 10000,

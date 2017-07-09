@@ -24,8 +24,9 @@ exports.findOneByID = function (id, send) {
 }
 
 //根据电影名查找
-// exports.findByName = function findByName(name) {
-function findByName(name) {
+exports.findByName = function findByName(name) {
+// function findByName(name, callback) {
+    let movies = {}
     db.on('error', console.error.bind(console, '连接错误:'));
     db.once('open', function () {
         //一次打开记录
@@ -36,10 +37,37 @@ function findByName(name) {
         if (error || docs == null) {
             console.log(error)
         } else {
-            console.log(docs)
+            movies = docs
+            callback(movies)
         }
         db.close()
     })
 }
 
-findByName(/场/)
+//全局搜索
+exports.findAll = function findAll(name,callback) {
+// function findAll(name, callback) {
+    db.on('error', console.error.bind(console, '连接错误:'));
+    db.once('open', function () {
+        //一次打开记录
+        console.log('opened')
+    });
+
+    dbConstans.MovieModel.find({detail: name}, function (error, docs) {
+        if (error || docs == null) {
+            console.log(error)
+        } else {
+            callback(docs)
+        }
+        db.close()
+    })
+}
+
+// function find(name) {
+//     var qs=new RegExp(name);
+//     findAll(qs, function (data) {
+//         console.log(data)
+//     })
+// }
+//
+// find('李安')

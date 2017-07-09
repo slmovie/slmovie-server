@@ -9,7 +9,7 @@ exports.SearchAll = '/search/all'
 exports.SearchDYJY = '/search/dyjy'
 //tiantangbt搜索资源
 exports.SearchTTBT = '/search/ttbt'
-exports.Detail = '/detail/'
+exports.Detail = '/detail'
 //获取全部推荐资源
 exports.IndexRecommend = '/index/recommend'
 //获取最热影片资源

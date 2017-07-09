@@ -19840,7 +19840,7 @@ exports.SearchAll = '/search/all';
 exports.SearchDYJY = '/search/dyjy';
 //tiantangbt搜索资源
 exports.SearchTTBT = '/search/ttbt';
-exports.Detail = '/detail/';
+exports.Detail = '/detail';
 //获取全部推荐资源
 exports.IndexRecommend = '/index/recommend';
 //获取最热影片资源
@@ -32120,9 +32120,9 @@ module.exports = g;
  * Created by BaoJun on 2017/2/23.
  */
 //测试地址T，生产地址P
-exports.service = 'P';
-exports.log = false;
-exports.error = false;
+exports.service = 'T';
+exports.log = true;
+exports.error = true;
 
 /***/ }),
 /* 183 */,
@@ -32220,7 +32220,7 @@ var DyjyDetail = function (_React$Component) {
         key: '_showDetail',
         value: function _showDetail() {
             var request = _jquery2.default.ajax({
-                url: _ReqUrl2.default.Detail + from + '?code=' + code,
+                url: _ReqUrl2.default.Detail + '?code=' + code,
                 method: "GET",
                 dataType: "json",
                 timeout: 10000,
@@ -32679,34 +32679,32 @@ var Detail = function (_React$Component) {
     function Detail() {
         _classCallCheck(this, Detail);
 
-        var _this = _possibleConstructorReturn(this, (Detail.__proto__ || Object.getPrototypeOf(Detail)).call(this));
-
-        _this.state = {
-            from: '',
-            code: ''
-        };
-        return _this;
+        return _possibleConstructorReturn(this, (Detail.__proto__ || Object.getPrototypeOf(Detail)).apply(this, arguments));
     }
 
     _createClass(Detail, [{
-        key: 'componentDidMount',
-        value: function componentDidMount() {
-            this.setState({ from: window.location.href.split('=')[2] });
-        }
-    }, {
         key: 'render',
+
+        // constructor() {
+        //     super()
+        //     this.state = {
+        //         from: '',
+        //         code: '',
+        //     }
+        // }
+        //
+        // componentDidMount() {
+        //     this.setState({from: window.location.href.split('=')[2]})
+        // }
+
         value: function render() {
-            if (this.state.from == 'dyjy') {
-                return _react2.default.createElement(_DyjyDetail2.default, null);
-            } else if (this.state.from == 'ttbt') {
-                return _react2.default.createElement(_TtbtDetail2.default, null);
-            } else {
-                return _react2.default.createElement(
-                    'text',
-                    null,
-                    '111'
-                );
-            }
+            // if (this.state.from == 'dyjy') {
+            return _react2.default.createElement(_DyjyDetail2.default, null);
+            // } else if (this.state.from == 'ttbt') {
+            //     return (<TtbtDetail/>)
+            // } else {
+            //     return (<text>111</text>)
+            // }
         }
     }]);
 

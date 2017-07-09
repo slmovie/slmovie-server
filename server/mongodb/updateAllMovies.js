@@ -7,25 +7,33 @@ let dyjy = require('../javascripts/targetWeb/dyjy.js')
 let dbConstans = require('./dbConstans.js')
 let dbQuery = require('./queryUtils.js')
 
-function update() {
+exports.update = function (callback) {
+    update(callback)
+}
+
+function update(callback) {
     db.on('error', console.error.bind(console, '连接错误:'));
     db.once('open', function () {
         //一次打开记录
         console.log('opened')
     });
 
-    dyjy.movieLength(function (data) {
+    movieLength(function (data) {
         console.log('总量' + data)
         if (data != '0') {
             let length = new Number(data)
-            get(length, 2)
+            console.log(length)
+            get(length, length - 10, function () {
+                callback(1)
+            })
         } else {
+            callback(0)
             db.close()
         }
     })
 }
 
-function get(length, id) {
+function get(length, id, callback) {
     if (id <= length) {
         dyjy.getData(id + '', function (data) {
             if (data.status.code == 1) {
@@ -47,7 +55,7 @@ function get(length, id) {
                             } else {
                                 console.log(id + ' ' + data.movies.name + '>>>saved OK!');
                             }
-                            get(length, id + 1)
+                            get(length, id + 1, callback)
                         })
                     } else {
                         //数据库存在该电影，对比是否有更新
@@ -69,20 +77,57 @@ function get(length, id) {
                                 } else {
                                     console.log(id + ' ' + data.movies.name + '>>>更新成功')
                                 }
-                                get(length, id + 1)
+                                get(length, id + 1, callback)
                             })
                         } else {
                             console.log(id + ' ' + data.movies.name + '>>>没有更新')
-                            get(length, id + 1)
+                            get(length, id + 1, callback)
                         }
                     }
                 })
+            } else {
+                get(length, id, callback)
+                console.log(id + '>>>爬取失败，重试')
             }
         })
     } else {
         // 关闭数据库链接
         db.close();
+        callback()
     }
 }
 
-update()
+function movieLength(send) {
+    let number = 0
+    dyjy.hotMovies(function (data) {
+        if (data.status.code == 1) {
+            for (let i = 0; i < data.movies.length; i++) {
+                if (number < new Number(data.movies[i].address))
+                    number = new Number(data.movies[i].address)
+            }
+            dyjy.newMovies(function (data) {
+                if (data.status.code == 1) {
+                    for (let i = 0; i < data.movies.length; i++) {
+                        if (number < new Number(data.movies[i].address))
+                            number = new Number(data.movies[i].address)
+                    }
+                    dyjy.newTVs(function (data) {
+                        if (data.status.code == 1) {
+                            for (let i = 0; i < data.movies.length; i++) {
+                                if (number < new Number(data.movies[i].address))
+                                    number = new Number(data.movies[i].address)
+                            }
+                            send(number)
+                        } else {
+                            send(0)
+                        }
+                    })
+                } else {
+                    send(0)
+                }
+            })
+        } else {
+            send(0)
+        }
+    })
+}

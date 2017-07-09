@@ -19840,7 +19840,7 @@ exports.SearchAll = '/search/all';
 exports.SearchDYJY = '/search/dyjy';
 //tiantangbt搜索资源
 exports.SearchTTBT = '/search/ttbt';
-exports.Detail = '/detail/';
+exports.Detail = '/detail';
 //获取全部推荐资源
 exports.IndexRecommend = '/index/recommend';
 //获取最热影片资源
@@ -32120,9 +32120,9 @@ module.exports = g;
  * Created by BaoJun on 2017/2/23.
  */
 //测试地址T，生产地址P
-exports.service = 'P';
-exports.log = false;
-exports.error = false;
+exports.service = 'T';
+exports.log = true;
+exports.error = true;
 
 /***/ }),
 /* 183 */
@@ -32504,7 +32504,7 @@ var IndexListItemDiv = function (_React$Component) {
                     _react2.default.createElement(
                         'text',
                         { style: Styles.TextDB },
-                        movie.db
+                        movie.douban
                     )
                 ),
                 _react2.default.createElement(
@@ -32526,7 +32526,7 @@ var IndexListItemDiv = function (_React$Component) {
     }, {
         key: '_detail',
         value: function _detail() {
-            var win = window.open(_HtmlCode2.default.Detail + '?address=' + this.props.movie.address + '&from=' + this.props.movie.from, '_blank');
+            var win = window.open(_HtmlCode2.default.Detail + '?address=' + this.props.movie.address, '_blank');
             win.focus();
         }
     }]);
@@ -32551,7 +32551,6 @@ var Styles = {
         position: 'relative',
         display: 'flex'
     },
-
     Image: {
         width: width,
         height: width * 180 / 130,
@@ -32568,7 +32567,8 @@ var Styles = {
         paddingLeft: 5,
         paddingRight: 5,
         left: 0
-    }, TextDB: {
+    },
+    TextDB: {
         position: 'absolute',
         bottom: 0,
         right: 0,

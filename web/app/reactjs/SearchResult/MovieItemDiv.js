@@ -19,7 +19,7 @@ export default class MovieItemDiv extends React.Component {
                         {movie.year}
                     </text>
                     <text style={Styles.TextDB}>
-                        {movie.db}
+                        {movie.douban}
                     </text>
                 </a>
                 <div style={Styles.NameDiv}>
@@ -31,7 +31,7 @@ export default class MovieItemDiv extends React.Component {
 
     //进入详情页
     _detail() {
-        let win = window.open(HtmlCode.Detail + '?address=' + this.props.movie.address + '&from=' + this.props.movie.from, '_blank');
+        let win = window.open(HtmlCode.Detail + '?address=' + this.props.movie.id, '_blank');
         win.focus();
     }
 

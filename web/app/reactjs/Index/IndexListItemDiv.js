@@ -19,7 +19,7 @@ export default class IndexListItemDiv extends React.Component {
                         {movie.year}
                     </text>
                     <text style={Styles.TextDB}>
-                        {movie.db}
+                        {movie.douban}
                     </text>
                 </a>
                 <div style={Styles.NameDiv}>
@@ -31,7 +31,7 @@ export default class IndexListItemDiv extends React.Component {
 
     //进入详情页
     _detail() {
-        let win = window.open(HtmlCode.Detail + '?address=' + this.props.movie.address + '&from=' + this.props.movie.from, '_blank');
+        let win = window.open(HtmlCode.Detail + '?address=' + this.props.movie.address, '_blank');
         win.focus();
     }
 
@@ -51,7 +51,6 @@ const Styles = {
         position: 'relative',
         display: 'flex',
     },
-
     Image: {
         width: width,
         height: width * 180 / 130,
@@ -68,7 +67,8 @@ const Styles = {
         paddingLeft: 5,
         paddingRight: 5,
         left: 0,
-    }, TextDB: {
+    },
+    TextDB: {
         position: 'absolute',
         bottom: 0,
         right: 0,

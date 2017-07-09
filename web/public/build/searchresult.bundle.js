@@ -19840,7 +19840,7 @@ exports.SearchAll = '/search/all';
 exports.SearchDYJY = '/search/dyjy';
 //tiantangbt搜索资源
 exports.SearchTTBT = '/search/ttbt';
-exports.Detail = '/detail/';
+exports.Detail = '/detail';
 //获取全部推荐资源
 exports.IndexRecommend = '/index/recommend';
 //获取最热影片资源
@@ -32120,9 +32120,9 @@ module.exports = g;
  * Created by BaoJun on 2017/2/23.
  */
 //测试地址T，生产地址P
-exports.service = 'P';
-exports.log = false;
-exports.error = false;
+exports.service = 'T';
+exports.log = true;
+exports.error = true;
 
 /***/ }),
 /* 183 */
@@ -32351,8 +32351,8 @@ var MoviesListDiv = function (_React$Component) {
     _createClass(MoviesListDiv, [{
         key: 'render',
         value: function render() {
-            // console.log(this.props.movies)
             if (this.props.movies != '') {
+                // Config.log('MoviesListDiv', JSON.stringify(this.props.movies))
                 var data = this.props.movies;
                 if (data.status.code == 101) {
                     return _react2.default.createElement(
@@ -32366,7 +32366,7 @@ var MoviesListDiv = function (_React$Component) {
                     if (data.status.code == 1) {
                         movies = data.movies;
                     }
-                    _Config2.default.log('MoviesListDiv' + movies);
+                    // Config.log('MoviesListDiv' + movies)
                     return _react2.default.createElement(
                         'div',
                         { style: Styles.BorderDiv },
@@ -32525,7 +32525,7 @@ var MovieItemDiv = function (_React$Component) {
                     _react2.default.createElement(
                         'text',
                         { style: Styles.TextDB },
-                        movie.db
+                        movie.douban
                     )
                 ),
                 _react2.default.createElement(
@@ -32547,7 +32547,7 @@ var MovieItemDiv = function (_React$Component) {
     }, {
         key: '_detail',
         value: function _detail() {
-            var win = window.open(_HtmlCode2.default.Detail + '?address=' + this.props.movie.address + '&from=' + this.props.movie.from, '_blank');
+            var win = window.open(_HtmlCode2.default.Detail + '?address=' + this.props.movie.id, '_blank');
             win.focus();
         }
     }]);
@@ -32668,6 +32668,9 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 var input = void 0;
+var dyjyMovies = void 0;
+var everyPage = 24;
+var lastPage = 0;
 
 var SearchResult = function (_React$Component) {
     _inherits(SearchResult, _React$Component);
@@ -32678,8 +32681,11 @@ var SearchResult = function (_React$Component) {
         var _this = _possibleConstructorReturn(this, (SearchResult.__proto__ || Object.getPrototypeOf(SearchResult)).call(this));
 
         _this.state = {
-            dyjyMovies: '',
-            ttbtMovies: ''
+            // dyjyMovies: '',
+            // ttbtMovies: '',
+            showMovies: '',
+            index: 1,
+            PageMoreEnd: {}
         };
         return _this;
     }
@@ -32690,7 +32696,7 @@ var SearchResult = function (_React$Component) {
             input = window.location.href.split('=')[1];
             document.title = '双龙影视 ' + decodeURI(input);
             this._getDyjyMovies();
-            this._getTTBTMovies();
+            // this._getTTBTMovies()
         }
     }, {
         key: 'render',
@@ -32703,7 +32709,8 @@ var SearchResult = function (_React$Component) {
                 _react2.default.createElement(
                     'div',
                     { style: { marginTop: 30, overflow: 'hidden' } },
-                    this._renderMovies()
+                    this._renderMovies(),
+                    this._getPageList()
                 )
             );
         }
@@ -32716,8 +32723,7 @@ var SearchResult = function (_React$Component) {
             return _react2.default.createElement(
                 'div',
                 null,
-                _react2.default.createElement(_MoviesListDiv2.default, { movies: this.state.dyjyMovies, title: '\u7535\u5F71\u5BB6\u56ED' }),
-                _react2.default.createElement(_MoviesListDiv2.default, { movies: this.state.ttbtMovies, title: '\u5929\u5802BT' })
+                _react2.default.createElement(_MoviesListDiv2.default, { movies: this.state.showMovies, title: '' })
             );
         }
 
@@ -32734,14 +32740,16 @@ var SearchResult = function (_React$Component) {
                 async: false
             });
             request.done(function (msg) {
-                _Config2.default.log('_getMovies', JSON.parse(JSON.stringify(msg)));
-                this.setState({ dyjyMovies: JSON.parse(JSON.stringify(msg)) });
+                // Config.log('_getDyjyMovies', JSON.stringify(msg))
+                dyjyMovies = JSON.parse(JSON.stringify(msg));
+                // this.setState({dyjyMovies: JSON.parse(JSON.stringify(msg))})
+                this._getShowMovies();
             }.bind(this));
 
             request.fail(function (jqXHR, textStatus) {
                 _Config2.default.error('_getMovies', textStatus);
                 var error = '{"dyjy":{"status":{"code":0}}}';
-                this.setState({ dyjyMovies: error });
+                this.setState({ showMovies: error });
             }.bind(this));
         }
 
@@ -32768,6 +32776,183 @@ var SearchResult = function (_React$Component) {
                 this.setState({ ttbtMovies: error });
             }.bind(this));
         }
+
+        //分组显示
+
+    }, {
+        key: '_getShowMovies',
+        value: function _getShowMovies() {
+            if (dyjyMovies != '' && dyjyMovies.status.code == 1 && dyjyMovies.movies.length > everyPage) {
+                var allMovies = dyjyMovies.movies.slice();
+                lastPage = Math.ceil(allMovies.length / everyPage);
+                var temp = {};
+                for (var key in dyjyMovies) {
+                    temp[key] = dyjyMovies[key];
+                }
+                var tempMovies = [];
+                var start = (this.state.index - 1) * everyPage;
+                for (start; start < this.state.index * everyPage; start++) {
+                    if (start < allMovies.length) {
+                        tempMovies.push(allMovies[start]);
+                    }
+                }
+                temp.movies = tempMovies;
+                if (lastPage < 5) {
+                    this.setState({ showMovies: temp });
+                    this.setState({ PageMoreEnd: { display: 'none' } });
+                } else {
+                    this.setState({ showMovies: temp });
+                }
+                // Config.log('_getShowMovies length', tempMovies.length)
+            } else {
+                this.setState({ showMovies: dyjyMovies });
+            }
+        }
+
+        //页数按钮列表
+
+    }, {
+        key: '_getPageList',
+        value: function _getPageList() {
+            var _this2 = this;
+
+            if (lastPage != 0) {
+                return _react2.default.createElement(
+                    'div',
+                    { style: { marginTop: 20, marginLeft: 'auto', marginRight: 'auto', width: 380 } },
+                    _react2.default.createElement(
+                        'button',
+                        { style: Styles.PageButton, onClick: function onClick() {
+                                return _this2._prePage();
+                            } },
+                        '\u4E0A\u4E00\u9875'
+                    ),
+                    this._getPage(),
+                    _react2.default.createElement(
+                        'text',
+                        { style: this.state.PageMoreEnd },
+                        '......'
+                    ),
+                    _react2.default.createElement(
+                        'button',
+                        { style: Styles.PageButton, onClick: function onClick() {
+                                return _this2._nextPage();
+                            } },
+                        '\u4E0B\u4E00\u9875'
+                    )
+                );
+            }
+        }
+
+        //页数按钮
+
+    }, {
+        key: '_getPage',
+        value: function _getPage() {
+            var _this3 = this;
+
+            var list = [];
+            var temp = this.state.index;
+            var totlePage = lastPage < 5 ? lastPage : 5;
+            if (totlePage == 5) {
+                if (temp > lastPage - 5) {
+                    temp = lastPage - 4;
+                }
+                for (var i = 0; i < 5; i++) {
+                    list.push(_react2.default.createElement(
+                        'button',
+                        { style: this._chosenPage(temp), onClick: function onClick(e) {
+                                return _this3._toPage(e);
+                            },
+                            value: temp },
+                        temp
+                    ));
+                    temp++;
+                }
+            } else {
+                temp = 1;
+                for (var _i = 0; _i < totlePage; _i++) {
+                    list.push(_react2.default.createElement(
+                        'button',
+                        { style: this._chosenPage(temp), onClick: function onClick(e) {
+                                return _this3._toPage(e);
+                            },
+                            value: temp },
+                        temp
+                    ));
+                    temp++;
+                }
+            }
+            return list;
+        }
+
+        //上一页
+
+    }, {
+        key: '_prePage',
+        value: function _prePage() {
+            var _this4 = this;
+
+            if (this.state.index > 1) {
+                this.setState({ index: this.state.index - 1 }, function () {
+                    if (_this4.state.index <= lastPage - 4) {
+                        _this4.setState({ PageMoreEnd: {} });
+                    }
+                    _this4._getShowMovies();
+                });
+            }
+        }
+
+        //下一页
+
+    }, {
+        key: '_nextPage',
+        value: function _nextPage() {
+            var _this5 = this;
+
+            if (this.state.index < lastPage) {
+                this.setState({ index: this.state.index + 1 }, function () {
+                    _this5._getShowMovies();
+                    if (_this5.state.index >= lastPage - 4) {
+                        _this5.setState({ PageMoreEnd: { display: 'none' } });
+                    }
+                });
+            }
+        }
+
+        //具体页数
+
+    }, {
+        key: '_toPage',
+        value: function _toPage(e) {
+            var _this6 = this;
+
+            this.setState({ index: e.target.value }, function () {
+                _this6._getShowMovies();
+                if (_this6.state.index >= lastPage - 4) {
+                    _this6.setState({ PageMoreEnd: { display: 'none' } });
+                } else {
+                    _this6.setState({ PageMoreEnd: {} });
+                }
+            });
+        }
+
+        //当前页变色
+
+    }, {
+        key: '_chosenPage',
+        value: function _chosenPage(temp) {
+            var style = {};
+            for (var key in Styles.PageButton) {
+                style[key] = Styles.PageButton[key];
+            }
+            if (this.state.index == temp) {
+                style['backgroundColor'] = 'skyblue';
+            } else {
+                style['backgroundColor'] = 'white';
+            }
+            return style;
+        }
     }]);
 
     return SearchResult;
@@ -32778,6 +32963,12 @@ var Styles = {
         width: 1000,
         marginLeft: 'auto',
         marginRight: 'auto'
+    },
+    PageButton: {
+        fontSize: 15,
+        marginLeft: 5,
+        marginRight: 5,
+        textAlign: 'center'
     }
 };
 

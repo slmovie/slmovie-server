@@ -57,7 +57,7 @@ exports.queryTitle = function (query, next) {
                         //海报图片
                         'post': post,
                         //热度
-                        'db': $('span[class=meta-view]', elem).text(),
+                        'douban': $('span[class=meta-view]', elem).text(),
                         //上映日期
                         'year': $('span[class=date]', elem).text(),
                         'from': 'ttbt',

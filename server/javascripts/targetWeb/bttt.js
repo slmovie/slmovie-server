@@ -49,7 +49,7 @@ exports.queryTitle = function (query, next) {
     //                     //海报图片
     //                     'post': $('img', $(elem).next()).attr('src'),
     //                     //豆瓣评分
-    //                     'db': $('strong', elem).text(),
+    //                     'douban': $('strong', elem).text(),
     //                     //上映日期
     //                     'year': $('font', 'b', elem).text(),
     //                     'from': 'bttt',

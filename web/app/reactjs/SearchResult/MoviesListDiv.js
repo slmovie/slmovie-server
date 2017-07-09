@@ -9,8 +9,8 @@ import Config from '../Service/Config.js'
 export default class MoviesListDiv extends React.Component {
 
     render() {
-        // console.log(this.props.movies)
         if (this.props.movies != '') {
+            // Config.log('MoviesListDiv', JSON.stringify(this.props.movies))
             let data = this.props.movies
             if (data.status.code == 101) {
                 return (
@@ -22,7 +22,7 @@ export default class MoviesListDiv extends React.Component {
                 if (data.status.code == 1) {
                     movies = data.movies
                 }
-                Config.log('MoviesListDiv' + movies)
+                // Config.log('MoviesListDiv' + movies)
                 return (
                     <div style={Styles.BorderDiv}>
                         <text style={Styles.TitleText}>{this.props.title}</text>

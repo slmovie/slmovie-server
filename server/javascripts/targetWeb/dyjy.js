@@ -34,11 +34,11 @@ exports.queryTitle = function (query, next) {
                     movies.push({
                         'name': $(elem).attr('title'),
                         //网页地址
-                        'address': address,
+                        'id': address,
                         //海报图片
                         'post': $('img', elem).attr('src'),
                         //豆瓣评分
-                        'db': '豆瓣：' + $('info', '.pRightBottom', elem).text(),
+                        'douban': '豆瓣：' + $('info', '.pRightBottom', elem).text(),
                         //上映日期
                         'year': $('info', '.pLeftTop', elem).text(),
                         'from': 'dyjy',
@@ -73,10 +73,13 @@ exports.getData = function (code, send) {
 
 //爬取细节及下载地址下载地址
 let getDetail = function (code, send) {
+    console.log("dyjy getDetail " + code)
     let website = 'http://www.idyjy.com/sub/' + code + '.html'
     getSuperagent().get(website)
         .charset('gb2312')
+        .timeout(5000)
         .end(function (error, response) {
+            console.log("dyjy getDetail end " + code)
             let status = {}
             let callBack = {}
             if (error || response.statusCode == 'undefined') {
@@ -84,6 +87,7 @@ let getDetail = function (code, send) {
                 status['error'] = error
                 callBack['status'] = status
                 send(callBack)
+                console.log("dyjy getDetail 无结果")
                 return
             }
             if (response.statusCode == 200) {
@@ -109,6 +113,7 @@ let getDetail = function (code, send) {
                 //简介
                 jsonRes['describe'] = $('.endtext').text()
                 //电影信息
+                detail.push(' 片名： ' + jsonRes['name'])
                 $('li', '.info').each(function (i, elem) {
                     detail.push($(elem).text())
                 })
@@ -125,31 +130,39 @@ let getDetail = function (code, send) {
                 callBack['movies'] = jsonRes
                 // console.log(callBack)
                 send(callBack)
+            } else {
+                status['code'] = 0
+                status['error'] = error
+                callBack['status'] = status
+                send(callBack)
+                console.log("dyjy getDetail " + response.statusCode)
+                return
             }
         })
 }
 
 //电影数量
 exports.movieLength = function (send) {
-    let callBack = {}
-    let status = {}
-    getSuperagent().get('http://www.idyjy.com')
-        .timeout(5000)
-        .charset('gb2312')
-        .end(function (error, response) {
-            if (error || response.statusCode == 'undefined') {
-                send('0')
-                return
+    let number = 0
+    hotMovies(function (data) {
+        for (let i = 0; i < data.length; i++) {
+            if (number < data[i].address)
+                number = data[i].address;
+        }
+        newMovies(function (data) {
+            for (let i = 0; i < data.length; i++) {
+                if (number < data[i].address)
+                    number = data[i].address;
             }
-            if (response.statusCode == 200) {
-                let $ = cheerio.load(response.text)
-                //基本信息
-                let address = $($('.play-img', $('.img-list', $('.box')[1])[0])[0]).attr('href')
-                let split = address.split('/')
-                address = split[split.length - 1].split('.')[0]
-                send(address)
-            }
+            newTVs(function (data) {
+                for (let i = 0; i < data.length; i++) {
+                    if (number < data[i].address)
+                        number = data[i].address;
+                }
+                send(number)
+            })
         })
+    })
 }
 
 //热门电影
@@ -181,7 +194,7 @@ exports.hotMovies = function (next) {
                         //海报图片
                         'post': $('img', elem).attr('src'),
                         //豆瓣评分
-                        'db': $('info', '.pRightBottom', elem).text(),
+                        'douban': $('info', '.pRightBottom', elem).text(),
                         //上映日期
                         'year': $('info', $('.pLeftTop', elem)[0]).text(),
                         'from': 'dyjy',
@@ -230,7 +243,7 @@ exports.newMovies = function (next) {
                         //海报图片
                         'post': $('img', elem).attr('src'),
                         //豆瓣评分
-                        'db': $('info', '.pRightBottom', elem).text(),
+                        'douban': $('info', '.pRightBottom', elem).text(),
                         //上映日期
                         'year': $('info', $('.pLeftTop', elem)[0]).text(),
                         'from': 'dyjy',
@@ -279,7 +292,7 @@ exports.newTVs = function (next) {
                         //海报图片
                         'post': $('img', elem).attr('src'),
                         //豆瓣评分
-                        'db': $('info', '.pRightBottom', elem).text(),
+                        'douban': $('info', '.pRightBottom', elem).text(),
                         //上映日期
                         'year': $('info', $('.pLeftTop', elem)[0]).text(),
                         'from': 'dyjy',
