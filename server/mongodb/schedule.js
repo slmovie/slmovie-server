@@ -7,12 +7,13 @@ let Index = require('./indexMovies/getIndexMovies.js')
 
 let rule = new schedule.RecurrenceRule();
 rule.dayOfWeek = [0, new schedule.Range(1, 6)];
-rule.hour = 24;
+rule.hour = 1;
 rule.minute = 0;
 
 console.log('schedule running')
 
-var j = schedule.scheduleJob(rule, function () {
+schedule.scheduleJob(rule, function () {
+    console.log('start update')
     updateMovies(function () {
         Index.updateIndex()
     })

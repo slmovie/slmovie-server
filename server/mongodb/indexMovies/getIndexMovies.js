@@ -7,6 +7,9 @@ let dyjy = require('../../javascripts/targetWeb/dyjy.js')
 exports.updateIndex = function () {
     getAll()
 }
+
+// getAll()
+
 function getAll() {
     getHotMovies(function () {
         getNewMovies(function () {
