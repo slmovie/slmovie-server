@@ -12,7 +12,7 @@ updateMovies(function () {
 })
 
 function updateMovies(callback) {
-    AllMovies.updateAll(function (res) {
+    AllMovies.updateSchedule(function (res) {
         if (res == 1) {
             callback()
         } else {
