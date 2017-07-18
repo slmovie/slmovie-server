@@ -32,25 +32,25 @@ function getHotMovies(next) {
         if (doc.status.code == 1) {
             dbConstans.HotMoviesModel.remove({}, function (err) {
                 console.log('collection removed')
-            });
-            for (let i = 0; i < doc.movies.length; i++) {
-                let movie = doc.movies[i]
-                let movies = {
-                    name: movie.name,
-                    address: movie.address,
-                    post: movie.post,
-                    douban: movie.douban,
-                    year: movie.year
-                }
-                dbConstans.HotMoviesModel.create(movies, function (error) {
-                    if (error) {
-                        console.log(error);
-                    } else {
-                        console.log(movies.name + '>>>saved OK!');
+                for (let i = 0; i < doc.movies.length; i++) {
+                    let movie = doc.movies[i]
+                    let movies = {
+                        name: movie.name,
+                        address: movie.address,
+                        post: movie.post,
+                        douban: movie.douban,
+                        year: movie.year
                     }
-                })
-            }
-            next()
+                    dbConstans.HotMoviesModel.create(movies, function (error) {
+                        if (error) {
+                            console.log(error);
+                        } else {
+                            console.log(movies.name + '>>>saved OK!');
+                        }
+                    })
+                }
+                next()
+            });
         } else {
             getHotMovies(next)
         }
@@ -69,26 +69,26 @@ function getNewMovies(next) {
         if (doc.status.code == 1) {
             dbConstans.NewMoviesModel.remove({}, function (err) {
                 console.log('collection removed')
-            });
-            for (let i = 0; i < doc.movies.length; i++) {
-                let movie = doc.movies[i]
-                let movies = {
-                    name: movie.name,
-                    address: movie.address,
-                    post: movie.post,
-                    douban: movie.douban,
-                    year: movie.year
-                }
-                dbConstans.NewMoviesModel.create(movies, function (error) {
-                    if (error) {
-                        console.log(error);
-                    } else {
-                        console.log(movies.name + '>>>saved OK!');
+                for (let i = 0; i < doc.movies.length; i++) {
+                    let movie = doc.movies[i]
+                    let movies = {
+                        name: movie.name,
+                        address: movie.address,
+                        post: movie.post,
+                        douban: movie.douban,
+                        year: movie.year
                     }
-                    dbConstans.db.close()
-                })
-            }
-            next()
+                    dbConstans.NewMoviesModel.create(movies, function (error) {
+                        if (error) {
+                            console.log(error);
+                        } else {
+                            console.log(movies.name + '>>>saved OK!');
+                        }
+                        dbConstans.db.close()
+                    })
+                }
+                next()
+            });
         } else {
             getHotMovies(next)
         }
@@ -107,26 +107,26 @@ function getNewTVs(next) {
         if (doc.status.code == 1) {
             dbConstans.NewTVsModel.remove({}, function (err) {
                 console.log('collection removed')
-            });
-            for (let i = 0; i < doc.movies.length; i++) {
-                let movie = doc.movies[i]
-                let movies = {
-                    name: movie.name,
-                    address: movie.address,
-                    post: movie.post,
-                    douban: movie.douban,
-                    year: movie.year
-                }
-                dbConstans.NewTVsModel.create(movies, function (error) {
-                    if (error) {
-                        console.log(error);
-                    } else {
-                        console.log(movies.name + '>>>saved OK!');
+                for (let i = 0; i < doc.movies.length; i++) {
+                    let movie = doc.movies[i]
+                    let movies = {
+                        name: movie.name,
+                        address: movie.address,
+                        post: movie.post,
+                        douban: movie.douban,
+                        year: movie.year
                     }
-                    dbConstans.db.close()
-                })
-            }
-            next()
+                    dbConstans.NewTVsModel.create(movies, function (error) {
+                        if (error) {
+                            console.log(error);
+                        } else {
+                            console.log(movies.name + '>>>saved OK!');
+                        }
+                        dbConstans.db.close()
+                    })
+                }
+                next()
+            });
         } else {
             getHotMovies(next)
         }
