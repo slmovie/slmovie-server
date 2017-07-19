@@ -8,7 +8,7 @@ exports.updateIndex = function () {
     getAll()
 }
 
-getAll()
+// getAll()
 
 function getAll() {
     getHotMovies(function () {
