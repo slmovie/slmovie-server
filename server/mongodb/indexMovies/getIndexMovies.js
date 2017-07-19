@@ -84,7 +84,6 @@ function getNewMovies(next) {
                         } else {
                             console.log(movies.name + '>>>saved OK!');
                         }
-                        dbConstans.db.close()
                     })
                 }
                 next()
