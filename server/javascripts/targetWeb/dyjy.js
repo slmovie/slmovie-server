@@ -281,7 +281,7 @@ exports.newTVs = function (next) {
                 let $ = cheerio.load(response.text)
                 //基本信息
                 let movies = []
-                $('.play-img', $('.img-list', $('.box')[1])[0]).each(function (i, elem) {
+                $('.play-img', $('.img-list', $('.box')[1])[3]).each(function (i, elem) {
                     let address = $(elem).attr('href')
                     let split = address.split('/')
                     address = split[split.length - 1].split('.')[0]

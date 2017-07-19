@@ -8,7 +8,7 @@ exports.updateIndex = function () {
     getAll()
 }
 
-// getAll()
+getAll()
 
 function getAll() {
     getHotMovies(function () {
@@ -100,7 +100,7 @@ function getNewTVs(next) {
         //一次打开记录
         console.log('opened')
     });
-    dyjy.newMovies((doc) => {
+    dyjy.newTVs((doc) => {
         console.log(doc)
         console.log('code>>>>>>' + doc.status.code)
         if (doc.status.code == 1) {
