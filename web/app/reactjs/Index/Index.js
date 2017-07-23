@@ -58,7 +58,7 @@ class Index extends React.Component {
     //获取最新影片
     _getNewMovies() {
         let request = $.ajax({
-            url: ReqUrl.IndexNewMovies,
+            url: ReqUrl.IndexNewMovies + 0,
             method: "GET",
             dataType: "json",
             // timeout: 10000,
@@ -77,7 +77,7 @@ class Index extends React.Component {
     //获取最新电视剧
     _getNewTVs() {
         let request = $.ajax({
-            url: ReqUrl.IndexNewTVs,
+            url: ReqUrl.IndexNewTVs + 0,
             method: "GET",
             dataType: "json",
             // timeout: 10000,
@@ -151,4 +151,4 @@ const Styles = {
     }
 }
 
-render(<Index />, $('#content')[0]);
+render(<Index/>, $('#content')[0]);

@@ -15,6 +15,6 @@ exports.IndexRecommend = '/index/recommend'
 //获取最热影片资源
 exports.IndexHotMovies = '/index/hotMovies'
 //获取最新影片资源
-exports.IndexNewMovies = '/index/newMovies'
+exports.IndexNewMovies = '/index/newMovies?index='
 //获取最新电视剧资源
-exports.IndexNewTVs = '/index/newTVs'
+exports.IndexNewTVs = '/index/newTVs?index='

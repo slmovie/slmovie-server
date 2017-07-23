@@ -5,7 +5,7 @@ var express = require('express');
 var router = express.Router();
 let queryUtils = require('../mongodb/queryUtils.js')
 
-const dyjy = require('../javascripts/targetWeb/dyjy.js')
+const dyjy = require('../javascripts/targetWeb/dyjy/dyjyUtils.js')
 const bttt = require('../javascripts/targetWeb/bttt.js')
 const tiantangbt = require('../javascripts/targetWeb/tiantangbt.js')
 

@@ -19846,9 +19846,9 @@ exports.IndexRecommend = '/index/recommend';
 //获取最热影片资源
 exports.IndexHotMovies = '/index/hotMovies';
 //获取最新影片资源
-exports.IndexNewMovies = '/index/newMovies';
+exports.IndexNewMovies = '/index/newMovies?index=';
 //获取最新电视剧资源
-exports.IndexNewTVs = '/index/newTVs';
+exports.IndexNewTVs = '/index/newTVs?index=';
 
 /***/ }),
 /* 85 */
@@ -32120,9 +32120,9 @@ module.exports = g;
  * Created by BaoJun on 2017/2/23.
  */
 //测试地址T，生产地址P
-exports.service = 'P';
-exports.log = false;
-exports.error = false;
+exports.service = 'T';
+exports.log = true;
+exports.error = true;
 
 /***/ }),
 /* 183 */
@@ -32706,7 +32706,7 @@ var Index = function (_React$Component) {
         key: '_getNewMovies',
         value: function _getNewMovies() {
             var request = _jquery2.default.ajax({
-                url: _ReqUrl2.default.IndexNewMovies,
+                url: _ReqUrl2.default.IndexNewMovies + 0,
                 method: "GET",
                 dataType: "json",
                 // timeout: 10000,
@@ -32728,7 +32728,7 @@ var Index = function (_React$Component) {
         key: '_getNewTVs',
         value: function _getNewTVs() {
             var request = _jquery2.default.ajax({
-                url: _ReqUrl2.default.IndexNewTVs,
+                url: _ReqUrl2.default.IndexNewTVs + 0,
                 method: "GET",
                 dataType: "json",
                 // timeout: 10000,

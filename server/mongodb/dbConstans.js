@@ -15,11 +15,25 @@ let movieFiles = new mongoose.Schema({
     fileSize: String,
 })
 
+let details = new mongoose.Schema({
+    name: String,
+    year: String,
+    location: String,
+    type: String,
+    actor: String,
+    director: String,
+    otherName: String,
+    IMDB: String,
+    status: String,
+    TV: Boolean,
+})
+
 MovieSchema = new mongoose.Schema({
     name: String,
     post: String,
     describe: String,
     detail: [String],
+    details: details,
     files: [movieFiles],
     id: String,
 })

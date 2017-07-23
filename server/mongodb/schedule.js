@@ -3,7 +3,7 @@
  */
 let schedule = require('node-schedule');
 let AllMovies = require('./updateAllMovies.js')
-let Index = require('./indexMovies/getIndexMovies.js')
+let Index = require('./indexMovies/saveIndexMovies.js')
 
 let rule = new schedule.RecurrenceRule();
 rule.dayOfWeek = [0, new schedule.Range(1, 6)];
@@ -20,7 +20,7 @@ schedule.scheduleJob(rule, function () {
 });
 
 function updateMovies(callback) {
-    AllMovies.updateSchedule(function (res) {
+    AllMovies.update(1, function (res) {
         if (res == 1) {
             callback()
         } else {

@@ -4,8 +4,8 @@
 var express = require('express');
 var router = express.Router();
 
-const dyjy = require('../javascripts/targetWeb/dyjy.js')
-const indexQuery = require('../mongodb/indexMovies/indexQueryUtils.js')
+const dyjy = require('../javascripts/targetWeb/dyjy/dyjyUtils.js')
+const readIndexMovies = require('../mongodb/indexMovies/readIndexMovies.js')
 
 router.get('/recommend', function (req, res, next) {
     res.movies = {}
@@ -34,7 +34,7 @@ router.get('/hotMovies', function (req, res) {
     //     movies = (data)
     //     res.json(movies)
     // })
-    indexQuery.findHotMovies(function (docs) {
+    readIndexMovies.findHotMovies(function (docs) {
         console.error(docs)
         res.json(docs)
     })
@@ -46,7 +46,7 @@ router.get('/newMovies', function (req, res) {
     //     movies = (data)
     //     res.json(movies)
     // })
-    indexQuery.findNewMovies(function (docs) {
+    readIndexMovies.findNewMovies(req.query.index, (docs) => {
         console.error(docs)
         res.json(docs)
     })
@@ -58,7 +58,7 @@ router.get('/newTVs', function (req, res) {
     //     movies = (data)
     //     res.json(movies)
     // })
-    indexQuery.findNewTVs(function (docs) {
+    readIndexMovies.findNewTVs(req.query.index, (docs) => {
         console.error(docs)
         res.json(docs)
     })
