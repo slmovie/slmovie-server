@@ -89,6 +89,10 @@ exports.newTVs = function (callback) {
     newTVs.MyNewTVs(callback)
 }
 
+getDetail(23699, (doc) => {
+    console.log(doc)
+})
+
 //爬取细节及下载地址下载地址
 function getDetail(code, send) {
     console.log("dyjy getDetail " + code)
@@ -204,9 +208,8 @@ function pieceDetail(detail) {
         } else if (detail[i].indexOf('IMDB') != -1) {
             let IMDB = detail[i].slice(5)
             details['IMDB'] = IMDB.replace(/\s+/g, "")
-        } else if (detail[i].indexOf('更新状态') != -1) {
-            let status = detail[i].slice(5);
-            details['status'] = status.replace(/\s+/g, "")
+        } else if (detail[i].indexOf('更新状态') != -1 || detail[i].indexOf('更新至') != -1) {
+            details['status'] = detail[i].replace(/\s+/g, "")
             details['TV'] = true
         }
     }

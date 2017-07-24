@@ -2,7 +2,7 @@
  * Created by 包俊 on 2017/7/9.
  */
 
-let service = 'T'
+let service = 'P'
 
 exports.WebRoot = function () {
     if (service == 'T') {
