@@ -89,10 +89,6 @@ exports.newTVs = function (callback) {
     newTVs.MyNewTVs(callback)
 }
 
-getDetail(23699, (doc) => {
-    console.log(doc)
-})
-
 //爬取细节及下载地址下载地址
 function getDetail(code, send) {
     console.log("dyjy getDetail " + code)

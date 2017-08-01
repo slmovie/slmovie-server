@@ -24,9 +24,13 @@ exports.findOneByID = function (id, send) {
     })
 }
 
+exports.findByName = (name, callback) => {
+    findByName(name, callback)
+}
+
 //根据电影名查找
-exports.findByName = function findByName(name) {
-// function findByName(name, callback) {
+// exports.findByName = function findByName(name, callback) {
+function findByName(name, callback) {
     let movies = {}
     db.on('error', console.error.bind(console, '连接错误:'));
     db.once('open', function () {
@@ -34,7 +38,7 @@ exports.findByName = function findByName(name) {
         console.log('opened')
     });
 
-    dbConstans.MovieModel.find({name: name}, function (error, docs) {
+    dbConstans.MovieModel.find({$or: [{name: name}, {'details.otherName': name}]}, null, {sort: {'_id': -1}}, function (error, docs) {
         if (error || docs == null) {
             console.log(error)
         } else {
@@ -45,19 +49,25 @@ exports.findByName = function findByName(name) {
     })
 }
 
+exports.findAll = function (name, callback) {
+    findAll(name, callback)
+}
+
 //全局搜索
-exports.findAll = function findAll(name, callback) {
-// function findAll(name, callback) {
+// exports.findAll = function findAll(name, callback) {
+function findAll(name, callback) {
     db.on('error', console.error.bind(console, '连接错误:'));
     db.once('open', function () {
         //一次打开记录
         console.log('opened')
     });
 
-    dbConstans.MovieModel.find({detail: name}, function (error, docs) {
+    // dbConstans.MovieModel.find({$or: [{name: name}, {'details.otherName': name}]}, null, {sort: {'_id': -1}}, function (error, docs) {
+    dbConstans.MovieModel.find({detail: name}, null, {sort: {'_id': -1}}, function (error, docs) {
         if (error || docs == null) {
             console.log(error)
         } else {
+            console.log(docs.length)
             callback(docs)
         }
         db.close()
@@ -65,10 +75,10 @@ exports.findAll = function findAll(name, callback) {
 }
 
 // function find(name) {
-//     var qs=new RegExp(name);
-//     findAll(qs, function (data) {
+//     var qs = new RegExp(name);
+//     findByName(qs, function (data) {
 //         console.log(data)
 //     })
 // }
 //
-// find('李安')
+// find('我')
