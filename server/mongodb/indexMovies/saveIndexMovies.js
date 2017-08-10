@@ -5,7 +5,10 @@ exports.updateIndex = function (callback) {
     getAll(callback)
 }
 
-// getAll()
+// getAll(() => {
+//     console.log("update finished")
+//     process.exit(0)
+// })
 
 function getAll(callback) {
     let hotMovies = require('./hotMovies/hotMoviesSaveModel.js')

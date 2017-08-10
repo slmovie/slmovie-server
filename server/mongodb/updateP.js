@@ -5,7 +5,9 @@ let AllMovies = require('./updateAllMovies.js')
 let Index = require('./indexMovies/saveIndexMovies.js')
 
 updateMovies(function () {
-    Index.updateIndex()
+    Index.updateIndex(function () {
+        process.exit(0)
+    })
 })
 
 function updateMovies(callback) {
