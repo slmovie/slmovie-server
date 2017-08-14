@@ -5,7 +5,7 @@ let schedule = require('node-schedule');
 
 let rule = new schedule.RecurrenceRule();
 rule.dayOfWeek = [0, new schedule.Range(1, 6)];
-rule.hour = 1;
+rule.hour = 8;
 rule.minute = 0;
 
 console.log('schedule running')
