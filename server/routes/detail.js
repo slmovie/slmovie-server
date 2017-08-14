@@ -10,13 +10,15 @@ const bttt = require('../javascripts/targetWeb/bttt.js')
 const tiantangbt = require('../javascripts/targetWeb/tiantangbt.js')
 
 router.get('/', function (req, res) {
+    console.log("open detail >>>>>>>" + req.query.code)
     queryUtils.findOneByID(req.query.code, function (doc) {
-        console.log(doc)
+        // console.log(doc)
         let status = {}
         let callBack = {}
         status['code'] = 1
         callBack['status'] = status
         callBack['movies'] = doc
+        console.log("open detail >>>>>>>" + doc.name)
         res.json(callBack)
     })
 })

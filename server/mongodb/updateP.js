@@ -11,6 +11,7 @@ updateMovies(function () {
 })
 
 function updateMovies(callback) {
+    console.log("start update")
     AllMovies.update(1, function (res) {
         if (res == 1) {
             callback()

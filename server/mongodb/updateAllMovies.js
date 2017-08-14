@@ -60,7 +60,7 @@ function get(length, id, callback) {
                             if (error) {
                                 console.log(error);
                             } else {
-                                console.log(id + ' ' + data.movies.name + '>>>saved OK!');
+                                // console.log(id + ' ' + data.movies.name + '>>>saved OK!');
                             }
                             get(length, id + 1, callback)
                         })
@@ -80,14 +80,14 @@ function get(length, id, callback) {
                         if (update) {
                             dbConstans.MovieModel.update({id: id}, {$set: movie}, function (err) {
                                 if (err) {
-                                    console.log(id + ' ' + data.movies.name + '>>>更新失败')
+                                    // console.log(id + ' ' + data.movies.name + '>>>更新失败')
                                 } else {
-                                    console.log(id + ' ' + data.movies.name + '>>>更新成功')
+                                    // console.log(id + ' ' + data.movies.name + '>>>更新成功')
                                 }
                                 get(length, id + 1, callback)
                             })
                         } else {
-                            console.log(id + ' ' + data.movies.name + '>>>没有更新')
+                            // console.log(id + ' ' + data.movies.name + '>>>没有更新')
                             get(length, id + 1, callback)
                         }
                     }

@@ -10,16 +10,16 @@ exports.findNewMovies = (index, callback) => {
     findNewMovies(index, callback)
 }
 
-findNewMovies(1, (doc) => {
-    console.log(doc)
-})
+// findNewMovies(1, (doc) => {
+//     console.log(doc)
+// })
 
 function findNewMovies(index, callback) {
     dbConstans.db = mongoose.createConnection(Constans.WebRoot(), 'newMovies')
     dbConstans.db.on('error', console.error.bind(console, '连接错误:'));
     dbConstans.db.once('open', function () {
         //一次打开记录
-        console.log('opened')
+        // console.log('opened')
     });
     dbConstans.getModel(index).find({name: {$exists: true}}, function (error, docs) {
         if (error || docs == null || docs.length < 1) {

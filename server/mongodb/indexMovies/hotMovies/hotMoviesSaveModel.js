@@ -19,11 +19,11 @@ function getHotMovies(next) {
         console.log('opened')
     });
     dyjy.hotMovies((doc) => {
-        console.log(doc)
-        console.log('code>>>>>>' + doc.status.code)
+        // console.log(doc)
+        // console.log('code>>>>>>' + doc.status.code)
         if (doc.status.code == 1) {
             dbConstans.HotMoviesModel.remove({}, function (err) {
-                console.log('collection removed')
+                // console.log('collection removed')
                 for (let i = 0; i < doc.movies.length; i++) {
                     let movie = doc.movies[i]
                     let movies = {
@@ -39,7 +39,7 @@ function getHotMovies(next) {
                             if (error) {
                                 console.log(error);
                             } else {
-                                console.log(movies.name + '>>>saved OK!');
+                                // console.log(movies.name + '>>>saved OK!');
                             }
                             if (i >= doc.movies.length - 1) {
                                 dbConstans.db.close()

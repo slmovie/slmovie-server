@@ -91,7 +91,7 @@ exports.newTVs = function (callback) {
 
 //爬取细节及下载地址下载地址
 function getDetail(code, send) {
-    console.log("dyjy getDetail " + code)
+    // console.log("dyjy getDetail " + code)
     let website = 'http://www.idyjy.com/sub/' + code + '.html'
     getSuperagent().get(website)
         .charset('gb2312')

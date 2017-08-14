@@ -19,7 +19,7 @@ function getNewTVs(next) {
         console.log('opened')
     });
     dyjy.newTVs((doc) => {
-        console.log(doc)
+        // console.log(doc)
         if (doc.status.code == 1) {
             saveAllData(dbConstans, doc.movies, function () {
                 dbConstans.db.close()
@@ -41,7 +41,7 @@ function save(dbConstans, index, doc, next) {
         if (data.movies.status.code == 1) {
             let model = dbConstans.getModel(index)
             model.remove({}, function (err) {
-                console.log('collection removed')
+                // console.log('collection removed')
                 for (let i = 0; i < data.movies.movies.length; i++) {
                     let movie = data.movies.movies[i]
                     let movies = {
@@ -59,7 +59,7 @@ function save(dbConstans, index, doc, next) {
                             if (error) {
                                 console.log(error);
                             } else {
-                                console.log(movies.name + '>>>saved OK!');
+                                // console.log(movies.name + '>>>saved OK!');
                             }
                             if (i >= data.movies.movies.length - 1) {
                                 save(dbConstans, index + 1, doc, next)

@@ -15,7 +15,7 @@ function findHotMovies(callback) {
     dbConstans.db.on('error', console.error.bind(console, '连接错误:'));
     dbConstans.db.once('open', function () {
         //一次打开记录
-        console.log('opened')
+        // console.log('opened')
     });
     dbConstans.HotMoviesModel.find({name: {$exists: true}}, function (error, docs) {
         if (error || docs == null || docs.length < 1) {

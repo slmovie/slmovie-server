@@ -38,7 +38,7 @@ function MyNewMovies(callback) {
     let allNewMovies = {}
     allNewMovies['movies'] = []
     getAllNewMovies(allNewMovies, 0, function () {
-        console.log(allNewMovies)
+        // console.log(allNewMovies)
         callback(allNewMovies)
     })
 }
