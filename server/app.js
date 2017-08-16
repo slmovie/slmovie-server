@@ -6,6 +6,7 @@ let search = require('./routes/search.js')
 let detail = require('./routes/detail.js')
 let index = require('./routes/index.js')
 let schedule = require('./mongodb/schedule.js')
+let rnVersion = require('./routes/rnVersion.js')
 
 app.all('*', function (req, res, next) {
     res.set({
@@ -24,5 +25,7 @@ app.use('/search', search)
 app.use('/detail', detail)
 
 app.use('/index', index)
+
+app.use('/rnVersion', rnVersion)
 
 app.listen(3000);
