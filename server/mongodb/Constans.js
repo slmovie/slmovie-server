@@ -6,8 +6,8 @@ let service = 'P'
 
 exports.WebRoot = function () {
     if (service == 'T') {
-        return 'localhost'
+        return 'mongodb://baojunMovies:sadsdagds45+6412gds@localhost:14369'
     } else if (service == 'P') {
-        return '45.32.41.169'
+        return 'mongodb://baojunMovies:sadsdagds45+6412gds@45.32.41.169:14369'
     }
 }

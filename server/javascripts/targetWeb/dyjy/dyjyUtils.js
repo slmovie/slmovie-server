@@ -97,7 +97,7 @@ function getDetail(code, send) {
         .charset('gb2312')
         .timeout(5000)
         .end(function (error, response) {
-            console.log("dyjy getDetail end " + code)
+            // console.log("dyjy getDetail end " + code)
             let status = {}
             let callBack = {}
             if (error || response.statusCode == 'undefined') {

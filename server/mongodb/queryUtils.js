@@ -3,7 +3,7 @@
  */
 let mongoose = require('mongoose');    //引用mongoose模块
 let Constans = require('./Constans.js')
-let db = mongoose.createConnection(Constans.WebRoot(), 'movies')
+let db = mongoose.createConnection(Constans.WebRoot() + "/" + 'movies')
 let dbConstans = require('./dbConstans.js')
 
 //根据id查找电影

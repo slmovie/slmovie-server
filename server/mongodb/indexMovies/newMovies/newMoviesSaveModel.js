@@ -13,7 +13,7 @@ exports.getNewMovies = function (callback) {
 }
 
 function getNewMovies(next) {
-    dbConstans.db = mongoose.createConnection(Constans.WebRoot(), 'newMovies')
+    dbConstans.db = mongoose.createConnection(Constans.MoviesRoot() + "/" + 'newMovies')
     dbConstans.db.on('error', console.error.bind(console, '连接错误:'));
     dbConstans.db.once('open', function () {
         //一次打开记录
@@ -62,6 +62,7 @@ function save(dbConstans, index, doc, next) {
                                 // console.log(movies.name + '>>>saved OK!');
                             }
                             if (i >= data.movies.movies.length - 1) {
+                                console.log(data.type + '更新完成！');
                                 save(dbConstans, index + 1, doc, next)
                             }
                         })
