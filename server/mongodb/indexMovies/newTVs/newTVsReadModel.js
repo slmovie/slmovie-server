@@ -11,11 +11,11 @@ exports.findNewTVs = (index, callback) => {
 }
 
 // findNewTVs(1, (doc) => {
-    // console.log(doc)
+// console.log(doc)
 // })
 
 function findNewTVs(index, callback) {
-    dbConstans.db = mongoose.createConnection(Constans.WebRoot(), 'newtvs')
+    dbConstans.db = mongoose.createConnection(Constans.WebRoot() + '/' + 'newtvs')
     dbConstans.db.on('error', console.error.bind(console, '连接错误:'));
     dbConstans.db.once('open', function () {
         //一次打开记录
