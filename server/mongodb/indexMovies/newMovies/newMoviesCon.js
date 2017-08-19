@@ -3,7 +3,7 @@
  */
 let mongoose = require('mongoose');    //引用mongoose模块
 let Constans = require('../../Constans.js')
-let db = mongoose.createConnection(Constans.MoviesRoot() + "/" + 'newMovies') //创建一个数据库连接
+let db = mongoose.createConnection(Constans.WebRoot() + "/" + 'newMovies') //创建一个数据库连接
 let MovieSchema
 let NewMoviesModel, ActionMovieModel, ComedyModel, LoveMovieModel, ScienceMovieModel, HorrorMovieModel, DramaMovieModel,
     WarMovieModel

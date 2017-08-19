@@ -12,8 +12,12 @@ exports.getNewMovies = function (callback) {
     getNewMovies(callback)
 }
 
+// getNewMovies(function () {
+//
+// })
+
 function getNewMovies(next) {
-    dbConstans.db = mongoose.createConnection(Constans.MoviesRoot() + "/" + 'newMovies')
+    dbConstans.db = mongoose.createConnection(Constans.WebRoot() + "/" + 'newMovies')
     dbConstans.db.on('error', console.error.bind(console, '连接错误:'));
     dbConstans.db.once('open', function () {
         //一次打开记录

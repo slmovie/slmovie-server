@@ -11,6 +11,10 @@ exports.getHotMovies = function (callback) {
     getHotMovies(callback)
 }
 
+// getHotMovies(function () {
+//
+// })
+
 function getHotMovies(next) {
     dbConstans.db = mongoose.createConnection(Constans.WebRoot() + "/" + 'hotMovies')
     dbConstans.db.on('error', console.error.bind(console, '连接错误:'));
@@ -34,7 +38,7 @@ function getHotMovies(next) {
                         year: movie.year
                     }
                     query.findOneByID(movie.address, (result) => {
-                        movies['details']=result.details
+                        movies['details'] = result.details
                         dbConstans.HotMoviesModel.create(movies, function (error) {
                             if (error) {
                                 console.log(error);
@@ -42,6 +46,7 @@ function getHotMovies(next) {
                                 // console.log(movies.name + '>>>saved OK!');
                             }
                             if (i >= doc.movies.length - 1) {
+                                console.log('热门电影更新完成！');
                                 dbConstans.db.close()
                             }
                         })
