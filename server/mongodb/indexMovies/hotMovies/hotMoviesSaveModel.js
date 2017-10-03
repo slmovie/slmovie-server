@@ -27,7 +27,7 @@ function getHotMovies(next) {
         // console.log('code>>>>>>' + doc.status.code)
         if (doc.status.code == 1) {
             dbConstans.HotMoviesModel.remove({}, function (err) {
-                // console.log('collection removed')
+                console.log('HotMovies collection removed')
                 for (let i = 0; i < doc.movies.length; i++) {
                     let movie = doc.movies[i]
                     let movies = {

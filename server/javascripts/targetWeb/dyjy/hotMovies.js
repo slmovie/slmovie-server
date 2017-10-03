@@ -32,7 +32,7 @@ exports.hotMovies = function (next) {
                         //网页地址
                         'address': address,
                         //海报图片
-                        'post': $('img', elem).attr('src'),
+                        'post': $('img', elem).attr('original'),
                         //豆瓣评分
                         'douban': $('info', '.pRightBottom', elem).text(),
                         //上映日期
