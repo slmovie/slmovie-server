@@ -93,8 +93,8 @@ function get(length, id, callback) {
                     }
                 })
             } else {
-                get(length, id, callback)
                 console.log(id + '>>>爬取失败，重试')
+                get(length, id + 1, callback)
             }
         })
     } else {
