@@ -19,7 +19,9 @@ function update(type, callback) {
         //一次打开记录
         console.log('opened')
     });
-
+    // get(24809, 24775, function () {
+    //     callback(1)
+    // })
     dyjy.movieLength((length) => {
         console.log('总量' + length)
         if (length != 0) {
@@ -27,7 +29,7 @@ function update(type, callback) {
             if (type == 0) {
                 number = 1
             } else {
-                number = 21750
+                number = length
             }
             get(length, number, function () {
                 callback(1)

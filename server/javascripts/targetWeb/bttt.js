@@ -72,7 +72,6 @@ exports.queryTitle = function (query, next) {
 exports.detail = function (req, res) {
     let website = 'http://www.bttt99.com/e/show.php?classid=1&id=' + req.query.code
     getSuperagent().get(website)
-        .timeout(5000)
         .set('Referer', 'http://www.bttt99.com/v/' + req.query.code + '/')
         .end(function (error, response) {
             let status = {}
@@ -114,7 +113,6 @@ exports.detail = function (req, res) {
 
 function movieDetail(req, res, jsonRes) {
     getSuperagent().get('http://www.bttt99.com/v/' + req.query.code + '/')
-        .timeout(5000)
         .end(function (error, response) {
             if (error || response.statusCode == 'undefined') {
                 res.send(jsonRes)

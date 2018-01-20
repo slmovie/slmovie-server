@@ -16,7 +16,6 @@ exports.queryTitle = function (query, next) {
     let callBack = {}
     let status = {}
     getSuperagent().get('http://s.imp4la.com/s.asp?w=' + name)
-        .timeout(5000)
         .charset('gb2312')
         .end(function (error, response) {
             if (error || response.statusCode == 'undefined') {
@@ -95,7 +94,6 @@ function getDetail(code, send) {
     let website = 'http://www.idyjy.com/sub/' + code + '.html'
     getSuperagent().get(website)
         .charset('gb2312')
-        .timeout(5000)
         .end(function (error, response) {
             // console.log("dyjy getDetail end " + code)
             let status = {}
@@ -253,7 +251,6 @@ function movieTwiceSpide(url, callback) {
     let website = 'http://www.idyjy.com' + url;
     getSuperagent().get(website)
         .charset('gb2312')
-        .timeout(5000)
         .end(function (error, response) {
             if (error || response.statusCode == 'undefined') {
                 callback("-1")
