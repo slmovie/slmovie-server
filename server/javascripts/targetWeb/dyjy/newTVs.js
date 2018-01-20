@@ -26,6 +26,7 @@ function getLength(index, length, next) {
         if (index < 5) {
             if (number > length)
                 length = number
+            console.log("newtvs index=" + index + " most=" + number)
             getLength(index + 1, length, next)
         } else {
             next(length)
@@ -72,7 +73,6 @@ function newTVs(index, next) {
     let status = {}
     let number = 0
     getSuperagent().get('http://www.idyjy.com')
-        .timeout(5000)
         .charset('gb2312')
         .end(function (error, response) {
             if (error || response.statusCode == 'undefined') {

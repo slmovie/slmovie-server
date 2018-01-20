@@ -118,9 +118,11 @@ function getDetail(code, send) {
                 $('.down_part_name').each(function (i, elem) {
                     let movie = {}
                     //文件名称
-                    movie['name'] = $('a', elem).attr('title')
+                    movie['name'] = $('a', elem).text()
                     //下载地址
-                    movie['download'] = $('a', elem).attr('href')
+                    getDownload($(elem).parent().prev().attr('value'), (url) => {
+                        movie['download'] = url
+                    })
                     //文件大小
                     movie['fileSize'] = $('em', $(elem).parent().next()).text()
                     movies.push(movie)
@@ -220,14 +222,50 @@ exports.movieLength = function (send) {
             if (number < data[i].address)
                 number = data[i].address;
         }
+        console.log("hotmovies most=" + number)
         newMovies.getLength(function (data) {
             if (number < data)
                 number = data
+            console.log("newmovies most=" + number)
             newTVs.getLength(function (data) {
                 if (number < data)
                     number = data
+                console.log("newtvs most=" + number)
                 send(number)
             })
         })
     })
 }
+
+//获取下载地址，如果是网页链接则二次爬取
+function getDownload(text, callback) {
+    if (text.indexOf(".html") != -1) {
+        movieTwiceSpide(text, (url) => {
+            callback(url)
+        })
+    } else {
+        callback(text)
+    }
+}
+
+//电影无直接下载地址，需再次爬取
+function movieTwiceSpide(url, callback) {
+    let website = 'http://www.idyjy.com' + url;
+    getSuperagent().get(website)
+        .charset('gb2312')
+        .timeout(5000)
+        .end(function (error, response) {
+            if (error || response.statusCode == 'undefined') {
+                callback("-1")
+                return
+            }
+            if (response.statusCode == 200) {
+                let $ = cheerio.load(response.text)
+                let download = $('a', $('.downtools')).attr('href')
+                callback(download)
+            } else {
+                callback("0")
+            }
+        })
+}
+

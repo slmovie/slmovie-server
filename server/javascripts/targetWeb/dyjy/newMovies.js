@@ -4,7 +4,7 @@
 const getSuperagent = require('../../utils/mySuperagent.js')
 const cheerio = require('cheerio')
 const chinese2Gb2312 = require('../../utils/chinese2Gb2312.js')
-const Error=require('../../res/error.js')
+const Error = require('../../res/error.js')
 
 //获取所有更新电影
 exports.MyNewMovies = function (callback) {
@@ -27,6 +27,7 @@ function getLength(index, length, next) {
         if (index < 8) {
             if (number > length)
                 length = number
+            console.log("newmovies index=" + index + " most=" + number)
             getLength(index + 1, length, next)
         } else {
             next(length)
@@ -73,7 +74,6 @@ function newMovies(index, next) {
     let status = {}
     let number = 0
     getSuperagent().get('http://www.idyjy.com')
-        .timeout(5000)
         .charset('gb2312')
         .end(function (error, response) {
             if (error || response.statusCode == 'undefined') {
