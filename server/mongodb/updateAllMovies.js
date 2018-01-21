@@ -29,7 +29,7 @@ function update(type, callback) {
             if (type == 0) {
                 number = 1
             } else {
-                number = 21000
+                number = 22823
             }
             get(length, number, function () {
                 callback(1)
