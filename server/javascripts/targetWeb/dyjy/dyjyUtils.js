@@ -148,6 +148,7 @@ function getDetail(code, send) {
                 callBack['status'] = status
                 callBack['movies'] = jsonRes
                 // console.log(callBack)
+                $ = null;
                 send(callBack)
             } else {
                 status['code'] = 0
