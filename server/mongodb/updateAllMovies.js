@@ -92,6 +92,7 @@ function get(length, id, callback) {
                             console.log(id + ' ' + data.movies.name + '>>>没有更新')
                             get(length, id + 1, callback)
                         }
+                        movie = null;
                     }
                 })
             } else {

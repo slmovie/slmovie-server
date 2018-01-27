@@ -150,6 +150,7 @@ function getDetail(code, send) {
                 // console.log(callBack)
                 $ = null;
                 send(callBack)
+                callBack = null;
             } else {
                 status['code'] = 0
                 status['error'] = error
