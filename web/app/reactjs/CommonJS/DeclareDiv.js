@@ -10,7 +10,7 @@ export default class DeclareDiv extends React.Component {
         return (
             <div style={Styles.Content}>
                 <text style={Styles.Text}>
-                    免责声明:本站所有视频均来自互联网收集而来，版权归原创者所有，如果侵犯了你的权益，请通知我们，我们会及时删除侵权内容，谢谢合作！Copyright @2017 双龙影视
+                    免责声明:本站所有视频均来自互联网收集而来，版权归原创者所有，如果侵犯了你的权益，请通知我们，我们会及时删除侵权内容，谢谢合作！Copyright @2018 双龙影视
                 </text>
             </div>
         )

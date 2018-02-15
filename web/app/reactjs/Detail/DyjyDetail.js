@@ -70,6 +70,7 @@ export default class DyjyDetail extends React.Component {
                                 {this._renderInfo()}
                             </ul>
                         </div>
+                        {this._getDescribe(this.state.movie.movies.describe)}
                         <ul style={Styles.UrlsUl}>
                             {this._renderUrls()}
                         </ul>
@@ -96,6 +97,19 @@ export default class DyjyDetail extends React.Component {
         return (
             <li style={Styles.InfoLi}>{info}</li>
         )
+    }
+
+    _getDescribe(describe) {
+        if (describe != '') {
+            return (
+                <ul style={Styles.DescribeUl}>
+                    <li style={Styles.DescribeTitle}>剧情简介</li>
+                    <li style={Styles.DescribeText}>{describe}</li>
+                </ul>
+            )
+        } else {
+            return null
+        }
     }
 
     //渲染下载链接
@@ -165,4 +179,17 @@ const
             borderWidth: 1,
             textOverflow: 'ellipsis'
         },
+        DescribeUl: {
+            listStyleType: 'none',
+            padding: 0,
+            marginTop: 30,
+        },
+        DescribeTitle: {
+            fontSize: 20,
+        },
+        DescribeText: {
+            fontSize: 16,
+            width: '100%',
+            marginTop: 20,
+        }
     }

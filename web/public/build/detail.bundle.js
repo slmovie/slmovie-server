@@ -32120,9 +32120,9 @@ module.exports = g;
  * Created by BaoJun on 2017/2/23.
  */
 //测试地址T，生产地址P
-exports.service = 'P';
-exports.log = false;
-exports.error = false;
+exports.service = 'T';
+exports.log = true;
+exports.error = true;
 
 /***/ }),
 /* 183 */,
@@ -32261,6 +32261,7 @@ var DyjyDetail = function (_React$Component) {
                                 this._renderInfo()
                             )
                         ),
+                        this._getDescribe(this.state.movie.movies.describe),
                         _react2.default.createElement(
                             'ul',
                             { style: Styles.UrlsUl },
@@ -32295,6 +32296,28 @@ var DyjyDetail = function (_React$Component) {
                 { style: Styles.InfoLi },
                 info
             );
+        }
+    }, {
+        key: '_getDescribe',
+        value: function _getDescribe(describe) {
+            if (describe != '') {
+                return _react2.default.createElement(
+                    'ul',
+                    { style: Styles.DescribeUl },
+                    _react2.default.createElement(
+                        'li',
+                        { style: Styles.DescribeTitle },
+                        '\u5267\u60C5\u7B80\u4ECB'
+                    ),
+                    _react2.default.createElement(
+                        'li',
+                        { style: Styles.DescribeText },
+                        describe
+                    )
+                );
+            } else {
+                return null;
+            }
         }
 
         //渲染下载链接
@@ -32382,6 +32405,19 @@ var Styles = {
         borderColor: '#e4e4e4',
         borderWidth: 1,
         textOverflow: 'ellipsis'
+    },
+    DescribeUl: {
+        listStyleType: 'none',
+        padding: 0,
+        marginTop: 30
+    },
+    DescribeTitle: {
+        fontSize: 20
+    },
+    DescribeText: {
+        fontSize: 16,
+        width: '100%',
+        marginTop: 20
     }
 };
 
@@ -32684,27 +32720,8 @@ var Detail = function (_React$Component) {
 
     _createClass(Detail, [{
         key: 'render',
-
-        // constructor() {
-        //     super()
-        //     this.state = {
-        //         from: '',
-        //         code: '',
-        //     }
-        // }
-        //
-        // componentDidMount() {
-        //     this.setState({from: window.location.href.split('=')[2]})
-        // }
-
         value: function render() {
-            // if (this.state.from == 'dyjy') {
             return _react2.default.createElement(_DyjyDetail2.default, null);
-            // } else if (this.state.from == 'ttbt') {
-            //     return (<TtbtDetail/>)
-            // } else {
-            //     return (<text>111</text>)
-            // }
         }
     }]);
 

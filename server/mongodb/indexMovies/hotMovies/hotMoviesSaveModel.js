@@ -42,8 +42,6 @@ function getHotMovies(next) {
                         dbConstans.HotMoviesModel.create(movies, function (error) {
                             if (error) {
                                 console.log(error);
-                            } else {
-                                // console.log(movies.name + '>>>saved OK!');
                             }
                             if (i >= doc.movies.length - 1) {
                                 console.log('热门电影更新完成！');

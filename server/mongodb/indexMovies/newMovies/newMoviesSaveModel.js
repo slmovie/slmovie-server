@@ -62,8 +62,6 @@ function save(dbConstans, index, doc, next) {
                         model.create(movies, function (error) {
                             if (error) {
                                 console.log(error);
-                            } else {
-                                // console.log(movies.name + '>>>saved OK!');
                             }
                             if (i >= data.movies.movies.length - 1) {
                                 console.log(data.type + '更新完成！');
