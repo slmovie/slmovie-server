@@ -7,7 +7,7 @@ exports.WebRoot = function () {
     if (Constans.service == 'T') {
         return 'http://localhost:3000'
     } else if (Constans.service == 'P') {
-        return '45.32.41.169:3000'
+        return 'http://45.32.41.169:3000'
     }
 }
 
