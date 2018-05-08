@@ -26,7 +26,7 @@ function update(type, callback) {
             if (type == 0) {
                 number = 1
             } else {
-                number = length-2000
+                number = length - 2000
             }
             get(length, number, function () {
                 callback(1)
@@ -40,7 +40,7 @@ function update(type, callback) {
 
 function get(length, id, callback) {
     if (id <= length) {
-        dyjy.getData(id + '', function (data) {
+        dyjy.getData(id + '', true, function (data) {
             if (data.status.code == 1) {
                 let movie = {
                     name: data.movies.name,
@@ -50,7 +50,6 @@ function get(length, id, callback) {
                     details: data.movies.details,
                     files: data.movies.files,
                     id: id + '',
-                    doubanID: data.movies.doubanID,
                 }
                 //查询数据库数据
                 dbQuery.findOneByID(id, function (doc) {
@@ -62,7 +61,7 @@ function get(length, id, callback) {
                             } else {
                                 console.log(id + ' ' + data.movies.name + '>>>saved OK!');
                             }
-                            startNext(length, id + 1, callback)
+                            get(length, id + 1, callback)
                         })
                     } else {
                         //数据库存在该电影，对比是否有更新
@@ -76,29 +75,25 @@ function get(length, id, callback) {
                         } else {
                             update = true
                         }
-                        var doubanID = doc.doubanID
-                        console.log(doc.name + "   " + doubanID)
-                        if (doubanID == undefined || doubanID == '' || doubanID == '0') {
-                            update = true
-                        }
+
                         if (update) {
                             dbConstans.MovieModel.update({id: id}, {$set: movie}, function (err) {
                                 if (err) {
                                     // console.log(id + ' ' + data.movies.name + '>>>更新失败')
                                 } else {
-                                    console.log(id + ' ' + data.movies.name + '>>>更新成功' + data.movies.doubanID)
+                                    console.log(id + ' ' + data.movies.name + '>>>更新成功')
                                 }
-                                startNext(length, id + 1, callback)
+                                get(length, id + 1, callback)
                             })
                         } else {
                             console.log(id + ' ' + data.movies.name + '>>>没有更新')
-                            startNext(length, id + 1, callback)
+                            get(length, id + 1, callback)
                         }
                         movie = null;
                     }
                 })
             } else {
-                console.log(id + '>>>爬取失败')
+                console.log(id + '>>>爬取失败，重试')
                 get(length, id + 1, callback)
             }
         })
@@ -111,9 +106,7 @@ function get(length, id, callback) {
 
 //由于豆瓣有请求限制，限速
 function startNext(length, id, callback) {
-    setTimeout(() => {
-        get(length, id, callback)
-    }, 5000)
+    get(length, id, callback)
 }
 
 function get2(length, id, callback) {
