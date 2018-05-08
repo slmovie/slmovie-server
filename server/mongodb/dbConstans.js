@@ -26,6 +26,7 @@ let details = new mongoose.Schema({
     IMDB: String,
     status: String,
     TV: Boolean,
+    average: String,
 })
 
 MovieSchema = new mongoose.Schema({
@@ -36,6 +37,7 @@ MovieSchema = new mongoose.Schema({
     details: details,
     files: [movieFiles],
     id: String,
+    doubanID: String,
 })
 
 MovieModel = db.model('Movie', MovieSchema)

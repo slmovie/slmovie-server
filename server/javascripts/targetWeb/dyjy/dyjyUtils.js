@@ -9,6 +9,7 @@ const DealError = require('../../res/error.js')
 const newMovies = require('./newMovies.js')
 const newTVs = require('./newTVs.js')
 const hotMovies = require('./hotMovies.js')
+const douban = require('../../douban/FindDBID.js')
 
 //爬取标题图片等信息
 exports.queryTitle = function (query, next) {
@@ -67,8 +68,8 @@ exports.detail = function (req, res) {
 }
 
 //直接爬取数据
-exports.getData = function (code, send) {
-    getDetail(code, function (data) {
+exports.getData = function (code, doubanData, send) {
+    getDetail(code, doubanData, function (data) {
         send(data)
     })
 }
@@ -88,8 +89,12 @@ exports.newTVs = function (callback) {
     newTVs.MyNewTVs(callback)
 }
 
+// getDetail("25635", (content) => {
+//     console.log(content)
+// })
+
 //爬取细节及下载地址下载地址
-function getDetail(code, send) {
+function getDetail(code, doubanData, send) {
     // console.log("dyjy getDetail " + code)
     let website = 'http://www.idyjy.com/sub/' + code + '.html'
     getSuperagent().get(website)
@@ -144,13 +149,47 @@ function getDetail(code, send) {
                 })
                 jsonRes['photos'] = photos
                 jsonRes['post'] = $('img', '.pic').attr('src')
-                status['code'] = 1
-                callBack['status'] = status
-                callBack['movies'] = jsonRes
-                // console.log(callBack)
-                $ = null;
-                send(callBack)
-                callBack = null;
+                if (jsonRes['name'] == '' || jsonRes['name'] == undefined) {
+                    status['code'] = 0
+                    status['error'] = error
+                    callBack['status'] = status
+                    send(callBack)
+                    console.log("dyjy getDetail 无结果")
+                    return
+                } else {
+                    //如果有豆瓣id就不需要更新豆瓣信息
+                    if (doubanData) {
+                        status['code'] = 1
+                        callBack['status'] = status
+                        callBack['movies'] = jsonRes
+                        // console.log(callBack)
+                        $ = null;
+                        send(callBack)
+                        callBack = null;
+                    } else {
+                        var key = ''
+                        if (jsonRes.details.IMDB != '' && jsonRes.details.IMDB != undefined) {
+                            key = jsonRes.details.IMDB
+                        } else {
+                            key = jsonRes.name
+                        }
+                        douban.findDBID(key, (content) => {
+                            if (content != '0') {
+                                reloadDBData(jsonRes, content)
+                            } else {
+                                jsonRes['doubanID'] = '0'
+                                jsonRes['details']['average'] = '0'
+                            }
+                            status['code'] = 1
+                            callBack['status'] = status
+                            callBack['movies'] = jsonRes
+                            // console.log(callBack)
+                            $ = null;
+                            send(callBack)
+                            callBack = null;
+                        })
+                    }
+                }
             } else {
                 status['code'] = 0
                 status['error'] = error
@@ -161,6 +200,65 @@ function getDetail(code, send) {
             }
         })
 }
+
+function reloadDBData(jsonRes, douban) {
+    jsonRes['doubanID'] = douban.id
+    jsonRes['details']['name'] = douban.title
+    jsonRes['details']['year'] = douban.year
+    jsonRes['post'] = douban.images.medium
+    if (douban.directors.length > 0) {
+        var director = ''
+        for (var i = 0; i < douban.directors.length; i++) {
+            if (i == 0) {
+                director = douban.directors[i].name
+            } else {
+                director = director + '、' + douban.directors[i].name
+            }
+        }
+        jsonRes['details']['director'] = director
+    }
+    if (douban.casts.length > 0) {
+        var actor = ''
+        for (var i = 0; i < douban.casts.length; i++) {
+            if (i == 0) {
+                actor = douban.casts[i].name
+            } else {
+                actor = actor + '、' + douban.casts[i].name
+            }
+        }
+        jsonRes['details']['actor'] = actor
+    }
+    var average = douban.rating.average
+    if (average != undefined && average != '') {
+        jsonRes['details']['average'] = average
+    } else {
+        jsonRes['details']['average'] = '0'
+    }
+    // if (douban.countries.length > 0) {
+    //     var location = ''
+    //     for (var i = 0; i < douban.countries.length; i++) {
+    //         if (i == 0) {
+    //             location = douban.countries[i]
+    //         } else {
+    //             location = location + '、' + douban.countries[i]
+    //         }
+    //     }
+    //     jsonRes['details']['location'] = location
+    // }
+    if (douban.genres.length > 0) {
+        var type = ''
+        for (var i = 0; i < douban.genres.length; i++) {
+            if (i == 0) {
+                type = douban.genres[i]
+            } else {
+                type = type + '、' + douban.genres[i]
+            }
+        }
+        jsonRes['details']['type'] = type
+    }
+    jsonRes['describe'] = douban.summary
+}
+
 
 //详细数据拼装
 function pieceDetail(detail) {

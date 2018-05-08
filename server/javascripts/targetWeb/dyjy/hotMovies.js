@@ -3,7 +3,6 @@
  */
 const getSuperagent = require('../../utils/mySuperagent.js')
 const cheerio = require('cheerio')
-const chinese2Gb2312 = require('../../utils/chinese2Gb2312.js')
 
 //热门电影
 exports.hotMovies = function (next) {
