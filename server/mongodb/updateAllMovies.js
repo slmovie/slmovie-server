@@ -26,9 +26,9 @@ function update(type, callback) {
             if (type == 0) {
                 number = 1
             } else {
-                number = length - 2000
+                number = 1375
             }
-            get(length, number, function () {
+            get2(length, number, function () {
                 callback(1)
             })
         } else {
@@ -185,7 +185,7 @@ function get2(length, id, callback) {
                     }
                 } else {
                     console.log(id + '>>>爬取失败')
-                    get2(doubanData, length, id + 1, callback)
+                    startNext2(true, length, id + 1, callback)
                 }
             })
         })
