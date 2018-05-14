@@ -47,9 +47,14 @@ async function getPoxy() {
     })
 }
 
+const address = ['http://www.xicidaili.com/nn/', 'http://www.xicidaili.com/nt/',
+    'http://www.xicidaili.com/wt/', 'http://www.xicidaili.com/wn/']
+
 async function reqHtml(page) {
     return await new Promise((resolve, reject) => {
-        var req = http.get('http://www.xicidaili.com/nt/' + page, function (res) {
+        let url = address[Math.floor(Math.random() * 4)]
+        console.log('url>>>' + url)
+        var req = http.get(url + page, function (res) {
             var html = '';
             res.on('data', function (data) {
                 html += data;

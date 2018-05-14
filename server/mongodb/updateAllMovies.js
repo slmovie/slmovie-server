@@ -26,9 +26,9 @@ function update(type, callback) {
             if (type == 0) {
                 number = 1
             } else {
-                number = 20000
+                // number = 8588
                 // number = length - 2000
-                // number=10083
+                number=22955
             }
             get2(length, number, function () {
                 callback(1)
