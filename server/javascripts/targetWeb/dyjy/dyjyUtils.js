@@ -89,7 +89,7 @@ exports.newTVs = function (callback) {
     newTVs.MyNewTVs(callback)
 }
 
-// getDetail("25635", (content) => {
+// getDetail("1946",false, (content) => {
 //     console.log(content)
 // })
 
@@ -167,14 +167,14 @@ function getDetail(code, doubanData, send) {
                         send(callBack)
                         callBack = null;
                     } else {
-                        var key = ''
-                        if (jsonRes.details.IMDB != '' && jsonRes.details.IMDB != undefined) {
-                            key = jsonRes.details.IMDB
-                        } else {
-                            key = jsonRes.name
-                        }
-                        douban.findDBID(key, (content) => {
-                            if (content != '0') {
+                        // var key = ''
+                        // if (jsonRes.details.IMDB != '' && jsonRes.details.IMDB != undefined) {
+                        //     key = jsonRes.details.IMDB
+                        // } else {
+                        //     key = jsonRes.name
+                        // }
+                        douban.findDBID(jsonRes.details.IMDB, (content) => {
+                            if (content != '0' && content != '112') {
                                 reloadDBData(jsonRes, content)
                             } else {
                                 jsonRes['doubanID'] = '0'

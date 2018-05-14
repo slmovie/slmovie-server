@@ -26,6 +26,7 @@
     "serve-favicon": "~2.3.2",
     "superagent": "^3.4.1",
     "superagent-charset": "^1.1.1",
+    "superagent-proxy": "^1.0.3",
     "webpack": "^2.2.1"
   },
   "devDependencies": {

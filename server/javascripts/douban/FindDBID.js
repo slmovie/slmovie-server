@@ -1,63 +1,122 @@
 /**
  * Created by 包俊 on 2018/5/5.
  */
-const getSuperagent = require('../utils/mySuperagent.js')
+var request = require('superagent');
+require('superagent-proxy')(request);
 const chinese2Gb2312 = require('../utils/chinese2Gb2312.js')
-const cheerio = require('cheerio')
+let IPPool = require('../utils/IPPool.js')
+
+let MyProxy = '-1'
 
 //查找豆瓣id
 exports.findDBID = function (imdb, next) {
-    findDBID(imdb, next)
+    if (imdb == '' || imdb == undefined) {
+        next('0')
+        // console.log('no imdb')
+    } else {
+        startFindID(imdb, next)
+    }
 }
 
-// findDBID('tt0284235', (data) => {
+// startFindID('tt0284235', data => {
 //     console.log(data)
 // })
 
-function findDBID(imdb, next) {
-    let name = chinese2Gb2312(imdb)
-    getSuperagent().get('http://api.douban.com/v2/movie/search?q=' + name)
-        .charset('gb2312')
+function startFindID(imdb, next) {
+    if (MyProxy == '-1') {
+        IPPool.getSinglePoxy((ip => {
+            MyProxy = ip
+            findDBID(imdb, MyProxy, next)
+        }))
+    } else {
+        findDBID(imdb, MyProxy, next)
+    }
+}
+
+// findDBID('tt0284235', '', data => {
+//     console.log(data)
+// })
+
+function findDBID(imdb, proxy, next) {
+    // let name = chinese2Gb2312(imdb)
+    request.get('http://api.douban.com/v2/movie/search?q=' + imdb)
         .accept('application/json')
+        .proxy(proxy)
+        .timeout(5000)
+        .on('error', (error) => {
+            // console.log('findDBID on error' + error)
+        })
         .end(function (error, response) {
-            if (error || response.statusCode == 'undefined') {
-                next("0")
-                return
-            }
-            if (response.statusCode == 200) {
-                var contents = JSON.parse(response.text).subjects
-                if (contents.length == 0) {
-                    next("0")
+            try {
+                if (error || response.statusCode == 'undefined' || response.statusCode != 200) {
+                    var contents = JSON.parse(response.text)
+                    if (contents.code == '112') {
+                        MyProxy = '-1'
+                        startFindID(imdb, next)
+                    } else {
+                        next("0")
+                    }
+                    return
+                }
+                if (response.statusCode == 200) {
+                    // console.log(response.text)
+                    var contents = JSON.parse(response.text).subjects
+                    if (contents.length == 0) {
+                        next("0")
+                    } else {
+                        // findMovie(contents[0].id, next)
+                        next(contents[0])
+                    }
+                }
+            } catch (ex) {
+                if (error.code == 'ECONNRESET') {
                     console.log(error)
+                    wait(imdb, proxy, next)
                 } else {
-                    next(contents[0])
-                    // findMovie(contents[0].id, (data) => {
-                    //     next(data)
-                    // })
+                    MyProxy = '-1'
+                    console.log(error)
+                    startFindID(imdb, next)
                 }
             }
         })
 }
 
+function wait(imdb, proxy, next) {
+    setTimeout(() => {
+        MyProxy = '-1'
+        startFindID(imdb, next)
+    }, 3000)
+}
+
 function findMovie(id, next) {
     let name = chinese2Gb2312(id)
-    getSuperagent().get('http://api.douban.com/v2/movie/subject/' + name)
+    request.get('http://api.douban.com/v2/movie/subject/' + name)
         .charset('gb2312')
         .accept('application/json')
         .end(function (error, response) {
-            if (error || response.statusCode == 'undefined') {
-                next("0")
-                console.log(error)
-                return
-            }
-            if (response.statusCode == 200) {
-                // console.log(response.text)
-                var contents = JSON.parse(response.text)
-                if (contents.length == 0) {
-                    next("0")
-                } else {
-                    next(contents)
+            try {
+                if (error || response.statusCode == 'undefined') {
+                    var contents = JSON.parse(response.text)
+                    if (contents.code == '112') {
+                        MyProxy = '-1'
+                        startFindID(imdb, next)
+                    } else {
+                        next("0")
+                    }
+                    return
                 }
+                if (response.statusCode == 200) {
+                    var contents = JSON.parse(response.text)
+                    if (contents.length == 0) {
+                        next("0")
+                    } else {
+                        next(contents)
+                    }
+                }
+            } catch (ex) {
+                MyProxy = '-1'
+                startFindID(imdb, next)
+                console.log(error)
             }
         })
 }

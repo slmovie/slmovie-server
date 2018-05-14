@@ -26,11 +26,11 @@ function update(type, callback) {
             if (type == 0) {
                 number = 1
             } else {
-                // number = 1480
-                number = length - 2000
+                number = 20000
+                // number = length - 2000
                 // number=10083
             }
-            get(length, number, function () {
+            get2(length, number, function () {
                 callback(1)
             })
         } else {
@@ -135,10 +135,10 @@ function get2(length, id, callback) {
                         id: id + '',
                     }
                     if (doubanData) {
-                        console.log(data.movies.name + "已有id" + doubanID)
+                        console.log(data.movies.name + ">>已有id>>" + doubanID)
                         movie['doubanID'] = doubanID
                     } else {
-                        console.log(data.movies.name + "没有id")
+                        console.log(data.movies.name + ">>没有id")
                         movie['doubanID'] = data.movies.doubanID
                     }
                     if (doc == 0) {
@@ -205,7 +205,7 @@ function startNext2(doubanData, length, id, callback) {
         time = 0
     setTimeout(() => {
         get2(length, id, callback)
-    }, time)
+    }, 0)
 }
 
 function movieLength(send) {
