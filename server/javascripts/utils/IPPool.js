@@ -64,7 +64,7 @@ async function reqHtml(page) {
             });
         });
         req.on('error', () => {
-            reject(new Error())
+            resolve("")
         })
         req.end()
     })
@@ -129,18 +129,14 @@ async function singlePoxy() {
                 port: td[2].children[0].data
             }
             console.log('开始测试：' + proxy.host + ':' + proxy.port)
-            try {
-                //代理IP请求，设置超时为3000ms，返回正确即当可用
-                let ip = await reqDouban(proxy)
-                if (ip != '0') {
-                    return new Promise(resolve => {
-                        console.log('可用IP：' + proxy.host + ':' + proxy.port)
-                        resolve(ip)
-                    })
-                }
-            } catch (error) {
+            //代理IP请求，设置超时为3000ms，返回正确即当可用
+            let ip = await reqDouban(proxy)
+            if (ip != '0') {
+                return new Promise(resolve => {
+                    console.log('可用IP：' + proxy.host + ':' + proxy.port)
+                    resolve(ip)
+                })
             }
-            // console.log(ips)
         }
     }
 }

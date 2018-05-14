@@ -71,7 +71,8 @@ function findDBID(imdb, proxy, next) {
             } catch (ex) {
                 if (error.code == 'ECONNRESET') {
                     console.log(error)
-                    wait(imdb, proxy, next)
+                    MyProxy = '-1'
+                    startFindID(imdb, next)
                 } else {
                     MyProxy = '-1'
                     console.log(error)
