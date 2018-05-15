@@ -64,8 +64,8 @@ function findDBID(imdb, proxy, next) {
                     if (contents.length == 0) {
                         next("0")
                     } else {
-                        // findMovie(contents[0].id, next)
-                        next(contents[0])
+                        findMovie(contents[0].id, next)
+                        // next(contents[0])
                     }
                 }
             } catch (ex) {

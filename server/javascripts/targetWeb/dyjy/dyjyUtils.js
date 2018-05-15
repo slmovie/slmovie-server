@@ -234,17 +234,17 @@ function reloadDBData(jsonRes, douban) {
     } else {
         jsonRes['details']['average'] = '0'
     }
-    // if (douban.countries.length > 0) {
-    //     var location = ''
-    //     for (var i = 0; i < douban.countries.length; i++) {
-    //         if (i == 0) {
-    //             location = douban.countries[i]
-    //         } else {
-    //             location = location + '、' + douban.countries[i]
-    //         }
-    //     }
-    //     jsonRes['details']['location'] = location
-    // }
+    if (douban.countries.length > 0) {
+        var location = ''
+        for (var i = 0; i < douban.countries.length; i++) {
+            if (i == 0) {
+                location = douban.countries[i]
+            } else {
+                location = location + '、' + douban.countries[i]
+            }
+        }
+        jsonRes['details']['location'] = location
+    }
     if (douban.genres.length > 0) {
         var type = ''
         for (var i = 0; i < douban.genres.length; i++) {
