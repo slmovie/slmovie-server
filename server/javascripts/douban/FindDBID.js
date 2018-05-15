@@ -23,13 +23,18 @@ exports.findDBID = function (imdb, next) {
 // })
 
 function startFindID(imdb, next) {
-    if (MyProxy == '-1') {
-        IPPool.getSinglePoxy((ip => {
-            MyProxy = ip
+    try {
+        if (MyProxy == '-1') {
+            IPPool.getSinglePoxy((ip => {
+                MyProxy = ip
+                findDBID(imdb, MyProxy, next)
+            }))
+        } else {
             findDBID(imdb, MyProxy, next)
-        }))
-    } else {
-        findDBID(imdb, MyProxy, next)
+        }
+    } catch (error) {
+        console.log('catch startFindID error>>>' + error)
+        startFindID(imdb, next)
     }
 }
 
