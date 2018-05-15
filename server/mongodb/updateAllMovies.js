@@ -26,9 +26,9 @@ function update(type, callback) {
             if (type == 0) {
                 number = 1
             } else {
-                // number = 9075
+                // number = 0
                 // number = length - 2000
-                number=24820
+                number = 10000
             }
             get2(length, number, function () {
                 callback(1)
@@ -164,12 +164,17 @@ function get2(length, id, callback) {
                         }
                         if (!doubanData)
                             update = true
+                        if (doc.describe == undefined || doc.describe == '') {
+                            update = true
+                            console.log('更新简介')
+                        }
+
                         if (update) {
                             dbConstans.MovieModel.update({id: id}, {$set: movie}, function (err) {
                                 if (err) {
                                     // console.log(id + ' ' + data.movies.name + '>>>更新失败')
                                 } else {
-                                    console.log(id + ' ' + data.movies.name + '>>>更新成功' + data.movies.doubanID)
+                                    console.log(id + ' ' + data.movies.name + '>>>更新成功')
                                 }
                                 if (data.movies.doubanID == '0') {
                                     console.log(id + ' ' + data.movies.name + '>>>豆瓣请求失败')
