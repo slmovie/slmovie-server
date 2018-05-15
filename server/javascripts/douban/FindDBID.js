@@ -100,7 +100,7 @@ function findMovie(id, next) {
                     var contents = JSON.parse(response.text)
                     if (contents.code == '112') {
                         MyProxy = '-1'
-                        startFindID(imdb, next)
+                        findMovie(name, next)
                     } else {
                         next("0")
                     }
@@ -116,7 +116,7 @@ function findMovie(id, next) {
                 }
             } catch (ex) {
                 MyProxy = '-1'
-                startFindID(imdb, next)
+                findMovie(name, next)
                 console.log(error)
             }
         })
