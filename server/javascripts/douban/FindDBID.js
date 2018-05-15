@@ -64,7 +64,7 @@ function findDBID(imdb, proxy, next) {
                     if (contents.length == 0) {
                         next("0")
                     } else {
-                        findMovie(contents[0].id, next)
+                        findMovie(contents[0].id, imdb, next)
                         // next(contents[0])
                     }
                 }
@@ -89,7 +89,7 @@ function wait(imdb, proxy, next) {
     }, 3000)
 }
 
-function findMovie(id, next) {
+function findMovie(id, imdb, next) {
     let name = chinese2Gb2312(id)
     request.get('http://api.douban.com/v2/movie/subject/' + name)
         .charset('gb2312')
@@ -100,7 +100,7 @@ function findMovie(id, next) {
                     var contents = JSON.parse(response.text)
                     if (contents.code == '112') {
                         MyProxy = '-1'
-                        findMovie(name, next)
+                        startFindID(imdb, next)
                     } else {
                         next("0")
                     }
@@ -116,7 +116,7 @@ function findMovie(id, next) {
                 }
             } catch (ex) {
                 MyProxy = '-1'
-                findMovie(name, next)
+                startFindID(imdb, next)
                 console.log(error)
             }
         })
