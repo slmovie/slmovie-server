@@ -6,47 +6,6 @@ var cheerio = require('cheerio');
 require('superagent-proxy')(request);
 var http = require('http');
 
-// getPoxy().then(v => {
-//     console.log(v)
-// })
-
-async function getPoxy() {
-    let ips = []
-    for (var page = 1; page <= 50; page++) {
-        console.log('开始查询第' + page + '页')
-        //请求代理IP页面
-        var res = await reqHtml(page).catch(error => {
-            console.log(error)
-        })
-        console.log(res)
-        var $ = cheerio.load(res);
-        var tr = $('tr');
-        //从第二行开始获取IP和端口
-        for (var line = 1; line < tr.length; line++) {
-            var td = $(tr[line]).children('td');
-            // var proxy = 'http://' + td[1].children[0].data + ':' + td[2].children[0].data;
-            var proxy = {
-                host: 'http://' + td[1].children[0].data,
-                port: td[2].children[0].data
-            }
-            // console.log('开始测试：' + proxy)
-            try {
-                //代理IP请求，设置超时为3000ms，返回正确即当可用
-                let ip = await reqDouban(proxy)
-                if (ip != '0') {
-                    ips.push(ip)
-                }
-            } catch (error) {
-            }
-            // console.log(ips)
-        }
-    }
-    console.log('finish')
-    return new Promise(resolve => {
-        resolve(ips)
-    })
-}
-
 const address = ['http://www.xicidaili.com/nn/', 'http://www.xicidaili.com/nt/',
     'http://www.xicidaili.com/wt/', 'http://www.xicidaili.com/wn/']
 
