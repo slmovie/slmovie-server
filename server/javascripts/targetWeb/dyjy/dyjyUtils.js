@@ -69,9 +69,17 @@ exports.detail = function (req, res) {
 
 //直接爬取数据
 exports.getData = function (code, doubanData, send) {
-    getDetail(code, doubanData, function (data) {
-        send(data)
-    })
+    try {
+        getDetail(code, doubanData, function (data) {
+            send(data)
+        })
+    } catch (error) {
+        console.log('catch getDetail error>>' + error)
+        getDetail(code, doubanData, function (data) {
+            send(data)
+        })
+    }
+
 }
 
 //最热电影

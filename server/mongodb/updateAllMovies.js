@@ -26,7 +26,7 @@ function update(type, callback) {
             if (type == 0) {
                 number = 1
             } else {
-                number = 546
+                number = 810
                 // number = length - 2000
                 // number = 10000
             }
