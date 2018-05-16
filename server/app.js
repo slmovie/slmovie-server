@@ -7,6 +7,7 @@ let detail = require('./routes/detail.js')
 let index = require('./routes/index.js')
 let schedule = require('./mongodb/schedule.js')
 let rnVersion = require('./routes/rnVersion.js')
+let appVersion = require('./routes/appVersion.js')
 
 app.all('*', function (req, res, next) {
     res.set({
@@ -27,5 +28,7 @@ app.use('/detail', detail)
 app.use('/index', index)
 
 app.use('/rnVersion', rnVersion)
+
+app.use('/appVersion', appVersion)
 
 app.listen(3000);
