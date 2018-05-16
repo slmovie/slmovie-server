@@ -17,28 +17,27 @@ exports.getSinglePoxy = function (callback) {
 }
 
 async function singlePoxy() {
-    for (var page = 1; page <= 5; page++) {
-        console.log('开始查询第' + page + '页')
-        //请求代理IP页面
-        var res = await reqHtml(page)
-        var $ = cheerio.load(res);
-        var tr = $('tr');
-        //从第二行开始获取IP和端口
-        for (var line = 1; line < tr.length; line++) {
-            var td = $(tr[line]).children('td');
-            var proxy = {
-                host: 'http://' + td[1].children[0].data,
-                port: td[2].children[0].data
-            }
-            console.log('开始测试：' + proxy.host + ':' + proxy.port)
-            //代理IP请求，设置超时为3000ms，返回正确即当可用
-            let ip = await TestProxy.testProxy(proxy)
-            if (ip != '0') {
-                return new Promise(resolve => {
-                    console.log('可用IP：' + proxy.host + ':' + proxy.port)
-                    resolve(ip)
-                })
-            }
+    let page = Math.floor(Math.random() * 4) + 1
+    console.log('开始查询第' + page + '页')
+    //请求代理IP页面
+    var res = await reqHtml(page)
+    var $ = cheerio.load(res);
+    var tr = $('tr');
+    //从第二行开始获取IP和端口
+    for (var line = 1; line < tr.length; line++) {
+        var td = $(tr[line]).children('td');
+        var proxy = {
+            host: 'http://' + td[1].children[0].data,
+            port: td[2].children[0].data
+        }
+        console.log('开始测试：' + proxy.host + ':' + proxy.port)
+        //代理IP请求，设置超时为3000ms，返回正确即当可用
+        let ip = await TestProxy.testProxy(proxy)
+        if (ip != '0') {
+            return new Promise(resolve => {
+                console.log('可用IP：' + proxy.host + ':' + proxy.port)
+                resolve(ip)
+            })
         }
     }
     return new Promise(resolve => {
