@@ -26,9 +26,9 @@ function update(type, callback) {
             if (type == 0) {
                 number = 1
             } else {
-                // number = 5718
-                number = length - 2000
-                // number = 10609
+                // number = 6000
+                // number = length - 2000
+                number = 13512
             }
             get2(length, number, function () {
                 callback(1)
@@ -164,10 +164,10 @@ function get2(length, id, callback) {
                         }
                         if (!doubanData)
                             update = true
-                        if (doc.describe == undefined || doc.describe == '') {
-                            update = true
-                            console.log('更新简介')
-                        }
+                        // if (doc.describe == undefined || doc.describe == '') {
+                        //     update = true
+                        //     console.log('更新简介')
+                        // }
                         if (update) {
                             dbConstans.MovieModel.update({id: id}, {$set: movie}, function (err) {
                                 if (err) {

@@ -4,7 +4,7 @@
 var request = require('superagent');
 require('superagent-proxy')(request);
 const chinese2Gb2312 = require('../utils/chinese2Gb2312.js')
-let IPPool = require('../utils/IPPool.js')
+let IPPool = require('../utils/IPPool/IPPools.js')
 
 let MyProxy = '-1'
 
@@ -26,8 +26,12 @@ function startFindID(imdb, next) {
     try {
         if (MyProxy == '-1') {
             IPPool.getSinglePoxy((ip => {
-                MyProxy = ip
-                findDBID(imdb, MyProxy, next)
+                if (ip == '0') {
+                    startFindID(imdb, next)
+                } else {
+                    MyProxy = ip
+                    findDBID(imdb, MyProxy, next)
+                }
             }))
         } else {
             findDBID(imdb, MyProxy, next)
@@ -49,7 +53,7 @@ function findDBID(imdb, proxy, next) {
         .proxy(proxy)
         .timeout(5000)
         .on('error', (error) => {
-            // console.log('findDBID on error' + error)
+            console.log('findDBID on error' + error)
         })
         .end(function (error, response) {
             try {
@@ -99,6 +103,9 @@ function findMovie(id, imdb, next) {
     request.get('http://api.douban.com/v2/movie/subject/' + name)
         .charset('gb2312')
         .accept('application/json')
+        .on('error', (error) => {
+            console.log('findDBID on error' + error)
+        })
         .end(function (error, response) {
             try {
                 if (error || response.statusCode == 'undefined') {

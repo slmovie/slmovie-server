@@ -6,7 +6,7 @@ let TestProxy = require('./TestProxy.js')
 var http = require('http');
 
 const address = ['http://www.xicidaili.com/nn/', 'http://www.xicidaili.com/nt/',
-    'http://www.xicidaili.com/wt/', 'http://www.xicidaili.com/wn/']
+    'http://www.xicidaili.com/wt/']
 
 exports.getSinglePoxy = function (callback) {
     singlePoxy().then(v => {
@@ -32,7 +32,7 @@ async function singlePoxy() {
             }
             console.log('开始测试：' + proxy.host + ':' + proxy.port)
             //代理IP请求，设置超时为3000ms，返回正确即当可用
-            let ip = await TestProxy.reqDouban(proxy)
+            let ip = await TestProxy.testProxy(proxy)
             if (ip != '0') {
                 return new Promise(resolve => {
                     console.log('可用IP：' + proxy.host + ':' + proxy.port)
@@ -41,11 +41,15 @@ async function singlePoxy() {
             }
         }
     }
+    return new Promise(resolve => {
+        console.log('无可用ip')
+        resolve('0')
+    })
 }
 
 async function reqHtml(page) {
-    return await new Promise((resolve, reject) => {
-        let url = address[Math.floor(Math.random() * 4)]
+    return await new Promise((resolve) => {
+        let url = address[Math.floor(Math.random() * 3)]
         console.log('url>>>' + url)
         var req = http.get(url + page, function (res) {
             var html = '';
