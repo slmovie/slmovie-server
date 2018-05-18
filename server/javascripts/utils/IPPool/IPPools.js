@@ -4,7 +4,7 @@
 
 let XCProxy = require('./XCProxy.js')
 let KuaiProxy = require('./KuaiProxy.js')
-let FreeProxy = require('./KuaiProxy.js')
+let FreeProxy = require('./FreeProxy.js')
 
 exports.getSinglePoxy = function (callback) {
     getSinglePoxy(callback)
