@@ -4,6 +4,7 @@
 
 let XCProxy = require('./XCProxy.js')
 let KuaiProxy = require('./KuaiProxy.js')
+let FreeProxy = require('./KuaiProxy.js')
 
 exports.getSinglePoxy = function (callback) {
     getSinglePoxy(callback)
@@ -15,7 +16,7 @@ exports.getSinglePoxy = function (callback) {
 // })
 
 function getSinglePoxy(callback) {
-    let index = Math.floor(Math.random() * 2)
+    let index = Math.floor(Math.random() * 3)
     switch (index) {
         case 0:
             XCProxy.getSinglePoxy((ip => {
@@ -24,6 +25,11 @@ function getSinglePoxy(callback) {
             break
         case 1:
             KuaiProxy.getSinglePoxy((ip => {
+                callback(ip)
+            }))
+            break
+        case 2:
+            FreeProxy.getSinglePoxy((ip => {
                 callback(ip)
             }))
             break

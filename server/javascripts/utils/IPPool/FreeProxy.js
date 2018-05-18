@@ -5,9 +5,6 @@ var cheerio = require('cheerio');
 let TestProxy = require('./TestProxy.js')
 var http = require('http');
 
-const address = ['http://www.xicidaili.com/nn/', 'http://www.xicidaili.com/nt/',
-    'http://www.xicidaili.com/wt/']
-
 exports.getSinglePoxy = function (callback) {
     singlePoxy().then(v => {
         callback(v)
@@ -17,7 +14,7 @@ exports.getSinglePoxy = function (callback) {
 }
 
 async function singlePoxy() {
-    let page = Math.floor(Math.random() * 4) + 1
+    let page = Math.floor(Math.random() * 7) + 1
     console.log('开始查询第' + page + '页')
     //请求代理IP页面
     var res = await reqHtml(page)
@@ -27,8 +24,8 @@ async function singlePoxy() {
     for (var line = 1; line < tr.length; line++) {
         var td = $(tr[line]).children('td');
         var proxy = {
-            host: td[5].children[0].data.toLowerCase() + '://' + td[1].children[0].data,
-            port: td[2].children[0].data
+            host: td[2].children[0].data.toLowerCase() + '://' + td[0].children[0].data,
+            port: td[1].children[0].data
         }
         console.log('开始测试：' + proxy.host + ':' + proxy.port)
         //代理IP请求，设置超时为3000ms，返回正确即当可用
@@ -48,9 +45,8 @@ async function singlePoxy() {
 
 async function reqHtml(page) {
     return await new Promise((resolve) => {
-        let url = address[Math.floor(Math.random() * 3)]
-        console.log('url>>>' + url)
-        var req = http.get(url + page, function (res) {
+        console.log('url>>>' + 'http://www.freeproxylists.net/zh/?page=')
+        var req = http.get('http://www.freeproxylists.net/zh/?page=' + page, function (res) {
             var html = '';
             res.on('data', function (data) {
                 html += data;
