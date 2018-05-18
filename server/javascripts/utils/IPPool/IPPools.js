@@ -11,9 +11,9 @@ exports.getSinglePoxy = function (callback) {
     // KuaiProxy.getSinglePoxy(callback)
 }
 
-// XCProxy.getSinglePoxy((ip) => {
-//     console.log(ip)
-// })
+FreeProxy.getSinglePoxy((ip) => {
+    console.log(ip)
+})
 
 function getSinglePoxy(callback) {
     let index = Math.floor(Math.random() * 3)
