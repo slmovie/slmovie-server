@@ -163,10 +163,10 @@ function get2(length, id, callback) {
                         }
                         if (!doubanData)
                             update = true
-                        // if (doc.describe == undefined || doc.describe == '') {
-                        //     update = true
-                        //     console.log('更新简介')
-                        // }
+                        if (doc.describe == undefined || doc.describe == '') {
+                            update = true
+                            console.log('更新简介')
+                        }
                         if (update) {
                             dbConstans.MovieModel.update({id: id}, {$set: movie}, function (err) {
                                 if (err) {
