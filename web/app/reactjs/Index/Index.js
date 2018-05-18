@@ -9,6 +9,7 @@ import SearchInput from '../CommonJS/SearchInputDiv.js'
 import ReqUrl from '../Service/ReqUrl.js'
 import Config from '../Service/Config.js'
 import IndexListDiv from '../Index/IndexListDiv.js'
+import ApkDownload from '../CommonJS/ApkDownload.js'
 
 class Index extends React.Component {
     constructor() {
@@ -30,6 +31,7 @@ class Index extends React.Component {
         return (
             <div style={Styles.Content}>
                 <Title/>
+                <ApkDownload/>
                 <SearchInput/>
                 {this._renderRecommend()}
             </div>

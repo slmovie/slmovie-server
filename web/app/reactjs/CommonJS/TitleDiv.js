@@ -2,9 +2,8 @@
  * Created by BaoJun on 2017/2/14.
  */
 import React from 'react';
-import {render} from 'react-dom';
 
-export  default  class Title extends React.Component {
+export default class Title extends React.Component {
     render() {
         return (
             <div style={Styles.Content}>
