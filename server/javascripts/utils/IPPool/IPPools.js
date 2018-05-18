@@ -16,7 +16,7 @@ FreeProxy.getSinglePoxy((ip) => {
 })
 
 function getSinglePoxy(callback) {
-    let index = Math.floor(Math.random() * 3)
+    let index = Math.floor(Math.random() * 2)
     switch (index) {
         case 0:
             XCProxy.getSinglePoxy((ip => {
