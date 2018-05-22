@@ -24,6 +24,23 @@ exports.findOneByID = function (id, send) {
     })
 }
 
+exports.findOneByDoubanID = function (id, send) {
+    db.on('error', console.error.bind(console, '连接错误:'));
+    db.once('open', function () {
+        //一次打开记录
+        console.log('opened')
+    });
+
+    dbConstans.MovieModel.findOne({doubanID: id}, function (error, doc) {
+        if (error || doc == null) {
+            send(0)
+        } else {
+            send(doc)
+        }
+        db.close()
+    })
+}
+
 exports.findByName = (name, callback) => {
     findByName(name, callback)
 }

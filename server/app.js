@@ -5,7 +5,7 @@ let morgan = require('morgan');
 let search = require('./routes/search.js')
 let detail = require('./routes/detail.js')
 let index = require('./routes/index.js')
-let schedule = require('./mongodb/schedule.js')
+require('./mongodb/schedule.js')
 let rnVersion = require('./routes/rnVersion.js')
 let appVersion = require('./routes/appVersion.js')
 

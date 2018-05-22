@@ -23,6 +23,18 @@ router.get('/all', function (req, res) {
     })
 });
 
+router.get('/douban', function (req, res) {
+    let qs = new RegExp(req.query.name);
+    res.movies = {}
+    res.movies['status'] = {'code': 0}
+    res.movies['movies'] = []
+    dbQuery.findOneByDoubanID(qs, function (data) {
+        res.movies['status'].code = 1
+        res.movies['movies'] = data
+        res.json(res.movies)
+    })
+})
+
 router.get('/dyjy', function (req, res) {
     console.log("search>>>>>" + req.query.name)
     let qs = new RegExp(req.query.name);
