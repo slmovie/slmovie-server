@@ -8,9 +8,9 @@ let app = require('../../rn/version/detail.js')
 router.get('/detail', function (req, res) {
     let localVersion = app.APPVersion
     if (localVersion == req.query.version) {
-        res.json({version: false})
+        res.json({status: {code: "1"}, movies: {version: false}})
     } else {
-        res.send({version: true, info: app.APPUpdateInfo})
+        res.send({status: {code: "1"}, movies: {version: true, info: app.APPUpdateInfo}})
     }
 
 });
