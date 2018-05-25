@@ -97,7 +97,7 @@ exports.newTVs = function (callback) {
     newTVs.MyNewTVs(callback)
 }
 
-// getDetail("1946",false, (content) => {
+// getDetail("8134",true, (content) => {
 //     console.log(content)
 // })
 

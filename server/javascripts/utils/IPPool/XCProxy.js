@@ -17,7 +17,7 @@ exports.getSinglePoxy = function (callback) {
 }
 
 async function singlePoxy() {
-    let page = Math.floor(Math.random() * 4) + 1
+    let page = Math.floor(Math.random() * 3) + 1
     console.log('开始查询第' + page + '页')
     //请求代理IP页面
     var res = await reqHtml(page)

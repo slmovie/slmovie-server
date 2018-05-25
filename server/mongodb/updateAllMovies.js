@@ -26,8 +26,8 @@ function update(type, callback) {
             if (type == 0) {
                 number = 1
             } else {
-                // number = 18000
-                number = length - 2000
+                number = 9474
+                // number = length - 2000
             }
             get2(length, number, function () {
                 callback(1)
@@ -172,7 +172,7 @@ function get2(length, id, callback) {
                                 if (err) {
                                     // console.log(id + ' ' + data.movies.name + '>>>更新失败')
                                 } else {
-                                    console.log(id + ' ' + data.movies.name + '>>>更新成功')
+                                    console.log(id + ' ' + data.movies.name + '>>>更新成功' + data.movies.doubanID)
                                 }
                                 if (data.movies.doubanID == '0') {
                                     console.log(id + ' ' + data.movies.name + '>>>豆瓣请求失败')
