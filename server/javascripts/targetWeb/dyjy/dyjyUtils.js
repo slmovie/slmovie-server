@@ -10,6 +10,7 @@ const newMovies = require('./newMovies.js')
 const newTVs = require('./newTVs.js')
 const hotMovies = require('./hotMovies.js')
 const douban = require('../../douban/FindDBID.js')
+const XunLei = require('../../utils/XunLeiTransfer.js')
 
 //爬取标题图片等信息
 exports.queryTitle = function (query, next) {
@@ -97,7 +98,7 @@ exports.newTVs = function (callback) {
     newTVs.MyNewTVs(callback)
 }
 
-// getDetail("8134",true, (content) => {
+// getDetail("10134", true, (content) => {
 //     console.log(content)
 // })
 
@@ -132,7 +133,11 @@ function getDetail(code, doubanData, send) {
                     movie['name'] = $('a', elem).text()
                     //下载地址
                     getDownload($(elem).parent().prev().attr('value'), (url) => {
-                        movie['download'] = url
+                        XunLei.transfer(url, (data) => {
+                            console.log(data)
+                            movie['download'] = url
+                        })
+
                     })
                     //文件大小
                     movie['fileSize'] = $('em', $(elem).parent().next()).text()
