@@ -134,8 +134,7 @@ function getDetail(code, doubanData, send) {
                     //下载地址
                     getDownload($(elem).parent().prev().attr('value'), (url) => {
                         XunLei.transfer(url, (data) => {
-                            console.log(data)
-                            movie['download'] = url
+                            movie['download'] = data
                         })
 
                     })

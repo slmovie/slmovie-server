@@ -15,12 +15,15 @@ exports.transfer = function (xl, next) {
 function transfers(xl, callback) {
     if (xl.indexOf("thunder://") != -1) {
         xl = xl.replace("thunder://", "")
+        var url = new Buffer(xl, 'base64')
+        var url = iconv.decode(url, 'gbk')
+        url = url.slice(2, url.length - 2)
+        if (url.indexOf("电影家园www.idyjy.com下载") != -1) {
+            url = url.replace("电影家园www.idyjy.com", "双龙影视www.slys.ml")
+        }
+        callback(url)
+    } else {
+        console.log('无需更新')
+        callback(xl)
     }
-    var url = new Buffer(xl, 'base64')
-    var url = iconv.decode(url, 'gbk')
-    url = url.slice(2, url.length - 2)
-    if (url.indexOf("电影家园www.idyjy.com下载") != -1) {
-        url = url.replace("电影家园www.idyjy.com", "双龙影视www.slys.ml")
-    }
-    callback(url)
 }
