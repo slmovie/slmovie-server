@@ -3,4 +3,4 @@
  */
 exports.Version = "1.0.1"
 exports.APPVersion = "1.1"
-exports.APPUpdateInfo=""
+exports.APPUpdateInfo = "增加豆瓣Top250功能"
