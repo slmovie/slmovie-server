@@ -8,7 +8,7 @@ let dbQuery = require('../../mongodb/queryUtils.js')
 start()
 
 function start() {
-    let length = 0
+    let length = 13458
     put(length, () => {
         console.log("finish")
     })
