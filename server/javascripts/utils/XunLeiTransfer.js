@@ -19,7 +19,7 @@ function transfers(xl, callback) {
         var url = iconv.decode(url, 'gbk')
         url = url.slice(2, url.length - 2)
         if (url.indexOf("电影家园www.idyjy.com下载") != -1) {
-            url = url.replace("电影家园www.idyjy.com", "双龙影视www.slys.ml")
+            url = url.replace("电影家园www.idyjy.com", "双龙影视www.slys.cf")
         }
         callback(url)
     } else {

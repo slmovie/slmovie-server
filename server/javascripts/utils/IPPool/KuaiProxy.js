@@ -45,8 +45,8 @@ async function singlePoxy() {
 
 async function reqHtml() {
     return await new Promise((resolve) => {
-        console.log('url>>>' + 'https://ip.seofangfa.com/')
-        var req = https.get('https://ip.seofangfa.com/', function (res) {
+        console.log('url>>>' + 'http://ip.seofangfa.com/')
+        var req = https.get('http://ip.seofangfa.com/', function (res) {
             var html = '';
             res.on('data', function (data) {
                 html += data;
