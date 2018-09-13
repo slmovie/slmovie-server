@@ -6753,7 +6753,7 @@ exports.WebRoot = function () {
     if (_Constans2.default.service == 'T') {
         return 'http://localhost:3000';
     } else if (_Constans2.default.service == 'P') {
-        return 'http://www.slys.ml';
+        return 'http://www.slys.cf';
     }
 }; /**
     * Created by BaoJun on 2017/2/23.
@@ -32341,7 +32341,7 @@ var ApkDownload = function (_React$Component) {
                 { style: Styles.Content },
                 _react2.default.createElement(
                     "a",
-                    { style: Styles.Button, href: "http://www.slys.ml/app/slys.apk" },
+                    { style: Styles.Button, href: "http://www.slys.cf/app/slys.apk" },
                     "\u5B89\u5353APP\u4E0B\u8F7D"
                 )
             );
