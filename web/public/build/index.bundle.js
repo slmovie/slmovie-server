@@ -32341,7 +32341,7 @@ var ApkDownload = function (_React$Component) {
                 { style: Styles.Content },
                 _react2.default.createElement(
                     "a",
-                    { style: Styles.Button, href: "http://www.slys.cf/app/slys.apk" },
+                    { style: Styles.Button, href: "http://www.slys.in/app/slys.apk" },
                     "\u5B89\u5353APP\u4E0B\u8F7D"
                 )
             );
