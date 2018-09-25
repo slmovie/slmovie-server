@@ -7,7 +7,7 @@ export default class ApkDownload extends React.Component {
     render() {
         return (
             <div style={Styles.Content}>
-                <a style={Styles.Button} href={"http://www.slys.cf/app/slys.apk"}>安卓APP下载</a>
+                <a style={Styles.Button} href={"http://www.slys.in/app/slys.apk"}>安卓APP下载</a>
             </div>
         )
     }
