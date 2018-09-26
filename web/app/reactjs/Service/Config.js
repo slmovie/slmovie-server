@@ -7,7 +7,7 @@ exports.WebRoot = function () {
     if (Constans.service == 'T') {
         return 'http://localhost:3000'
     } else if (Constans.service == 'P') {
-        return 'http://www.slys.cf'
+        return 'http://www.slys.in'
     }
 }
 

@@ -6753,7 +6753,7 @@ exports.WebRoot = function () {
     if (_Constans2.default.service == 'T') {
         return 'http://localhost:3000';
     } else if (_Constans2.default.service == 'P') {
-        return 'http://www.slys.cf';
+        return 'http://www.slys.in';
     }
 }; /**
     * Created by BaoJun on 2017/2/23.
