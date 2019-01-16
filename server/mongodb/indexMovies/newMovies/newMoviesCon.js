@@ -34,21 +34,21 @@ exports.NewMovieDB = () => {
 
 //获取对应model
 exports.getModel = (db, index) => {
-    if (index === 0) {
+    if (index == 0) {
         return db.model('newmovie', MovieSchema)
-    } else if (index === 1) {
+    } else if (index == 1) {
         return db.model('actionmovie', MovieSchema)
-    } else if (index === 2) {
+    } else if (index == 2) {
         return db.model('comedy', MovieSchema)
-    } else if (index === 3) {
+    } else if (index == 3) {
         return db.model('lovemovie', MovieSchema)
-    } else if (index === 4) {
+    } else if (index == 4) {
         return db.model('sciencemovie', MovieSchema)
-    } else if (index === 5) {
+    } else if (index == 5) {
         return db.model('horrormovie', MovieSchema)
-    } else if (index === 6) {
+    } else if (index == 6) {
         return db.model('dramamovie', MovieSchema)
-    } else if (index === 7) {
+    } else if (index == 7) {
         return db.model('warmovie', MovieSchema)
     }
 }
