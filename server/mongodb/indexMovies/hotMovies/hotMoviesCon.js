@@ -3,11 +3,8 @@
  */
 let mongoose = require('mongoose');    //引用mongoose模块
 let Constans = require('../../Constans.js')
-let db = mongoose.createConnection(Constans.WebRoot() + "/" +  'hotMovies') //创建一个数据库连接
-let MovieSchema
-let HotMoviesModel
 
-let details = new mongoose.Schema({
+const details = new mongoose.Schema({
     name: String,
     year: String,
     location: String,
@@ -20,7 +17,7 @@ let details = new mongoose.Schema({
     TV: Boolean,
 })
 
-MovieSchema = new mongoose.Schema({
+const MovieSchema = new mongoose.Schema({
     name: String,
     address: String,
     post: String,
@@ -29,7 +26,10 @@ MovieSchema = new mongoose.Schema({
     details: details,
 })
 
-HotMoviesModel = db.model('hotmovie', MovieSchema)
+exports.HotMovieDB = () => {
+    return mongoose.createConnection(Constans.WebRoot() + "/" + 'hotMovies', { useNewUrlParser: true });
+}
 
-exports.HotMoviesModel = HotMoviesModel
-exports.db = db
+exports.HotMoviesModel = (db) => {
+    return db.model('hotmovie', MovieSchema);
+}

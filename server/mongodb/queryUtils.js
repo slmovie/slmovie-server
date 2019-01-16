@@ -1,20 +1,14 @@
 /**
  * Created by 包俊 on 2017/3/27.
  */
-let mongoose = require('mongoose');    //引用mongoose模块
-let Constans = require('./Constans.js')
-let db = mongoose.createConnection(Constans.WebRoot() + "/" + 'movies')
 let dbConstans = require('./dbConstans.js')
 
 //根据id查找电影
 exports.findOneByID = function (id, send) {
+    const db = dbConstans.MoviesDB()
     db.on('error', console.error.bind(console, '连接错误:'));
-    db.once('open', function () {
-        //一次打开记录
-        console.log('opened')
-    });
 
-    dbConstans.MovieModel.findOne({id: id}, function (error, doc) {
+    dbConstans.MovieModel(db).findOne({ id: id }, function (error, doc) {
         if (error || doc == null) {
             send(0)
         } else {
@@ -25,13 +19,10 @@ exports.findOneByID = function (id, send) {
 }
 
 exports.findOneByDoubanID = function (id, send) {
+    const db = dbConstans.MoviesDB()
     db.on('error', console.error.bind(console, '连接错误:'));
-    db.once('open', function () {
-        //一次打开记录
-        console.log('opened')
-    });
 
-    dbConstans.MovieModel.findOne({doubanID: id}, function (error, doc) {
+    dbConstans.MovieModel(db).findOne({ doubanID: id }, function (error, doc) {
         if (error || doc == null) {
             send(0)
         } else {
@@ -48,14 +39,11 @@ exports.findByName = (name, callback) => {
 //根据电影名查找
 // exports.findByName = function findByName(name, callback) {
 function findByName(name, callback) {
+    const db = dbConstans.MoviesDB()
     let movies = {}
     db.on('error', console.error.bind(console, '连接错误:'));
-    db.once('open', function () {
-        //一次打开记录
-        console.log('opened')
-    });
 
-    dbConstans.MovieModel.find({$or: [{name: name}, {'details.otherName': name}]}, null, {sort: {'_id': -1}}, function (error, docs) {
+    dbConstans.MovieModel(db).find({ $or: [{ name: name }, { 'details.otherName': name }] }, null, { sort: { '_id': -1 } }, function (error, docs) {
         if (error || docs == null) {
             console.log(error)
         } else {
@@ -73,14 +61,11 @@ exports.findAll = function (name, callback) {
 //全局搜索
 // exports.findAll = function findAll(name, callback) {
 function findAll(name, callback) {
+    const db = dbConstans.MoviesDB()
     db.on('error', console.error.bind(console, '连接错误:'));
-    db.once('open', function () {
-        //一次打开记录
-        console.log('opened')
-    });
 
     // dbConstans.MovieModel.find({$or: [{name: name}, {'details.otherName': name}]}, null, {sort: {'_id': -1}}, function (error, docs) {
-    dbConstans.MovieModel.find({detail: name}, null, {sort: {'_id': -1}}, function (error, docs) {
+    dbConstans.MovieModel(db).find({ detail: name }, null, { sort: { '_id': -1 } }, function (error, docs) {
         if (error || docs == null) {
             console.log(error)
         } else {
@@ -97,5 +82,5 @@ function findAll(name, callback) {
 //         console.log(data)
 //     })
 // }
-//
+
 // find('我')

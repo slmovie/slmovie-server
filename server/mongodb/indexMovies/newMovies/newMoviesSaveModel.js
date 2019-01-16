@@ -4,29 +4,25 @@
 
 let dbConstans = require('./newMoviesCon.js')
 let dyjy = require('../../../javascripts/targetWeb/dyjy/dyjyUtils.js')
-let mongoose = require('mongoose');
-let Constans = require('../../Constans.js')
 let query = require('../../queryUtils.js')
+let db;
 
 exports.getNewMovies = function (callback) {
     getNewMovies(callback)
 }
 
 // getNewMovies(function () {
-//
+
 // })
 
 function getNewMovies(next) {
-    dbConstans.db = mongoose.createConnection(Constans.WebRoot() + "/" + 'newMovies')
-    dbConstans.db.on('error', console.error.bind(console, '连接错误:'));
-    dbConstans.db.once('open', function () {
-        //一次打开记录
-        console.log('opened')
-    });
+    db = dbConstans.NewMovieDB();
+    db.on('error', console.error.bind(console, '连接错误:'));
     dyjy.newMovies((doc) => {
+        console.log(doc);
         if (doc.status.code == 1) {
             saveAllData(dbConstans, doc.movies, function () {
-                dbConstans.db.close()
+                db.close()
                 next()
             })
         } else {
@@ -43,7 +39,7 @@ function save(dbConstans, index, doc, next) {
     if (index < doc.length) {
         let data = doc[index]
         if (data.movies.status.code == 1) {
-            let model = dbConstans.getModel(index)
+            let model = dbConstans.getModel(db, index)
             model.remove({}, function (err) {
                 // console.log('collection removed')
                 for (let i = 0; i < data.movies.movies.length; i++) {

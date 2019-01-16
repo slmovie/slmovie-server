@@ -48,6 +48,8 @@ exports.hotMovies = function (next) {
                     callBack['movies'] = movies
                 }
                 next(callBack)
+            } else {
+                console.log('hotmovie get  error ' + response.statusCode)
             }
         })
 }

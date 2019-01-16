@@ -3,11 +3,8 @@
  */
 let mongoose = require('mongoose');    //引用mongoose模块
 let Constans = require('../../Constans.js')
-let db = mongoose.createConnection(Constans.WebRoot() + "/" + 'newMovies') //创建一个数据库连接
-let MovieSchema
-let NewMoviesModel, ActionMovieModel, ComedyModel, LoveMovieModel, ScienceMovieModel, HorrorMovieModel, DramaMovieModel,
-    WarMovieModel
-let details = new mongoose.Schema({
+
+const details = new mongoose.Schema({
     name: String,
     year: String,
     location: String,
@@ -20,7 +17,7 @@ let details = new mongoose.Schema({
     TV: Boolean,
 })
 
-MovieSchema = new mongoose.Schema({
+const MovieSchema = new mongoose.Schema({
     name: String,
     address: String,
     post: String,
@@ -31,42 +28,27 @@ MovieSchema = new mongoose.Schema({
     details: details,
 })
 
-NewMoviesModel = db.model('newmovie', MovieSchema)
-ActionMovieModel = db.model('actionmovie', MovieSchema)
-ComedyModel = db.model('comedy', MovieSchema)
-LoveMovieModel = db.model('lovemovie', MovieSchema)
-ScienceMovieModel = db.model('sciencemovie', MovieSchema)
-HorrorMovieModel = db.model('horrormovie', MovieSchema)
-DramaMovieModel = db.model('dramamovie', MovieSchema)
-WarMovieModel = db.model('warmovie', MovieSchema)
-
-exports.NewMoviesModel = NewMoviesModel
-exports.ActionMovieModel = ActionMovieModel
-exports.ComedyModel = ComedyModel
-exports.LoveMovieModel = LoveMovieModel
-exports.ScienceMovieModel = ScienceMovieModel
-exports.HorrorMovieModel = HorrorMovieModel
-exports.DramaMovieModel = DramaMovieModel
-exports.WarMovieModel = WarMovieModel
-exports.db = db
+exports.NewMovieDB = () => {
+    return mongoose.createConnection(Constans.WebRoot() + "/" + 'newMovies', { useNewUrlParser: true });
+}
 
 //获取对应model
-exports.getModel = (index) => {
-    if (index == 0) {
-        return NewMoviesModel
-    } else if (index == 1) {
-        return ActionMovieModel
-    } else if (index == 2) {
-        return ComedyModel
-    } else if (index == 3) {
-        return LoveMovieModel
-    } else if (index == 4) {
-        return ScienceMovieModel
-    } else if (index == 5) {
-        return HorrorMovieModel
-    } else if (index == 6) {
-        return DramaMovieModel
-    } else if (index == 7) {
-        return WarMovieModel
+exports.getModel = (db, index) => {
+    if (index === 0) {
+        return db.model('newmovie', MovieSchema)
+    } else if (index === 1) {
+        return db.model('actionmovie', MovieSchema)
+    } else if (index === 2) {
+        return db.model('comedy', MovieSchema)
+    } else if (index === 3) {
+        return db.model('lovemovie', MovieSchema)
+    } else if (index === 4) {
+        return db.model('sciencemovie', MovieSchema)
+    } else if (index === 5) {
+        return db.model('horrormovie', MovieSchema)
+    } else if (index === 6) {
+        return db.model('dramamovie', MovieSchema)
+    } else if (index === 7) {
+        return db.model('warmovie', MovieSchema)
     }
 }

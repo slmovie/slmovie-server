@@ -6,8 +6,6 @@ var router = express.Router();
 let queryUtils = require('../mongodb/queryUtils.js')
 
 const dyjy = require('../javascripts/targetWeb/dyjy/dyjyUtils.js')
-const bttt = require('../javascripts/targetWeb/bttt.js')
-const tiantangbt = require('../javascripts/targetWeb/tiantangbt.js')
 
 router.get('/', function (req, res) {
     console.log("open detail >>>>>>>" + req.query.code)
@@ -26,13 +24,5 @@ router.get('/', function (req, res) {
 router.get('/dyjy', function (req, res) {
     dyjy.detail(req, res)
 });
-
-router.get('/bttt', function (req, res) {
-    bttt.detail(req, res)
-});
-
-router.get('/ttbt', function (req, res) {
-    tiantangbt.detail(req, res)
-})
 
 module.exports = router;

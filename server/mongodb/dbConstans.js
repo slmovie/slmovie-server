@@ -3,19 +3,14 @@
  */
 let mongoose = require('mongoose')    //引用mongoose模块
 let Constans = require('./Constans.js')
-let db = mongoose.createConnection(Constans.WebRoot() + "/" + 'movies') //创建一个数据库连接
 
-
-let MovieSchema
-let MovieModel
-
-let movieFiles = new mongoose.Schema({
+const movieFiles = new mongoose.Schema({
     name: String,
     download: String,
     fileSize: String,
 })
 
-let details = new mongoose.Schema({
+const details = new mongoose.Schema({
     name: String,
     year: String,
     location: String,
@@ -29,7 +24,7 @@ let details = new mongoose.Schema({
     average: String,
 })
 
-MovieSchema = new mongoose.Schema({
+const MovieSchema = new mongoose.Schema({
     name: String,
     post: String,
     describe: String,
@@ -40,6 +35,10 @@ MovieSchema = new mongoose.Schema({
     doubanID: String,
 })
 
-MovieModel = db.model('Movie', MovieSchema)
+exports.MoviesDB = () => {
+    return mongoose.createConnection(Constans.WebRoot() + "/" + 'movies',{ useNewUrlParser: true })
+}
 
-exports.MovieModel = MovieModel
+exports.MovieModel = (db) => {
+    return db.model('Movie', MovieSchema)
+}

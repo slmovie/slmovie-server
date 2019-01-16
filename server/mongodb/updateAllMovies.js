@@ -1,12 +1,10 @@
 /**
  * Created by 包俊 on 2017/3/27.
  */
-let mongoose = require('mongoose');    //引用mongoose模块
-let Constans = require('./Constans.js')
-let db = mongoose.createConnection(Constans.WebRoot() + "/" + "movies") //创建一个数据库连接
 let dyjy = require('../javascripts/targetWeb/dyjy/dyjyUtils.js')
 let dbConstans = require('./dbConstans.js')
 let dbQuery = require('./queryUtils.js')
+const db = dbConstans.MoviesDB()
 
 exports.update = function (length, callback) {
     update(length, callback)
@@ -15,10 +13,6 @@ exports.update = function (length, callback) {
 //type:0全量更新 1部分更新
 function update(type, callback) {
     db.on('error', console.error.bind(console, '连接错误:'));
-    db.once('open', function () {
-        //一次打开记录
-        console.log('opened')
-    });
     dyjy.movieLength((length) => {
         console.log('总量' + length)
         if (length != 0) {
@@ -56,7 +50,7 @@ function get(length, id, callback) {
                 dbQuery.findOneByID(id, function (doc) {
                     if (doc == 0) {
                         //数据库不存在该数据，插入新数据
-                        dbConstans.MovieModel.create(movie, function (error) {
+                        dbConstans.MovieModel(db).create(movie, function (error) {
                             if (error) {
                                 console.log(error);
                             } else {
@@ -78,7 +72,7 @@ function get(length, id, callback) {
                         }
 
                         if (update) {
-                            dbConstans.MovieModel.update({id: id}, {$set: movie}, function (err) {
+                            dbConstans.MovieModel(db).update({ id: id }, { $set: movie }, function (err) {
                                 if (err) {
                                     // console.log(id + ' ' + data.movies.name + '>>>更新失败')
                                 } else {
@@ -142,7 +136,7 @@ function get2(length, id, callback) {
                     }
                     if (doc == 0) {
                         //数据库不存在该数据，插入新数据
-                        dbConstans.MovieModel.create(movie, function (error) {
+                        dbConstans.MovieModel(db).create(movie, function (error) {
                             if (error) {
                                 console.log(error);
                             } else {
@@ -168,7 +162,7 @@ function get2(length, id, callback) {
                             console.log('更新简介')
                         }
                         if (update) {
-                            dbConstans.MovieModel.update({id: id}, {$set: movie}, function (err) {
+                            dbConstans.MovieModel(db).update({ id: id }, { $set: movie }, function (err) {
                                 if (err) {
                                     // console.log(id + ' ' + data.movies.name + '>>>更新失败')
                                 } else {

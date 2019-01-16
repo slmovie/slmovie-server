@@ -3,8 +3,6 @@
  */
 let dbConstans = require('./hotMoviesCon.js')
 let dyjy = require('../../../javascripts/targetWeb/dyjy/dyjyUtils.js')
-let mongoose = require('mongoose');
-let Constans = require('../../Constans.js')
 let query = require('../../queryUtils.js')
 
 exports.getHotMovies = function (callback) {
@@ -12,21 +10,17 @@ exports.getHotMovies = function (callback) {
 }
 
 // getHotMovies(function () {
-//
+
 // })
 
 function getHotMovies(next) {
-    dbConstans.db = mongoose.createConnection(Constans.WebRoot() + "/" + 'hotMovies')
-    dbConstans.db.on('error', console.error.bind(console, '连接错误:'));
-    dbConstans.db.once('open', function () {
-        //一次打开记录
-        console.log('opened')
-    });
+    const db = dbConstans.HotMovieDB();
+    db.on('error', console.error.bind(console, '连接错误:'));
     dyjy.hotMovies((doc) => {
-        // console.log(doc)
+        //     console.log(doc)
         // console.log('code>>>>>>' + doc.status.code)
         if (doc.status.code == 1) {
-            dbConstans.HotMoviesModel.remove({}, function (err) {
+            dbConstans.HotMoviesModel(db).remove({}, function (err) {
                 console.log('HotMovies collection removed')
                 for (let i = 0; i < doc.movies.length; i++) {
                     let movie = doc.movies[i]
@@ -39,13 +33,13 @@ function getHotMovies(next) {
                     }
                     query.findOneByID(movie.address, (result) => {
                         movies['details'] = result.details
-                        dbConstans.HotMoviesModel.create(movies, function (error) {
+                        dbConstans.HotMoviesModel(db).create(movies, function (error) {
                             if (error) {
                                 console.log(error);
                             }
                             if (i >= doc.movies.length - 1) {
                                 console.log('热门电影更新完成！');
-                                dbConstans.db.close()
+                                db.close()
                             }
                         })
                     })

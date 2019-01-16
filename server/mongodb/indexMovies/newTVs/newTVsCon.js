@@ -3,11 +3,8 @@
  */
 let mongoose = require('mongoose');    //引用mongoose模块
 let Constans = require('../../Constans.js')
-let db = mongoose.createConnection(Constans.WebRoot() + '/' + 'newtvs') //创建一个数据库连接
-let MovieSchema
-let NewTVsModel, ChinaTVModel, HongTaiTVModel, WestenTVModel, JapanKoreaTVModel
 
-let details = new mongoose.Schema({
+const details = new mongoose.Schema({
     name: String,
     year: String,
     location: String,
@@ -20,7 +17,7 @@ let details = new mongoose.Schema({
     TV: Boolean,
 })
 
-MovieSchema = new mongoose.Schema({
+const MovieSchema = new mongoose.Schema({
     name: String,
     address: String,
     post: String,
@@ -31,30 +28,21 @@ MovieSchema = new mongoose.Schema({
     details: details,
 })
 
-NewTVsModel = db.model('newtv', MovieSchema)
-ChinaTVModel = db.model('chinatv', MovieSchema)
-HongTaiTVModel = db.model('hongtaitv', MovieSchema)
-WestenTVModel = db.model('westentv', MovieSchema)
-JapanKoreaTVModel = db.model('japankoreatv', MovieSchema)
-
-exports.NewTVsModel = NewTVsModel
-exports.ChinaTVModel = ChinaTVModel
-exports.HongTaiTVModel = HongTaiTVModel
-exports.WestenTVModel = WestenTVModel
-exports.JapanKoreaTVModel = JapanKoreaTVModel
-exports.db = db
+exports.NewTVsDB = () => {
+    return mongoose.createConnection(Constans.WebRoot() + "/" + 'newtvs', { useNewUrlParser: true });
+}
 
 //获取对应model
-exports.getModel = (index) => {
+exports.getModel = (db, index) => {
     if (index == 0) {
-        return NewTVsModel
+        return db.model('newtv', MovieSchema)
     } else if (index == 1) {
-        return ChinaTVModel
+        return db.model('chinatv', MovieSchema)
     } else if (index == 2) {
-        return HongTaiTVModel
+        return db.model('hongtaitv', MovieSchema)
     } else if (index == 3) {
-        return WestenTVModel
+        return db.model('westentv', MovieSchema)
     } else if (index == 4) {
-        return JapanKoreaTVModel
+        return db.model('japankoreatv', MovieSchema)
     }
 }
