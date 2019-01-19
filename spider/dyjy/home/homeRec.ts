@@ -1,0 +1,124 @@
+import { getHomeHtml } from "../request";
+import { HomeRecBean, IRecMovie, MoviesListItemBean } from "../../typings/response";
+import cheerio from "cheerio";
+
+export default class HomeRec {
+  public async getRec() {
+    const result = new HomeRecBean();
+    try {
+      const response = await getHomeHtml("http://www.idyjy.com");
+      if (response.statusCode === 200) {
+        result.data.hotMovies = this.getHotMovie(response.text);
+        result.data.newTVs = this.getNewTVs(response.text);
+        result.data.newMovies = this.getNewMovies(response.text);
+        return result;
+      } else {
+        console.log("index get  error " + response.statusCode);
+        result.status.error = response.statusCode;
+        return result;
+      }
+    } catch (error) {
+      result.status.code = 0;
+      result.status.error = error;
+      return result;
+    }
+  }
+
+  private getHotMovie = (html: string) => {
+    let $ = cheerio.load(html);
+    let movies: IRecMovie[] = [];
+    $(".play-img", ".moxhotcoment").each((i, elem) => {
+      let movie = this.getMovie($, elem);
+      movies.push(movie);
+    });
+    return movies;
+  }
+
+  private getNewMovies = (html: string) => {
+    let $ = cheerio.load(html);
+    let result = [];
+    for (let i = 0; i < 8; i++) {
+      let typeMovies = new MoviesListItemBean();
+      let movies: IRecMovie[] = [];
+      $(".play-img", $(".img-list", $(".box")[0])[i]).each((i, elem) => {
+        let movie = this.getMovie($, elem);
+        movies.push(movie);
+      });
+      typeMovies.index = i;
+      typeMovies.movies = movies;
+      typeMovies.type = this.newMoviesType(i);
+      result.push(typeMovies);
+    }
+    return result;
+  }
+
+  private getNewTVs = (html: string) => {
+    let $ = cheerio.load(html);
+    let result = [];
+    for (let i = 0; i < 5; i++) {
+      let typeMovies = new MoviesListItemBean();
+      let movies: IRecMovie[] = [];
+      $(".play-img", $(".img-list", $(".box")[1])[i]).each((i, elem) => {
+        let movie = this.getMovie($, elem);
+        movies.push(movie);
+      });
+      typeMovies.index = i;
+      typeMovies.movies = movies;
+      typeMovies.type = this.newTVsType(i);
+      result.push(typeMovies);
+    }
+    return result;
+  }
+
+  private getMovie = ($: CheerioStatic, elem: CheerioElement): IRecMovie => {
+    let address = $(elem).attr("href");
+    let split = address.split("/");
+    address = split[split.length - 1].split(".")[0];
+    return {
+      "name": $(elem).attr("title"),
+      //网页地址
+      "address": address,
+      //海报图片
+      "post": $("img", elem).attr("original"),
+      //豆瓣评分
+      "douban": $("info", $(".pRightBottom", elem)).text(),
+      //上映日期
+      "year": $("info", $(".pLeftTop", elem)[0]).text(),
+      "from": "dyjy",
+    };
+  }
+
+  private newTVsType = (index: number): string => {
+    if (index === 1) {
+      return "国产剧";
+    } else if (index === 2) {
+      return "港台剧";
+    } else if (index === 3) {
+      return "欧美剧";
+    } else if (index === 4) {
+      return "日韩剧";
+    } else {
+      return "最近更新";
+    }
+  }
+
+  private newMoviesType = (index: number): string => {
+    if (index === 1) {
+      return "动作片";
+    } else if (index === 2) {
+      return "喜剧片";
+    } else if (index === 3) {
+      return "爱情片";
+    } else if (index === 4) {
+      return "科幻片";
+    } else if (index === 5) {
+      return "恐怖片";
+    } else if (index === 6) {
+      return "剧情片";
+    } else if (index === 7) {
+      return "战争片";
+    } else {
+      return "最近更新";
+    }
+  }
+}

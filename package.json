@@ -10,6 +10,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/cheerio": "^0.22.10",
+    "@types/mongoose": "^5.3.7",
     "body-parser": "~1.18.3",
     "cheerio": "^1.0.0-rc.2",
     "cookie-parser": "~1.4.3",
@@ -26,5 +28,12 @@
     "superagent-charset": "^1.1.1",
     "superagent-proxy": "^1.0.3"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "babel-eslint": "^10.0.1",
+    "eslint": "^5.12.0",
+    "eslint-config-alloy": "^1.4.2",
+    "eslint-plugin-typescript": "^0.14.0",
+    "typescript": "^3.2.4",
+    "typescript-eslint-parser": "^21.0.2"
+  }
 }
