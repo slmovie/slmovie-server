@@ -38,6 +38,9 @@ module.exports = {
     ],
     "no-loop-func": [
       0,
+    ],
+    "prefer-promise-reject-errors": [
+      0,
     ]
   }
 };

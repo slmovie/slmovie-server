@@ -2,7 +2,7 @@
  * Created by 包俊 on 2017/3/27.
  */
 let dyjy = require("../javascripts/targetWeb/dyjy/dyjyUtils.js");
-let dbConstans = require("./dbConstans.js");
+let dbConstans = require("../../spider/dyjy/detail/detailCon.js");
 let dbQuery = require("./queryUtils.js");
 const db = dbConstans.MoviesDB();
 
@@ -11,7 +11,7 @@ exports.update = function (length, callback) {
 };
 
 //type:0全量更新 1部分更新
-function update(type, callback) {
+const update = (type, callback) => {
   db.on("error", console.error.bind(console, "连接错误:"));
   dyjy.movieLength((length) => {
     console.log("总量" + length);
@@ -31,12 +31,12 @@ function update(type, callback) {
       db.close();
     }
   });
-}
+};
 
-function get(length, id, callback) {
+const get = (length, id, callback) => {
   if (id <= length) {
     dyjy.getData(String(id), true, function (data) {
-      if (data.status.code == 1) {
+      if (data.status.code === 1) {
         let movie = {
           name: data.movies.name,
           post: data.movies.post,
@@ -97,27 +97,22 @@ function get(length, id, callback) {
     db.close();
     callback();
   }
-}
+};
 
-//由于豆瓣有请求限制，限速
-function startNext(length, id, callback) {
-  get(length, id, callback);
-}
-
-function get2(length, id, callback) {
+const get2 = (length, id, callback) => {
   if (id <= length) {
     //查询数据库数据
     dbQuery.findOneByID(id, function (doc) {
       let doubanData = false;
-      if (doc != 0) {
+      if (doc !== 0) {
         var doubanID = doc.doubanID;
-        if (doubanID != undefined && doubanID != "" && doubanID != "0") {
+        if (doubanID !== undefined && doubanID !== "" && doubanID !== "0") {
           doubanData = true;
         }
       }
       //爬取数据
       dyjy.getData(String(id), doubanData, function (data) {
-        if (data.status.code == 1) {
+        if (data.status.code === 1) {
           let movie = {
             name: data.movies.name,
             post: data.movies.post,
@@ -167,7 +162,7 @@ function get2(length, id, callback) {
                 } else {
                   console.log(id + " " + data.movies.name + ">>>更新成功" + data.movies.doubanID);
                 }
-                if (data.movies.doubanID == "0") {
+                if (data.movies.doubanID === "0") {
                   console.log(id + " " + data.movies.name + ">>>豆瓣请求失败");
                   startNext2(true, length, id + 1, callback);
                 } else {
@@ -192,45 +187,12 @@ function get2(length, id, callback) {
     db.close();
     callback();
   }
-}
+};
 
 //由于豆瓣有请求限制，限速
-function startNext2(doubanData, length, id, callback) {
-  let time = 3000;
+const startNext2 = (doubanData, length, id, callback) => {
   if (doubanData) { time = 0; }
   setTimeout(() => {
     get2(length, id, callback);
   }, 0);
-}
-
-function movieLength(send) {
-  let number = 0;
-  dyjy.hotMovies(function (data) {
-    if (data.status.code == 1) {
-      for (let i = 0; i < data.movies.length; i++) {
-        if (number < new Number(data.movies[i].address)) { number = new Number(data.movies[i].address); }
-      }
-      dyjy.newMovies(function (data) {
-        if (data.status.code == 1) {
-          for (let i = 0; i < data.movies.length; i++) {
-            if (number < new Number(data.movies[i].address)) { number = new Number(data.movies[i].address); }
-          }
-          dyjy.newTVs(function (data) {
-            if (data.status.code == 1) {
-              for (let i = 0; i < data.movies.length; i++) {
-                if (number < new Number(data.movies[i].address)) { number = new Number(data.movies[i].address); }
-              }
-              send(number);
-            } else {
-              send(0);
-            }
-          });
-        } else {
-          send(0);
-        }
-      });
-    } else {
-      send(0);
-    }
-  });
-}
+};

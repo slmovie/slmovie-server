@@ -1,13 +1,4 @@
-export interface IStatus {
-    code: number;
-    error: string;
-}
-
-export class StatusBean implements IStatus {
-    code = 0;
-    error = ""
-}
-
+import { StatusBean, IStatus } from "./status";
 
 export interface IRecMovie {
     name: string;

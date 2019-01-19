@@ -3,63 +3,12 @@
  * 電影家園
  */
 const cheerio = require("cheerio");
-const chinese2Gb2312 = require("../../utils/chinese2Gb2312.js");
 const getSuperagent = require("../../utils/mySuperagent.js");
-const DealError = require("../../res/error.js");
 const newMovies = require("./newMovies.js");
 const newTVs = require("./newTVs.js");
 const hotMovies = require("./hotMovies.js");
 const douban = require("../../douban/FindDBID.js");
-const XunLei = require("../../utils/XunLeiTransfer.js");
-
-//爬取标题图片等信息
-exports.queryTitle = function (query, next) {
-  let name = chinese2Gb2312(query);
-  let callBack = {};
-  let status = {};
-  getSuperagent().get("http://s.imp4la.com/s.asp?w=" + name)
-    .charset("gb2312")
-    .end(function (error, response) {
-      if (error || response.statusCode == "undefined") {
-        status["code"] = 0;
-        status["error"] = error;
-        callBack["status"] = status;
-        next(callBack);
-        return;
-      }
-      if (response.statusCode == 200) {
-        let $ = cheerio.load(response.text);
-        //基本信息
-        let movies = [];
-        $(".play-img").each(function (i, elem) {
-          let address = $(elem).attr("href");
-          let split = address.split("/");
-          address = split[split.length - 1].split(".")[0];
-          movies.push({
-            "name": $(elem).attr("title"),
-            //网页地址
-            "id": address,
-            //海报图片
-            "post": $("img", elem).attr("src"),
-            //豆瓣评分
-            "douban": "豆瓣：" + $("info", ".pRightBottom", elem).text(),
-            //上映日期
-            "year": $("info", ".pLeftTop", elem).text(),
-            "from": "dyjy",
-          });
-        });
-        if (movies.length == 0) {
-          status = DealError.SEARCHNONERES;
-          callBack["status"] = status;
-        } else {
-          status["code"] = 1;
-          callBack["status"] = status;
-          callBack["movies"] = movies;
-        }
-        next(callBack);
-      }
-    });
-};
+const XunLei = require("../../../../spider/utils/XunLeiTransfer.js");
 
 //网页请求
 exports.detail = function (req, res) {
@@ -103,7 +52,7 @@ exports.newTVs = function (callback) {
 // })
 
 //爬取细节及下载地址下载地址
-function getDetail(code, doubanData, send) {
+const getDetail = (code, doubanData, send) => {
   // console.log("dyjy getDetail " + code)
   let website = "http://www.idyjy.com/sub/" + code + ".html";
   getSuperagent().get(website)
@@ -211,9 +160,9 @@ function getDetail(code, doubanData, send) {
         return;
       }
     });
-}
+};
 
-function reloadDBData(jsonRes, douban) {
+const reloadDBData = (jsonRes, douban) => {
   jsonRes["doubanID"] = douban.id;
   jsonRes["details"]["name"] = douban.title;
   jsonRes["details"]["year"] = douban.year;
@@ -269,11 +218,11 @@ function reloadDBData(jsonRes, douban) {
     jsonRes["details"]["type"] = type;
   }
   jsonRes["describe"] = douban.summary;
-}
+};
 
 
 //详细数据拼装
-function pieceDetail(detail) {
+const pieceDetail = (detail) => {
   let details = {};
   details["name"] = "";
   details["year"] = "";
@@ -322,7 +271,7 @@ function pieceDetail(detail) {
     }
   }
   return details;
-}
+};
 
 //电影数量
 exports.movieLength = function (send) {
@@ -333,10 +282,10 @@ exports.movieLength = function (send) {
     }
     console.log("hotmovies most=" + number);
     newMovies.getLength(function (data) {
-      if (number < data) { number = data ;}
+      if (number < data) { number = data; }
       console.log("newmovies most=" + number);
       newTVs.getLength(function (data) {
-        if (number < data) { number = data ;}
+        if (number < data) { number = data; }
         console.log("newtvs most=" + number);
         send(number);
       });
@@ -345,7 +294,7 @@ exports.movieLength = function (send) {
 };
 
 //获取下载地址，如果是网页链接则二次爬取
-function getDownload(text, callback) {
+const getDownload = (text, callback) => {
   if (text.indexOf(".html") != -1) {
     movieTwiceSpide(text, (url) => {
       callback(url);
@@ -353,10 +302,10 @@ function getDownload(text, callback) {
   } else {
     callback(text);
   }
-}
+};
 
 //电影无直接下载地址，需再次爬取
-function movieTwiceSpide(url, callback) {
+const movieTwiceSpide = (url, callback) => {
   let website = "http://www.idyjy.com" + url;
   getSuperagent().get(website)
     .charset("gb2312")
@@ -373,5 +322,5 @@ function movieTwiceSpide(url, callback) {
         callback("0");
       }
     });
-}
+};
 

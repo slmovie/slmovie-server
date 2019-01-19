@@ -6,7 +6,7 @@ export default class HomeRec {
   public async getRec() {
     const result = new HomeRecBean();
     try {
-      const response = await getHomeHtml("http://www.idyjy.com");
+      const response = await getHomeHtml();
       if (response.statusCode === 200) {
         result.data.hotMovies = this.getHotMovie(response.text);
         result.data.newTVs = this.getNewTVs(response.text);
@@ -27,7 +27,7 @@ export default class HomeRec {
   public async getLastedId() {
     let id = 0;
     try {
-      const response = await getHomeHtml("http://www.idyjy.com");
+      const response = await getHomeHtml();
       if (response.statusCode === 200) {
         let $ = cheerio.load(response.text);
         $(".play-img", ".moxhotcoment").each((i, elem) => {

@@ -1,7 +1,7 @@
 /**
  * Created by 包俊 on 2017/3/27.
  */
-let dbConstans = require("./dbConstans.js");
+let dbConstans = require("../../spider/dyjy/detail/detailCon.js");
 
 //根据id查找电影
 exports.findOneByID = function (id, send) {
@@ -38,7 +38,7 @@ exports.findByName = (name, callback) => {
 
 //根据电影名查找
 // exports.findByName = function findByName(name, callback) {
-function findByName(name, callback) {
+const findByName = (name, callback) => {
   const db = dbConstans.MoviesDB();
   let movies = {};
   db.on("error", console.error.bind(console, "连接错误:"));
@@ -52,7 +52,7 @@ function findByName(name, callback) {
     }
     db.close();
   });
-}
+};
 
 exports.findAll = function (name, callback) {
   findAll(name, callback);
@@ -60,7 +60,7 @@ exports.findAll = function (name, callback) {
 
 //全局搜索
 // exports.findAll = function findAll(name, callback) {
-function findAll(name, callback) {
+const findAll = (name, callback) => {
   const db = dbConstans.MoviesDB();
   db.on("error", console.error.bind(console, "连接错误:"));
 
@@ -74,7 +74,7 @@ function findAll(name, callback) {
     }
     db.close();
   });
-}
+};
 
 // function find(name) {
 //     var qs = new RegExp(name);
