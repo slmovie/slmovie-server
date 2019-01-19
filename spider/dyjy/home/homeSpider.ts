@@ -14,3 +14,12 @@ export const startHomeSpider = (): Promise<void> => {
   });
 };
 
+export const getLastestId = (): Promise<number> => {
+  return new Promise((resolve, reject) => {
+    const homeRec = new HomeRec();
+    homeRec.getLastedId().then(address => {
+      console.log(address);
+    });
+  });
+};
+

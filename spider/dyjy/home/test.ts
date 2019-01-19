@@ -1,2 +1,3 @@
-import { startHomeSpider } from "./homeSpider";
+import { startHomeSpider, getLastestId } from "./homeSpider";
+getLastestId();
 startHomeSpider();

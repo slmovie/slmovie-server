@@ -3,7 +3,7 @@
  */
 import { getDB, getModel, getNewMoviesModelName, HotMoviesTabkleName, DBName, getNewTvsModelName } from "./homeCon";
 import mongoose from "mongoose";
-import { IRecMovie, HomeRecBean, IMoviesListItem } from "../../typings/response";
+import { IRecMovie, HomeRecBean, IMoviesListItem } from "../../typings/homeResponse";
 
 export const Save = (doc: HomeRecBean): Promise<void> => {
   return new Promise((resolve, reject) => {

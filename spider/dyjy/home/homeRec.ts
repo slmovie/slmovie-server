@@ -1,5 +1,5 @@
 import { getHomeHtml } from "../request";
-import { HomeRecBean, IRecMovie, MoviesListItemBean } from "../../typings/response";
+import { HomeRecBean, IRecMovie, MoviesListItemBean } from "../../typings/homeResponse";
 import cheerio from "cheerio";
 
 export default class HomeRec {
@@ -22,6 +22,34 @@ export default class HomeRec {
       result.status.error = error;
       return result;
     }
+  }
+
+  public async getLastedId() {
+    let id = 0;
+    try {
+      const response = await getHomeHtml("http://www.idyjy.com");
+      if (response.statusCode === 200) {
+        let $ = cheerio.load(response.text);
+        $(".play-img", ".moxhotcoment").each((i, elem) => {
+          let address = this.getMovidId($, elem);
+          if (id < Number(address)) {
+            id = Number(address);
+          }
+        });
+        for (let x = 0; x < 3; x++) {
+          for (let i = 0; i < 5; i++) {
+            $(".play-img", $(".img-list", $(".box")[x])[i]).each((i, elem) => {
+              let address = this.getMovidId($, elem);
+              if (id < Number(address)) {
+                id = Number(address);
+              }
+            });
+          }
+        }
+      }
+    } catch (error) {
+    }
+    return id;
   }
 
   private getHotMovie = (html: string) => {
@@ -71,9 +99,7 @@ export default class HomeRec {
   }
 
   private getMovie = ($: CheerioStatic, elem: CheerioElement): IRecMovie => {
-    let address = $(elem).attr("href");
-    let split = address.split("/");
-    address = split[split.length - 1].split(".")[0];
+    const address = this.getMovidId($, elem);
     return {
       "name": $(elem).attr("title"),
       //网页地址
@@ -86,6 +112,13 @@ export default class HomeRec {
       "year": $("info", $(".pLeftTop", elem)[0]).text(),
       "from": "dyjy",
     };
+  }
+
+  private getMovidId = ($: CheerioStatic, elem: CheerioElement): string => {
+    let address = $(elem).attr("href");
+    let split = address.split("/");
+    address = split[split.length - 1].split(".")[0];
+    return address;
   }
 
   private newTVsType = (index: number): string => {

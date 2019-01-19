@@ -197,7 +197,7 @@ function get2(length, id, callback) {
 //由于豆瓣有请求限制，限速
 function startNext2(doubanData, length, id, callback) {
   let time = 3000;
-  if (doubanData) { time = 0 ;}
+  if (doubanData) { time = 0; }
   setTimeout(() => {
     get2(length, id, callback);
   }, 0);
@@ -213,7 +213,7 @@ function movieLength(send) {
       dyjy.newMovies(function (data) {
         if (data.status.code == 1) {
           for (let i = 0; i < data.movies.length; i++) {
-            if (number < new Number(data.movies[i].address)) { number = new Number(data.movies[i].address) ;}
+            if (number < new Number(data.movies[i].address)) { number = new Number(data.movies[i].address); }
           }
           dyjy.newTVs(function (data) {
             if (data.status.code == 1) {
