@@ -25,7 +25,10 @@ const saveHotMovies = (docs: IRecMovie[]): Promise<void> => {
   return new Promise((resolve, reject) => {
     const db = getDB(DBName.HotMovies);
     const model = getModel(db, HotMoviesTabkleName);
-    saveMovie(docs, model, db).then(() => resolve());
+    saveMovie(docs, model, db).then(() => resolve()).catch(error => {
+      console.log("Hot Movies error " + error);
+      resolve();
+    });
   });
 };
 
@@ -42,6 +45,9 @@ const saveNewMovies = (data: IMoviesListItem[]): Promise<void> => {
           if (index === data.length) {
             resolve();
           }
+        }).catch(error => {
+          console.log("New Movies>>>>>" + getNewMoviesModelName(data[i].index) + " error " + error);
+          resolve();
         });
     }
   });
@@ -60,6 +66,9 @@ const saveNewTVs = (data: IMoviesListItem[]): Promise<void> => {
           if (index === data.length) {
             resolve();
           }
+        }).catch(error => {
+          console.log("New TVs>>>>>" + getNewTvsModelName(data[i].index) + " error" + error);
+          resolve();
         });
     }
   });
@@ -68,12 +77,21 @@ const saveNewTVs = (data: IMoviesListItem[]): Promise<void> => {
 const saveMovie = (docs: IRecMovie[], model: mongoose.Model<any>, db: mongoose.Connection): Promise<void> => {
   return new Promise((resolve, reject) => {
     model.remove({}, (err) => {
-      if (err) { console.log(err); }
-      model.create(docs, (err: any) => {
-        if (err) { console.log(err); }
+      if (err) {
+        console.log("saveMovie>>>remove>>>" + err);
         db.close();
-        resolve();
-      });
+        reject();
+      } else {
+        model.create(docs, (err: any) => {
+          if (err) {
+            console.log("saveMovie>>>create>>>" + err);
+            reject();
+          } else {
+            resolve();
+          }
+          db.close();
+        });
+      }
     });
   });
 };

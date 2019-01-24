@@ -1,36 +1,52 @@
-import { getDetailHtml, getDownloadUrl } from "../request";
 import { IDownloadFiles, IMovieInfo, MovieInfo, IDetails } from "../../typings/detailResponse";
 import { transfer } from "../../utils/XunLeiTransfer";
 import cheerio from "cheerio";
+import MyProxy from "../../proxy/proxy";
+import request from "request";
+import iconv from "iconv-lite";
 
 export default class DetailSpider {
-  getDatail(address: string): Promise<IDetails> {
-    return new Promise(async (resolve, reject) => {
-      try {
-        const response = await getDetailHtml(address);
-        if (response.statusCode === 200) {
-          if (response.text.indexOf("如果您的浏览器没有自动跳转，请点击这里") !== -1) {
-            reject("-1");
-          } else {
-            const result = await this.handleData(response.text, address);
-            if (!result.name && !result.post) {
-              reject("-1");
-            } else {
-              resolve(result);
-            }
-          }
-        } else {
-          console.log("movie" + address + " get  error: " + response.statusCode);
-          reject("0");
-        }
-      } catch (error) {
-        console.log("movie" + address + " get  error: " + error);
-        reject("0");
-      }
+  async getDatail(address: string, callback: any) {
+    const myProxy = new MyProxy();
+    const proxy = await myProxy.getProxy();
+    this.reqHtml(address, proxy, (result: IDetails) => {
+      console.log("Address>>" + address + "====Proxy>>" + proxy);
+      myProxy.hasProxy(true);
+      callback(result);
+    }, (error: any) => {
+      myProxy.hasProxy(false);
+      this.getDatail(address, callback);
     });
   }
 
-  private async handleData(html: string, address: string): Promise<IDetails> {
+  private reqHtml(address: string, proxy: string, resolve: any, reject: any) {
+    const myReq = request.defaults({ "proxy": proxy });
+    myReq.get("http://www.idyjy.com/sub/" + address + ".html",
+      { encoding: "binary", timeout: 1000 },
+      (error, response, res) => {
+        if (error) {
+          reject(error);
+        } else {
+          if (response.statusCode === 200) {
+            const body = iconv.decode(Buffer.from(res, "binary"), "gbk");
+            if (body.indexOf("如果您的浏览器没有自动跳转，请点击这里") !== -1) {
+              resolve();
+            } else {
+              const result = this.handleData(body, address);
+              if (!result.name && !result.post) {
+                reject("getDatail>>>" + address + "Not name and post");
+              } else {
+                resolve(result);
+              }
+            }
+          } else {
+            reject(response.statusCode);
+          }
+        }
+      });
+  }
+
+  private handleData(html: string, address: string) {
     let $ = cheerio.load(html);
     const name = $("span", ".h1title").text();
     const detail = [];
@@ -45,7 +61,7 @@ export default class DetailSpider {
       post: $("img", ".pic").attr("src"),
       describe: $(".endtext").text(),
       details: this.handleDetails(detail),
-      files: await this.handleDownloads($),
+      files: this.handleDownloads($),
     };
     return details;
   }
@@ -91,25 +107,25 @@ export default class DetailSpider {
     return details;
   }
 
-  private async handleDownloads($: CheerioStatic): Promise<IDownloadFiles[]> {
+  private handleDownloads($: CheerioStatic) {
     const downloads: IDownloadFiles[] = Array<IDownloadFiles>();
-    await $(".down_part_name").each(async (i, elem) => {
+    $(".down_part_name").each(async (i, elem) => {
       const name = $("a", elem).text();
       const fileSize = $("em", $(elem).parent().next()).text();
       const url = $(elem).parent().prev().attr("value");
       let download = "";
-      if (url.indexOf(".html") !== -1) {
-        try {
-          const response = await getDownloadUrl("");
-          if (response.statusCode === 200) {
-            const che = cheerio.load(response.text);
-            download = che("a", che(".downtools")).attr("href");
-          }
-        } catch (error) {
-        }
-      } else {
-        download = url;
-      }
+      // if (url.indexOf(".html") !== -1) {
+      //   try {
+      //     const response = await getDownloadUrl("");
+      //     if (response.statusCode === 200) {
+      //       const che = cheerio.load(response.text);
+      //       download = che("a", che(".downtools")).attr("href");
+      //     }
+      //   } catch (error) {
+      //   }
+      // } else {
+      download = url;
+      // }
       if (download) {
         downloads.push({
           name: name,

@@ -1,55 +1,46 @@
-import { getHomeHtml } from "../request";
-import { HomeRecBean, IRecMovie, MoviesListItemBean } from "../../typings/homeResponse";
+import { HomeRecBean, IHomeRec, IRecMovie, MoviesListItemBean } from "../../typings/homeResponse";
 import cheerio from "cheerio";
+import MyProxy from "../../proxy/proxy";
+import request from "request";
+import iconv from "iconv-lite";
 
 export default class HomeRec {
-  public async getRec() {
-    const result = new HomeRecBean();
-    try {
-      const response = await getHomeHtml();
-      if (response.statusCode === 200) {
-        result.data.hotMovies = this.getHotMovie(response.text);
-        result.data.newTVs = this.getNewTVs(response.text);
-        result.data.newMovies = this.getNewMovies(response.text);
-        return result;
-      } else {
-        console.log("index get  error " + response.statusCode);
-        result.status.error = response.statusCode;
-        return result;
-      }
-    } catch (error) {
-      result.status.code = 0;
-      result.status.error = error;
-      return result;
-    }
+  public async getRec(callback: any) {
+    const myProxy = new MyProxy();
+    const proxy = await myProxy.getProxy();
+    this.reqHtml(proxy, (result: IHomeRec) => {
+      myProxy.hasProxy(true);
+      callback(result);
+    }, (error: any) => {
+      myProxy.hasProxy(false);
+      this.getRec(callback);
+    });
   }
 
-  public async getLastedId() {
-    let id = 0;
-    try {
-      const response = await getHomeHtml();
-      if (response.statusCode === 200) {
-        let $ = cheerio.load(response.text);
-        $(".play-img", ".moxhotcoment").each((i, elem) => {
-          let address = this.getMovidId($, elem);
-          if (id < Number(address)) {
-            id = Number(address);
-          }
-        });
-        for (let x = 0; x < 3; x++) {
-          for (let i = 0; i < 5; i++) {
-            $(".play-img", $(".img-list", $(".box")[x])[i]).each((i, elem) => {
-              let address = this.getMovidId($, elem);
-              if (id < Number(address)) {
-                id = Number(address);
-              }
-            });
+  private reqHtml(proxy: string, resolve: any, reject: any) {
+    const myReq = request.defaults({ "proxy": proxy });
+    myReq.get("http://www.idyjy.com",
+      { encoding: "binary", timeout: 1000 },
+      (error, response, res) => {
+        if (error) {
+          reject(error);
+        } else {
+          if (response.statusCode === 200) {
+            const body = iconv.decode(Buffer.from(res, "binary"), "gbk");
+            const result = new HomeRecBean();
+            result.data.hotMovies = this.getHotMovie(body);
+            result.data.newTVs = this.getNewTVs(body);
+            result.data.newMovies = this.getNewMovies(body);
+            if (result.data.hotMovies.length !== 0 && result.data.newTVs.length !== 0 && result.data.newMovies.length !== 0) {
+              resolve(result);
+            } else {
+              reject("Error");
+            }
+          } else {
+            reject(response.statusCode);
           }
         }
-      }
-    } catch (error) {
-    }
-    return id;
+      });
   }
 
   private getHotMovie = (html: string) => {

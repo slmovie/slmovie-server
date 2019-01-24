@@ -4,6 +4,11 @@ export interface IStatus {
 }
 
 export class StatusBean implements IStatus {
-  code = 0;
+  static SUCCESS = 1;
+  static FAILED = 0;
+  static FAILED_NEED_REPEAT = -1;
+  static SUCCESS_EMPTY = 2;
+
+  code = StatusBean.FAILED;
   error = ""
 }

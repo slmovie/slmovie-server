@@ -1,9 +1,12 @@
 /**
  * Created by BaoJun on 2017/2/11.
  */
-let superagent = require('superagent')
-const charset = require('superagent-charset')
-superagent = charset(superagent);
-module.exports = function () {
-    return superagent
-}
+let request = require("superagent");
+const charset = require("superagent-charset");
+request = charset(request);
+const proxy = require("superagent-proxy");
+request = proxy(request);
+
+export const getAgent = () => {
+  return request;
+};

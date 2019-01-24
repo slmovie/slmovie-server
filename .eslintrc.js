@@ -41,6 +41,9 @@ module.exports = {
     ],
     "prefer-promise-reject-errors": [
       0,
+    ],
+    "no-throw-literal": [
+      0,
     ]
   }
 };
