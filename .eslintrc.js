@@ -1,9 +1,10 @@
 module.exports = {
   "env": {
+    "browser": true,
     "commonjs": true,
     "es6": true
   },
-  "extends": "eslint-config-alloy/typescript",
+  "extends": "eslint:recommended",
   "parserOptions": {
     "ecmaVersion": 2018,
     "sourceType": "module"
@@ -43,6 +44,9 @@ module.exports = {
       0,
     ],
     "no-throw-literal": [
+      0,
+    ],
+    "no-console": [
       0,
     ]
   }

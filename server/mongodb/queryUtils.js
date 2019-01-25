@@ -1,7 +1,7 @@
 /**
  * Created by 包俊 on 2017/3/27.
  */
-let dbConstans = require("../../spider/dyjy/detail/detailCon.js");
+let dbConstans = require("./detail/detailCon");
 
 //根据id查找电影
 exports.findOneByID = function (id, send) {
@@ -43,7 +43,7 @@ const findByName = (name, callback) => {
   let movies = {};
   db.on("error", console.error.bind(console, "连接错误:"));
 
-  dbConstans.MovieModel(db).find({ $or: [{ name: name }, { "details.otherName": name }] }, null, { sort: { "_id": -1 }}, function (error, docs) {
+  dbConstans.MovieModel(db).find({ $or: [{ name: name }, { "details.otherName": name }] }, null, { sort: { "_id": -1 } }, function (error, docs) {
     if (error || docs == null) {
       console.log(error);
     } else {
@@ -65,7 +65,7 @@ const findAll = (name, callback) => {
   db.on("error", console.error.bind(console, "连接错误:"));
 
   // dbConstans.MovieModel.find({$or: [{name: name}, {'details.otherName': name}]}, null, {sort: {'_id': -1}}, function (error, docs) {
-  dbConstans.MovieModel(db).find({ detail: name }, null, { sort: { "_id": -1 }}, function (error, docs) {
+  dbConstans.MovieModel(db).find({ detail: name }, null, { sort: { "_id": -1 } }, function (error, docs) {
     if (error || docs == null) {
       console.log(error);
     } else {
