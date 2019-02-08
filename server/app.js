@@ -7,6 +7,7 @@ let detail = require("./routes/detail.js");
 let index = require("./routes/index.js");
 let rnVersion = require("./routes/rnVersion.js");
 let appVersion = require("./routes/appVersion.js");
+let path = require("path");
 
 app.all("*", function (req, res, next) {
   res.set({
@@ -29,5 +30,9 @@ app.use("/index", index);
 app.use("/rnVersion", rnVersion);
 
 app.use("/appVersion", appVersion);
+
+app.use("*", function (request, response) {
+  response.sendFile(path.resolve(__dirname, "../web/public/index.html"));
+});
 
 app.listen(3000);
