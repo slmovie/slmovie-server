@@ -1,0 +1,3 @@
+[submodule "build"]
+	path = build
+	url = https://gitee.com/baojun92/slys-web.git
