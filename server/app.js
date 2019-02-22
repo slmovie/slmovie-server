@@ -33,7 +33,7 @@ app.use("/rnVersion", rnVersion);
 app.use("/appVersion", appVersion);
 
 app.use("*", function (request, response) {
-  response.sendFile(path.resolve(__dirname, "../web/public/index.html"));
+  response.sendFile(path.resolve(__dirname, "../build/build/index.html"));
 });
 
 app.listen(3000);
