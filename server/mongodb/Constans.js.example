@@ -6,8 +6,8 @@ let service = "P";
 
 exports.WebRoot = function () {
   if (service === "T") {
-    return "mongodb://baojunMovies:sadsdagds45+6412gds@localhost:14369";
+    return "Your mongodb address";
   } else if (service === "P") {
-    return "mongodb://baojunMovies:sadsdagds45+6412gds@45.32.41.169:14369";
+    return "Your mongodb address";
   }
 };

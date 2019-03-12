@@ -22,3 +22,4 @@ node_modules
 .idea/workspace.xml
 .idea/shuanglongMovie.iml
 .vscode/launch.json
+server/mongodb/Constans.js
