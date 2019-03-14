@@ -1,3 +1,3 @@
 [submodule "build"]
 	path = build
-	url = git@github.com:slmovie/slmovie-web.git
+	url = https://github.com/slmovie/slmovie-web.git
