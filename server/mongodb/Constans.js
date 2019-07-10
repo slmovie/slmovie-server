@@ -4,10 +4,10 @@
 
 let service = "P";
 
-exports.WebRoot = function () {
+exports.WebRoot = function() {
   if (service === "T") {
     return "mongodb://baojunMovies:sadsdagds45+6412gds@localhost:14369";
   } else if (service === "P") {
-    return "mongodb://read:qwc123cadf23412casdsd@45.32.41.169:14369";
+    return "mongodb://read:qwc123cadf23412casdsd@localhost:14369";
   }
 };
