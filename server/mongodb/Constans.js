@@ -8,6 +8,6 @@ exports.WebRoot = function() {
   if (service === "T") {
     return "mongodb://baojunMovies:sadsdagds45+6412gds@localhost:14369";
   } else if (service === "P") {
-    return "mongodb://read:qwc123cadf23412casdsd@localhost:14369";
+    return "mongodb://localhost:14369";
   }
 };
