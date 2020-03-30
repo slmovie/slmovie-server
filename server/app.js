@@ -1,6 +1,7 @@
 let express = require("express");
 let app = express();
 let morgan = require("morgan");
+let compression = require("compression")
 
 let search = require("./routes/search.js");
 let detail = require("./routes/detail.js");
@@ -19,6 +20,7 @@ app.all("*", function (req, res, next) {
 });
 
 app.use(morgan("combined"));
+app.use(compression())
 app.use(express.static("build/build"));
 app.use(express.static("web/public"));
 
